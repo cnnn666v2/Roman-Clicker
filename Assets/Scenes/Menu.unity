@@ -2925,7 +2925,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 189878980}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 265645540}
+        m_TargetAssemblyTypeName: BuyUpgradesClicks, Assembly-CSharp
+        m_MethodName: UgradePeopleI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &189878980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4053,6 +4065,7 @@ GameObject:
   - component: {fileID: 265645538}
   - component: {fileID: 265645537}
   - component: {fileID: 265645539}
+  - component: {fileID: 265645540}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4131,6 +4144,42 @@ MonoBehaviour:
   HitmanCostTXT: {fileID: 1420214182}
   PoliceCostTXT: {fileID: 2037901848}
   BossCostTXT: {fileID: 427717887}
+--- !u!114 &265645540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265645536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3097996806f0b82499729b5299c27dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UPCost: 0
+  UP1Cost: 0
+  UP2Cost: 0
+  UP3Cost: 0
+  FACTanksCost: 0
+  FACCarsCost: 0
+  PeopleIULvl: 0
+  PeopleIIULvl: 0
+  PeopleIIIULvl: 0
+  PeopleIVULvl: 0
+  FTanksULvl: 0
+  FCarsULvl: 0
+  PeopleILvl: {fileID: 910797673}
+  PeopleIILvl: {fileID: 1042819877}
+  PeopleIIILvl: {fileID: 116196710}
+  PeopleIVLvl: {fileID: 878739631}
+  FTanksLvl: {fileID: 74586880}
+  FCarsLvl: {fileID: 350556025}
+  PeopleICost: {fileID: 807548922}
+  PeopleIICost: {fileID: 1170561049}
+  PeopleIIICost: {fileID: 1996142379}
+  PeopleIVCost: {fileID: 535202735}
+  FTanksCost: {fileID: 1852083521}
+  FCarsCost: {fileID: 17378136}
 --- !u!1 &278770546
 GameObject:
   m_ObjectHideFlags: 0
@@ -5634,9 +5683,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -825.6771}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &388224529
@@ -8790,9 +8839,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -210.7239}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &589633818
@@ -9168,7 +9217,7 @@ RectTransform:
   - {fileID: 1610535253}
   - {fileID: 1924493461}
   m_Father: {fileID: 968938366}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9415,9 +9464,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -1553.2589}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 173.7784}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628574268
@@ -12008,9 +12057,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -1148.8932}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &829159367
@@ -12703,7 +12752,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 874031329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 265645540}
+        m_TargetAssemblyTypeName: BuyUpgradesClicks, Assembly-CSharp
+        m_MethodName: UgradePeopleIV
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &874031329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13562,9 +13623,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -415.7083}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &919518652
@@ -14633,10 +14694,10 @@ RectTransform:
   m_Children:
   - {fileID: 779370024}
   - {fileID: 1655254586}
-  - {fileID: 2021441336}
-  - {fileID: 1870719223}
   - {fileID: 1886038434}
   - {fileID: 607587020}
+  - {fileID: 2021441336}
+  - {fileID: 1870719223}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19829,7 +19890,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1327885317}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 265645540}
+        m_TargetAssemblyTypeName: BuyUpgradesClicks, Assembly-CSharp
+        m_MethodName: UgradePeopleII
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1327885317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20878,9 +20951,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.94826, y: -49.11585}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 455.8965, y: 98.2317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1405693991
@@ -22183,7 +22256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1473811209
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23069,9 +23142,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.94826, y: -987.28516}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 455.8965, y: 98.2317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1546161879
@@ -24908,7 +24981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1645802263
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25447,9 +25520,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -620.6927}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1683620318
@@ -28583,7 +28656,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 968938366}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29256,7 +29329,7 @@ RectTransform:
   - {fileID: 346489252}
   - {fileID: 2100858130}
   m_Father: {fileID: 968938366}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29347,7 +29420,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -400.8491}
-  m_SizeDelta: {x: 0, y: 801.6982}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1898888475
 MonoBehaviour:
@@ -29506,9 +29579,9 @@ RectTransform:
   m_Father: {fileID: 1898888474}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.4, y: -1353.8776}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1118.8, y: 184.9844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1909738653
@@ -29945,7 +30018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1927564533
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30950,7 +31023,7 @@ RectTransform:
   - {fileID: 1473811209}
   - {fileID: 885369081}
   m_Father: {fileID: 968938366}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -31248,7 +31321,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2029935833}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 265645540}
+        m_TargetAssemblyTypeName: BuyUpgradesClicks, Assembly-CSharp
+        m_MethodName: UgradePeopleIII
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2029935833
 MonoBehaviour:
   m_ObjectHideFlags: 0

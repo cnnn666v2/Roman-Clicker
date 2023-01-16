@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class BuyUpgradesRomans : MonoBehaviour
 {
     Money moneyA;
+
+    [Header("Upgrade Costs")]
     public int USCost;
     public int US1Cost;
     public int US2Cost;
@@ -53,12 +53,14 @@ public class BuyUpgradesRomans : MonoBehaviour
         PoliceULvl = PlayerPrefs.GetInt("Police", 0);
         BossULvl = PlayerPrefs.GetInt("Boss", 0);
 
+
         USCost = PlayerPrefs.GetInt("US2Cost", 450);
         US1Cost = PlayerPrefs.GetInt("US3Cost", 3000);
         US2Cost = PlayerPrefs.GetInt("US4Cost", 12000);
         HitmanCost = PlayerPrefs.GetInt("HMCost", 75000);
         PoliceCost = PlayerPrefs.GetInt("PCost", 35000);
         BossCost = PlayerPrefs.GetInt("BCost", 1000000);
+
 
         StealILvl.text = "Level: " + PlayerPrefs.GetInt("StealI");
 
