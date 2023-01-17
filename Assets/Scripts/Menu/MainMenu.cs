@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour {
     [Header("Pop-ups")]
     public GameObject UpgradePanel;
     public GameObject SettingsPanel;
+    public GameObject BattlePanel;
 
     [Header("Other")]
     public GameObject FPSText;
@@ -40,6 +41,13 @@ public class MainMenu : MonoBehaviour {
                 FPSText.SetActive(true);
             else
                 FPSText.SetActive(false);
+        }
+
+        public void ToggleBattlePanel() {
+            if(BattlePanel.activeInHierarchy == false)
+                BattlePanel.SetActive(true);
+            else
+                BattlePanel.SetActive(false);
         }
 
     /////////

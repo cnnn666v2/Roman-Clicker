@@ -57,7 +57,7 @@ public class BuyUpgradesClicks : MonoBehaviour
         UP2Cost = PlayerPrefs.GetInt("UP2Cost", 800);
         UP3Cost = PlayerPrefs.GetInt("UP3Cost", 2000);
         FACTanksCost = PlayerPrefs.GetInt("FACTanksCost", 40000);
-        FACCarsCost = PlayerPrefs.GetInt("FACCarsCost", 40000);
+        FACCarsCost = PlayerPrefs.GetInt("FACCarsCost", 120000);
 
 
         PeopleILvl.text = "Level: " + PlayerPrefs.GetInt("PeopleI");
@@ -148,6 +148,42 @@ public class BuyUpgradesClicks : MonoBehaviour
 
             PeopleIVCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("UP3Cost", UP3Cost)).ToString() + "zł";
             PeopleIVLvl.text = "Level: " + PlayerPrefs.GetInt("PeopleIV", PeopleIVULvl);
+        };
+    }
+
+    public void UgradeFTanks() {
+        if(moneyA.money >= FACTanksCost) {
+            moneyA.money -= FACTanksCost;
+            moneyA.moneyChange += 200;
+
+            FTanksULvl++;
+            FACTanksCost += Mathf.RoundToInt(FACTanksCost/4);
+
+            PlayerPrefs.SetInt("FTanks", FTanksULvl);
+            PlayerPrefs.SetString("money", moneyA.money.ToString());
+            PlayerPrefs.SetString("moneyChange", moneyA.moneyChange.ToString());
+            PlayerPrefs.SetInt("FACTanksCost", FACTanksCost);
+
+            FTanksCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("FACTanksCost", FACTanksCost)).ToString() + "zł";
+            FTanksLvl.text = "Level: " + PlayerPrefs.GetInt("FTanks", FTanksULvl);
+        };
+    }
+
+    public void UgradeFCars() {
+        if(moneyA.money >= FACCarsCost) {
+            moneyA.money -= FACCarsCost;
+            moneyA.moneyChange += 500;
+
+            FCarsULvl++;
+            FACCarsCost += Mathf.RoundToInt(FACCarsCost/4);
+
+            PlayerPrefs.SetInt("FCars", FCarsULvl);
+            PlayerPrefs.SetString("money", moneyA.money.ToString());
+            PlayerPrefs.SetString("moneyChange", moneyA.moneyChange.ToString());
+            PlayerPrefs.SetInt("FACCarsCost", FACCarsCost);
+
+            FCarsCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("FACCarsCost", FACCarsCost)).ToString() + "zł";
+            FCarsLvl.text = "Level: " + PlayerPrefs.GetInt("FCars", FCarsULvl);
         };
     }
 }
