@@ -1,5 +1,7 @@
-using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 public class Money : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class Money : MonoBehaviour
     public TMP_Text TMoneyText;
     public TMP_Text TMoneyPerSecText;
     public TMP_Text TEgg;
+    public TMP_Text TMoneyPerClickText;
 
     [Header("Other")]
     private float timePassed;
@@ -31,6 +34,7 @@ public class Money : MonoBehaviour
 
         TEgg.text = "EGG: 0" + PlayerPrefs.GetString("egg").ToString();
         TMoneyPerSecText.text = "Romans stealing per sec: zł" + moneyPerSec.ToString() + "/s";
+        TMoneyPerClickText.text = "Monies per click: " + string.Format(",", moneyChange).ToString() + "zł";
     }
 
     private void Update() {
@@ -41,6 +45,7 @@ public class Money : MonoBehaviour
             PlayerPrefs.SetString("money", money.ToString());
             TMoneyText.text = "Monies: zł" + string.Format("{0:n0}", money).ToString();
             TMoneyPerSecText.text = "Romans stealing per sec: zł" + moneyPerSec.ToString() + "/s";
+            TMoneyPerClickText.text = "Monies per click: " + string.Format("{0:n0}", moneyChange).ToString() + "zł";
         }
     }
 

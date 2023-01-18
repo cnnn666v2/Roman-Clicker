@@ -8,11 +8,13 @@ public class BattleMenu : MonoBehaviour
     public TMP_Text SelectedAreaTXT;
     public TMP_Text SAHighestScoreTXT;
     public TMP_Text SADifficultyTXT;
+    public TMP_Text TempTXT;
 
     [Header("Areas")]
     public List<string> AreaList;
     public List<string> AreaDifficultyList;
     public List<int> AreaHSList;
+    public List<int> AreaSceneIndexList;
 
     [Header("Other")]
     private int currentIndex = 0;
@@ -28,5 +30,6 @@ public class BattleMenu : MonoBehaviour
         SelectedAreaTXT.text = "Current Area: " + AreaList[currentIndex];
         SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
+        TempTXT.text = "Area Load Scene: " + AreaSceneIndexList[currentIndex];
     }
 }
