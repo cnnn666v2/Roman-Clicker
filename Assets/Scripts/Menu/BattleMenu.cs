@@ -40,6 +40,11 @@ public class BattleMenu : MonoBehaviour
     }
 
     public void MenuLoad() {
+        if(BattleConfirmLeavePanel.activeInHierarchy == true)
+            BattleConfirmLeavePanel.SetActive(false);
+        else
+            BattleConfirmLeavePanel.SetActive(true);
+        
         SceneManager.LoadScene(0);
     }
 

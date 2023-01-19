@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class Fight : MonoBehaviour
 {
-    private EnemyStats _enemyScript;
-    private PlayerStats playerScript;
+    public EnemyStats enemyScript;
+    public PlayerStats playerScript;
+    AreaStats scriptAreaStats;
 
     [Header("Texts")]
     public TMP_Text PlayerHPTxT;
@@ -16,36 +18,66 @@ public class Fight : MonoBehaviour
     public GameObject player;
     public Slider PlayerHPSlider;
     public Slider EnemyHPSlider;
+    public GameObject[] prefabs;
+    public Transform spawnPoint;
 
     [Header("Private Variables")]
     private float timePPassed;
     private float timeEPassed;
 
+    void Awake() {
+        int randomIndex = Random.Range(0, prefabs.Length);
+        GameObject prefab = prefabs[randomIndex];
+        GameObject enemyObject = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+        enemyObject.name = "Enemy";
+    }
+
 
     void Start() {
-        _enemyScript = enemy.GetComponent<EnemyStats>();
+        enemy = GameObject.Find("Enemy");
         playerScript = player.GetComponent<PlayerStats>();
+        enemyScript = enemy.GetComponent<EnemyStats>();
+        scriptAreaStats = GetComponent<AreaStats>();
     }
+
 
     void Update() {
         PlayerHPTxT.text = "HP " + playerScript.Health.ToString() + "/" + playerScript.HealthMAX.ToString();
-        EnemyHPTxT.text = "HP " + _enemyScript.EHealth.ToString() + "/" + _enemyScript.EHealthMAX.ToString();
+        EnemyHPTxT.text = "HP " + enemyScript.EHealth.ToString() + "/" + enemyScript.EHealthMAX.ToString();
 
         PlayerHPSlider.value = playerScript.Health/(float)playerScript.HealthMAX;
-        EnemyHPSlider.value = _enemyScript.EHealth/(float)_enemyScript.EHealthMAX;
+        EnemyHPSlider.value = enemyScript.EHealth/(float)enemyScript.EHealthMAX;
 
         timePPassed += Time.deltaTime;
         timeEPassed += Time.deltaTime;
+
         if (timePPassed >= playerScript.AttackSpeed) {
             timePPassed = 0;
 
-            _enemyScript.EHealth -= playerScript.Attack;
+            enemyScript.EHealth -= playerScript.Attack;
         };
 
-        if (timeEPassed >= _enemyScript.EAttackSpeed) {
+        if (timeEPassed >= enemyScript.EAttackSpeed) {
             timeEPassed = 0;
 
-            playerScript.Health -= _enemyScript.EAttack;
+            playerScript.Health -= enemyScript.EAttack;
         };
+
+        if(enemyScript.EHealth <= 0) {
+            enemyScript.EHealth = 0;
+            Destroy(GameObject.Find("Enemy"));
+
+            scriptAreaStats.CurrentLevel++;
+
+            int randomIndex = Random.Range(0, prefabs.Length);
+            GameObject prefab = prefabs[randomIndex];
+            GameObject enemy = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            enemy.name = "Enemy";
+
+            enemy = GameObject.Find("Enemy");
+            enemyScript = enemy.GetComponent<EnemyStats>();
+        };
+            
     }
+    
 }
