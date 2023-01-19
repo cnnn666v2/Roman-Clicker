@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1605238615633655227}
   - component: {fileID: -3206636233205877219}
   m_Layer: 0
-  m_Name: EnemySlime1-T1
+  m_Name: lime red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a511321e0e03be48bcb5ea548b2e773, type: 2}
+  - {fileID: 2100000, guid: f784da4d6afa70b4c8abedaf92e56d47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,12 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883d3d61943af164f9e8d4daa764a5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EName: Slime
-  EHealth: 1
-  EHealthMAX: 1
-  EAttack: 1
-  EAttackSpeed: 15
-  EDefense: 0
-  ECriticalChance: 0
-  EType: 1
-  EFreezeTime: 0
+  EName: Redzio
+  EHealth: 5
+  EAttack: 2
+  EAttackSpeed: 30
+  EDefense: 1
+  ECriticalChance: 3
+  EType: 2
+  EFreezeTime: 1

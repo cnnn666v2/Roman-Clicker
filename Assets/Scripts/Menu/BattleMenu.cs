@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class BattleMenu : MonoBehaviour
@@ -18,6 +19,7 @@ public class BattleMenu : MonoBehaviour
 
     [Header("Other")]
     private int currentIndex = 0;
+    public GameObject BattleConfirmLeavePanel;
 
     void Start() {
         SelectedAreaTXT.text = "Current Area: " + AreaList[currentIndex];
@@ -31,5 +33,25 @@ public class BattleMenu : MonoBehaviour
         SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
         TempTXT.text = "Area Load Scene: " + AreaSceneIndexList[currentIndex];
+    }
+
+    public void AreaLoad() {
+        SceneManager.LoadScene(AreaSceneIndexList[currentIndex]);
+    }
+
+    public void MenuLoad() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ConfirmLeavePanel() {
+        if(BattleConfirmLeavePanel.activeInHierarchy == true)
+            BattleConfirmLeavePanel.SetActive(false);
+        else
+            BattleConfirmLeavePanel.SetActive(true);
+
+        if(Time.timeScale == 1.0f)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1.0f;
     }
 }

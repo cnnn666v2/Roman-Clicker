@@ -7,6 +7,7 @@ public class EnemyStats : MonoBehaviour
     [Header("Enemy Stats")]
     public string EName;
     public int EHealth;
+    public int EHealthMAX;
     public int EAttack;
     public int EAttackSpeed;
     public int EDefense;

@@ -16,6 +16,7 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Statistics Values")]
     public int Health;
+    public int HealthMAX;
     public int Attack;
     public int AttackSpeed;
     public int Defense;
@@ -34,6 +35,7 @@ public class PlayerStats : MonoBehaviour
 
     void Awake() {
         Health = PlayerPrefs.GetInt("Health", 5);
+        HealthMAX = PlayerPrefs.GetInt("HealthMAX", 5);
         Attack = PlayerPrefs.GetInt("Attack", 1);
         AttackSpeed = PlayerPrefs.GetInt("AttackSpeed", 10);
         Defense = PlayerPrefs.GetInt("Defense", 0);
