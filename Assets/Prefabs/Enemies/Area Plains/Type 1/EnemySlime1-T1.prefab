@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.24748418, z: -0, w: 0.968892}
   m_LocalPosition: {x: 76.84, y: 11.35, z: -38.51}
   m_LocalScale: {x: 22.54524, y: 22.54524, z: 22.54524}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -117,6 +118,7 @@ MonoBehaviour:
   EAttackSpeed: 15
   EDefense: 0
   ECriticalChance: 0
+  XPGet: 1
   EType: 1
   EFreezeTime: 0
 --- !u!54 &-5209977961036980255

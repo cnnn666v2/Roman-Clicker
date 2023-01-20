@@ -4,6 +4,9 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+    Money scriptMoney;
+    MainMenu scriptMenu;
+
     [Header("Statistics Texts")]
     public TMP_Text HealthTXT;
     public TMP_Text AttackDmgTXT;
@@ -29,15 +32,15 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Level Progress")]
     public int PlayerLVL;
-    public int PlayerXP;
-    public int PlayerXPMax;
+    public long PlayerXP;
+    public long PlayerXPMax;
     public Slider ProgressbarXP;
 
     void Awake() {
         Health = PlayerPrefs.GetInt("Health", 5);
         HealthMAX = PlayerPrefs.GetInt("HealthMAX", 5);
-        Attack = PlayerPrefs.GetInt("Attack", 1);
         AttackSpeed = PlayerPrefs.GetInt("AttackSpeed", 10);
+        Attack = PlayerPrefs.GetInt("Attack", 1);
         Defense = PlayerPrefs.GetInt("Defense", 0);
         CriticalChance = PlayerPrefs.GetInt("CriticalChance", 0);
         //soon
@@ -46,20 +49,61 @@ public class PlayerStats : MonoBehaviour
         EnergyRegen = PlayerPrefs.GetInt("EnergyRegen", 0);
         /////////////
         PlayerLVL = PlayerPrefs.GetInt("PlayerLVL", 1);
-        PlayerXP = PlayerPrefs.GetInt("PlayerXP", 0);
-        PlayerXPMax = PlayerPrefs.GetInt("PlayerXPMax", 50);
+        //PlayerXP = PlayerPrefs.GetInt("PlayerXP", 0);
+        //PlayerXPMax = PlayerPrefs.GetInt("PlayerXPMax", 50);
 
-        HealthTXT.text = "Health: " + Health.ToString();
         AttackDmgTXT.text = "Attack: " + Attack.ToString();
-        AttackSpeedTXT.text = "Attack Speed: " + AttackSpeed.ToString() + "s";
         DefenseTXT.text = "Defense: " + Defense.ToString();
         CriticalChanceTXT.text = "Critical Chance: " + CriticalChance.ToString() + "%";
         EnergyTXT.text = "Energy: " + Energy.ToString() + "/" + EnergyMAX.ToString();
-        PlayerLevelTXT.text = "Level: " + PlayerLVL.ToString();
-        PlayerXPTXT.text = "XP: " + PlayerXP.ToString() + "/" + PlayerXPMax.ToString();
+
+        scriptMoney = GetComponent<Money>();
+        scriptMenu = GameObject.Find("Canvas").GetComponent<MainMenu>();
+    }
+
+    void Start() {
+        string PlayerXPString = PlayerPrefs.GetString("PlayerXP", "0");
+        string PlayerXPMaxString = PlayerPrefs.GetString("PlayerXPMax", "50");
+
+        PlayerXP = long.Parse(PlayerXPString);
+        PlayerXPMax = long.Parse(PlayerXPMaxString);
     }
 
     void Update() {
         ProgressbarXP.value = PlayerXP/(float)PlayerXPMax;
+
+        PlayerLevelTXT.text = "Level: " + PlayerLVL.ToString();
+        PlayerXPTXT.text = "XP: " + PlayerXP.ToString() + "/" + PlayerXPMax.ToString();
+
+        HealthTXT.text = "Health: " + Health.ToString();
+        AttackSpeedTXT.text = "Attack Speed: " + AttackSpeed.ToString() + "s";
+
+        if(PlayerXP >= PlayerXPMax) {
+            scriptMenu.LevelUPPanel.SetActive(true);
+
+            PlayerXP -= PlayerXPMax;
+            PlayerXPMax = Mathf.RoundToInt((float)PlayerXPMax * 2.5f);
+
+            PlayerPrefs.SetString("PlayerXP", PlayerXP.ToString());
+            PlayerPrefs.SetString("PlayerXPMax", PlayerXPMax.ToString());
+
+            PlayerLVL++;
+
+            scriptMoney.egg += 1;
+
+            Health += 1;
+            HealthMAX += 1;
+
+            PlayerPrefs.SetInt("Health", Health);
+            PlayerPrefs.SetInt("HealthMAX", HealthMAX);
+            PlayerPrefs.SetString("egg", scriptMoney.egg.ToString());
+            if(PlayerLVL < 10)
+                AttackSpeed -= 1;
+
+            //Make upgrades depend on level
+            /*if(PlayerLVL % 5 == 0) {
+
+            }*/
+        }
     }
 }

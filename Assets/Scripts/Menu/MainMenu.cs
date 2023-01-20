@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject ItemShop;
     public GameObject PowerShop;
     public GameObject EggShop;
+    public GameObject LevelUPPanel;
 
     [Header("Pop-ups")]
     public GameObject UpgradePanel;
@@ -92,4 +93,8 @@ public class MainMenu : MonoBehaviour {
             PowerShop.SetActive(false);
             EggShop.SetActive(true);
         }
+
+    public void CloseLevelScreen() {
+        LevelUPPanel.SetActive(false);
+    }
 }

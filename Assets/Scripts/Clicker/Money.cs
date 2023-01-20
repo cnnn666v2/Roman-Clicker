@@ -32,7 +32,7 @@ public class Money : MonoBehaviour
         moneyPerSec = long.Parse(moneyPerSecString);
         egg = long.Parse(eggString);
 
-        TEgg.text = "EGG: 0" + PlayerPrefs.GetString("egg").ToString();
+        TEgg.text = "EGG: " + PlayerPrefs.GetString("egg").ToString();
         TMoneyPerSecText.text = "Romans stealing per sec: zł" + moneyPerSec.ToString() + "/s";
         TMoneyPerClickText.text = "Monies per click: " + string.Format(",", moneyChange).ToString() + "zł";
     }
@@ -43,6 +43,7 @@ public class Money : MonoBehaviour
             timePassed = 0;
             money += moneyPerSec;
             PlayerPrefs.SetString("money", money.ToString());
+            TEgg.text = "EGG: " + PlayerPrefs.GetString("egg").ToString();
             TMoneyText.text = "Monies: zł" + string.Format("{0:n0}", money).ToString();
             TMoneyPerSecText.text = "Romans stealing per sec: zł" + moneyPerSec.ToString() + "/s";
             TMoneyPerClickText.text = "Monies per click: " + string.Format("{0:n0}", moneyChange).ToString() + "zł";

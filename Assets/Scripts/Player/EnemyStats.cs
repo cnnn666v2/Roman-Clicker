@@ -12,6 +12,7 @@ public class EnemyStats : MonoBehaviour
     public int EAttackSpeed;
     public int EDefense;
     public int ECriticalChance;
+    public int XPGet;
 
     [Header("Enemy Types")]
     public int EType;

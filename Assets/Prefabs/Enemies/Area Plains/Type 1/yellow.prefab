@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.24748418, z: -0, w: 0.968892}
   m_LocalPosition: {x: 76.84, y: 11.35, z: -38.51}
   m_LocalScale: {x: 22.54524, y: 22.54524, z: 22.54524}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,13 +111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883d3d61943af164f9e8d4daa764a5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EName: Slime
+  EName: "Jello\u0142"
   EHealth: 1
   EHealthMAX: 1
   EAttack: 1
   EAttackSpeed: 15
   EDefense: 0
   ECriticalChance: 0
+  XPGet: 3
   EType: 1
   EFreezeTime: 0
 --- !u!54 &4176216342782174050

@@ -5,10 +5,15 @@ using TMPro;
 
 public class BattleMenu : MonoBehaviour
 {
+    public Fight scriptFight;
+    PlayerStats scriptPlayer;
+
     [Header("Texts")]
     public TMP_Text SelectedAreaTXT;
     public TMP_Text SAHighestScoreTXT;
     public TMP_Text SADifficultyTXT;
+
+    //Remove later
     public TMP_Text TempTXT;
 
     [Header("Areas")]
@@ -18,13 +23,26 @@ public class BattleMenu : MonoBehaviour
     public List<int> AreaSceneIndexList;
 
     [Header("Other")]
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     public GameObject BattleConfirmLeavePanel;
+
+    public int EarnedXPSc;
+
 
     void Start() {
         SelectedAreaTXT.text = "Current Area: " + AreaList[currentIndex];
         SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
+
+        AreaHSList[0] = PlayerPrefs.GetInt("AreaHS-1", 1);
+        AreaHSList[1] = PlayerPrefs.GetInt("AreaHS-2", 1);
+        AreaHSList[2] = PlayerPrefs.GetInt("AreaHS-3", 1);
+        AreaHSList[3] = PlayerPrefs.GetInt("AreaHS-4", 1);
+
+        scriptFight = GetComponent<Fight>();
+        scriptPlayer = GetComponent<PlayerStats>();
+        scriptPlayer.PlayerXP = PlayerPrefs.GetInt("PlayerXP", 0);
+        EarnedXPSc = scriptFight.EarnedXP;
     }
 
     public void ChangeArea() {
@@ -44,8 +62,8 @@ public class BattleMenu : MonoBehaviour
             BattleConfirmLeavePanel.SetActive(false);
         else
             BattleConfirmLeavePanel.SetActive(true);
-        
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 
     public void ConfirmLeavePanel() {
