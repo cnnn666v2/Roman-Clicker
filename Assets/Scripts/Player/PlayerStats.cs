@@ -77,7 +77,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start() {
         string PlayerXPString = PlayerPrefs.GetString("PlayerXP", "0");
-        string PlayerXPMaxString = PlayerPrefs.GetString("PlayerXPMax", "50");
+        string PlayerXPMaxString = PlayerPrefs.GetString("PlayerXPMax", "15");
 
         PlayerXP = long.Parse(PlayerXPString);
         PlayerXPMax = long.Parse(PlayerXPMaxString);
@@ -131,7 +131,7 @@ public class PlayerStats : MonoBehaviour
                 AttackSpeed -= 1;
 
             if(PlayerLVL % 1 == 0) {
-                S1UPB++;
+                S1UPB += 5;
                 PlayerPrefs.SetInt("S1UPB", S1UPB);
             };
             

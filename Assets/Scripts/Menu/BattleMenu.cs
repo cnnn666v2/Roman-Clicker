@@ -21,6 +21,7 @@ public class BattleMenu : MonoBehaviour
     public List<string> AreaDifficultyList;
     public List<int> AreaHSList;
     public List<int> AreaSceneIndexList;
+    public int SelectedAreaGlobal;
 
     [Header("Other")]
     public int currentIndex = 0;
@@ -34,10 +35,12 @@ public class BattleMenu : MonoBehaviour
         SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
 
-        AreaHSList[0] = PlayerPrefs.GetInt("AreaHS-1", 1);
-        AreaHSList[1] = PlayerPrefs.GetInt("AreaHS-2", 1);
-        AreaHSList[2] = PlayerPrefs.GetInt("AreaHS-3", 1);
-        AreaHSList[3] = PlayerPrefs.GetInt("AreaHS-4", 1);
+        SelectedAreaGlobal = PlayerPrefs.GetInt("SelAreaGlobal", 1);
+
+        AreaHSList[0] = PlayerPrefs.GetInt("AreaHS-0", 1);
+        AreaHSList[1] = PlayerPrefs.GetInt("AreaHS-1", 1);
+        AreaHSList[2] = PlayerPrefs.GetInt("AreaHS-2", 1);
+        AreaHSList[3] = PlayerPrefs.GetInt("AreaHS-3", 1);
 
         scriptFight = GetComponent<Fight>();
         scriptPlayer = GetComponent<PlayerStats>();
@@ -54,6 +57,7 @@ public class BattleMenu : MonoBehaviour
     }
 
     public void AreaLoad() {
+        PlayerPrefs.SetInt("SelAreaGlobal", currentIndex);
         SceneManager.LoadScene(AreaSceneIndexList[currentIndex]);
     }
 

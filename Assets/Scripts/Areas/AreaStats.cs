@@ -14,6 +14,8 @@ public class AreaStats : MonoBehaviour
     [Header("Variables")]
     public int CurrentLevel;
     public int AreaHS;
+    public string SelectedArea;
+    public int SelectedAreaGlobal;
 
     void Start() {
         CurrentLevel = 1;
@@ -21,7 +23,10 @@ public class AreaStats : MonoBehaviour
         scriptFight = GetComponent<Fight>();
         scriptBM = GetComponent<BattleMenu>();
 
-        AreaHS = PlayerPrefs.GetInt("AreaHS-1", 1);
+        SelectedAreaGlobal = PlayerPrefs.GetInt("SelAreaGlobal", 1);
+        SelectedArea = "AreaHS-" + SelectedAreaGlobal.ToString();
+
+        AreaHS = PlayerPrefs.GetInt(SelectedArea.ToString(), 1);
         HighScoreTXT.text = "Highest Level: " + AreaHS;
     }
 
@@ -29,7 +34,7 @@ public class AreaStats : MonoBehaviour
         CurrentLevelTXT.text = "Current Level: " + CurrentLevel.ToString();
 
         if(CurrentLevel > AreaHS) {
-            PlayerPrefs.SetInt("AreaHS-1", CurrentLevel);
+            PlayerPrefs.SetInt(SelectedArea, CurrentLevel);
             NewHighScoreTXT.SetActive(true);
         } else {
             NewHighScoreTXT.SetActive(false);

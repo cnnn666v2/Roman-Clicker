@@ -4,7 +4,6 @@ using TMPro;
 public class BuyUpgradesClicks : MonoBehaviour
 {
     Money moneyA;
-    PlayerStats playerScript;
 
     [Header("Upgrade Cost")]
     public int UPCost;
