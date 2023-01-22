@@ -4,6 +4,7 @@ using TMPro;
 public class BuyUpgradesRomans : MonoBehaviour
 {
     Money moneyA;
+    PlayerStats playerScript;
 
     [Header("Upgrade Costs")]
     public int USCost;
@@ -42,8 +43,26 @@ public class BuyUpgradesRomans : MonoBehaviour
     public TMP_Text PoliceCostTXT;
     public TMP_Text BossCostTXT;
 
+    [Header("Upgrades Avaible")]
+    int S1UPB;
+    int S2UPB;
+    int S3UPB;
+    int S4UPB;
+    int POUPB;
+    int HMUPB;
+
+    [Header("Lock Panels")]
+    public GameObject ItemLP1;
+    public GameObject ItemLP2;
+    public GameObject ItemLP3;
+    public GameObject ItemLP4;
+    public GameObject ItemLP5;
+    public GameObject ItemLP6;
+    public GameObject ItemLP7;
+
     void Awake() {
         moneyA = GetComponent<Money>();
+        playerScript = GetComponent<PlayerStats>();
 
         StealIULvl = PlayerPrefs.GetInt("StealI", 0);
         StealIIULvl = PlayerPrefs.GetInt("StealII", 0);
@@ -60,6 +79,15 @@ public class BuyUpgradesRomans : MonoBehaviour
         HitmanCost = PlayerPrefs.GetInt("HMCost", 75000);
         PoliceCost = PlayerPrefs.GetInt("PCost", 35000);
         BossCost = PlayerPrefs.GetInt("BCost", 1000000);
+
+
+        S1UPB = PlayerPrefs.GetInt("S1UPB", 1);
+        S2UPB = PlayerPrefs.GetInt("S2UPB", 0);
+        S3UPB = PlayerPrefs.GetInt("S3UPB", 0);
+        S4UPB = PlayerPrefs.GetInt("S4UPB", 0);
+        POUPB = PlayerPrefs.GetInt("POUPB", 0);
+        HMUPB = PlayerPrefs.GetInt("HMUPB", 0);
+
 
 
         StealILvl.text = "Level: " + PlayerPrefs.GetInt("StealI");
@@ -83,126 +111,209 @@ public class BuyUpgradesRomans : MonoBehaviour
         BossCostTXT.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("BCost", BossCost)).ToString() + "zł";
     }
 
+    void Update() {
+        /*S1UPB = PlayerPrefs.GetInt("S1UPB", 1);
+        S2UPB = PlayerPrefs.GetInt("S2UPB", 0);
+        S3UPB = PlayerPrefs.GetInt("S3UPB", 0);
+        S4UPB = PlayerPrefs.GetInt("S4UPB", 0);
+        POUPB = PlayerPrefs.GetInt("POUPB", 0);
+        HMUPB = PlayerPrefs.GetInt("HMUPB", 0);*/
+
+        if(S1UPB > 0) {
+            ItemLP1.SetActive(false);
+        } else {
+            ItemLP1.SetActive(true);
+        }
+        
+        if(S2UPB > 0) {
+            ItemLP2.SetActive(false);
+        } else {
+            ItemLP2.SetActive(true);
+        }
+        
+        if(S3UPB > 0) {
+            ItemLP3.SetActive(false);
+        } else {
+            ItemLP3.SetActive(true);
+        }
+        
+        if(S4UPB > 0) {
+            ItemLP4.SetActive(false);
+        } else {
+            ItemLP4.SetActive(true);
+        }
+        
+        if(HMUPB > 0) {
+            ItemLP5.SetActive(false);
+        } else {
+            ItemLP5.SetActive(true);
+        }
+        
+        if(POUPB > 0) {
+            ItemLP6.SetActive(false);
+        } else {
+            ItemLP6.SetActive(true);
+        }
+        
+        if(playerScript.PlayerLVL >= 20) {
+            ItemLP7.SetActive(false);
+        } else {
+            ItemLP7.SetActive(true);
+        }
+    }
+
     public void UgradeStealI() {
-        if(moneyA.money >= 150) {
-            moneyA.money -= 150;
-            moneyA.moneyPerSec++;
+        if(S1UPB > 0) {
+            if(moneyA.money >= 150) {
+                moneyA.money -= 150;
+                moneyA.moneyPerSec++;
 
-            StealIULvl++;
+                StealIULvl++;
 
-            PlayerPrefs.SetInt("StealI", StealIULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("StealI", StealIULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
 
-            StealILvl.text = "Level: " + PlayerPrefs.GetInt("StealI", 0);
+                StealILvl.text = "Level: " + PlayerPrefs.GetInt("StealI", 0);
+
+                S1UPB -= 1;
+                PlayerPrefs.SetInt("S1UPB", S1UPB);
+            };
         };
     }
 
     public void UgradeStealII() {
-        if(moneyA.money >= USCost) {
-            moneyA.money -= USCost;
-            moneyA.moneyPerSec += 15;
+        if(S2UPB > 0) {
+            if(moneyA.money >= USCost) {
+                moneyA.money -= USCost;
+                moneyA.moneyPerSec += 15;
 
-            StealIIULvl++;
-            USCost += Mathf.RoundToInt(USCost/4);
+                StealIIULvl++;
+                USCost += Mathf.RoundToInt(USCost/4);
 
-            PlayerPrefs.SetInt("StealII", StealIIULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("US2Cost", USCost);
+                PlayerPrefs.SetInt("StealII", StealIIULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("US2Cost", USCost);
 
-            StealIICost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US2Cost", USCost)).ToString() + "zł";
-            StealIILvl.text = "Level: " + PlayerPrefs.GetInt("StealII", StealIIULvl);
+                StealIICost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US2Cost", USCost)).ToString() + "zł";
+                StealIILvl.text = "Level: " + PlayerPrefs.GetInt("StealII", StealIIULvl);
+
+                S2UPB -= 1;
+                PlayerPrefs.SetInt("S2UPB", S2UPB);
+            };
+        };
+    }   
+
+    public void UpgradeStealIII() {
+        if(S3UPB > 0) {
+            if(moneyA.money >= US1Cost) {
+                moneyA.money -= US1Cost;
+                moneyA.moneyPerSec += 50;
+
+                StealIIIULvl++;
+                US1Cost += Mathf.RoundToInt(US1Cost/4);
+
+                PlayerPrefs.SetInt("StealIII", StealIIIULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("US3Cost", US1Cost);
+
+                StealIIICost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US3Cost", US1Cost)).ToString() + "zł";
+                StealIIILvl.text = "Level: " + PlayerPrefs.GetInt("StealIII", StealIIIULvl);
+
+                S3UPB -= 1;
+                PlayerPrefs.SetInt("S3UPB", S3UPB);
+            };
         };
     }
 
-    public void UpgradeStealIII() {
-        if(moneyA.money >= US1Cost) {
-            moneyA.money -= US1Cost;
-            moneyA.moneyPerSec += 50;
-
-            StealIIIULvl++;
-            US1Cost += Mathf.RoundToInt(US1Cost/4);
-
-            PlayerPrefs.SetInt("StealIII", StealIIIULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("US3Cost", US1Cost);
-
-            StealIIICost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US3Cost", US1Cost)).ToString() + "zł";
-            StealIIILvl.text = "Level: " + PlayerPrefs.GetInt("StealIII", StealIIIULvl);
-        }
-    }
-
     public void UpgradeStealIV() {
-        if(moneyA.money >= US2Cost) {
-            moneyA.money -= US2Cost;
-            moneyA.moneyPerSec += 120;
+        if(S4UPB > 0) {
+            if(moneyA.money >= US2Cost) {
+                moneyA.money -= US2Cost;
+                moneyA.moneyPerSec += 120;
 
-            StealIVULvl++;
-            US2Cost += Mathf.RoundToInt(US2Cost/4);
+                StealIVULvl++;
+                US2Cost += Mathf.RoundToInt(US2Cost/4);
 
-            PlayerPrefs.SetInt("StealIV", StealIVULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("US4Cost", US2Cost);
+                PlayerPrefs.SetInt("StealIV", StealIVULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("US4Cost", US2Cost);
 
-            StealIVCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US4Cost", US2Cost)).ToString() + "zł";
-            StealIVLvl.text = "Level: " + PlayerPrefs.GetInt("StealIV", StealIVULvl);
-        }
+                StealIVCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("US4Cost", US2Cost)).ToString() + "zł";
+                StealIVLvl.text = "Level: " + PlayerPrefs.GetInt("StealIV", StealIVULvl);
+
+                S4UPB -= 1;
+                PlayerPrefs.SetInt("S4UPB", S4UPB);
+            };
+        };
     }
 
     public void UpgradeHitman() {
-        if(moneyA.money >= HitmanCost) {
-            moneyA.money -= HitmanCost;
-            moneyA.moneyPerSec += 500;
+        if(HMUPB > 0) {
+            if(moneyA.money >= HitmanCost) {
+                moneyA.money -= HitmanCost;
+                moneyA.moneyPerSec += 500;
 
-            HMULvl++;
-            HitmanCost += Mathf.RoundToInt(HitmanCost/4);
+                HMULvl++;
+                HitmanCost += Mathf.RoundToInt(HitmanCost/4);
 
-            PlayerPrefs.SetInt("HM", HMULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("HMCost", HitmanCost);
+                PlayerPrefs.SetInt("HM", HMULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("HMCost", HitmanCost);
 
-            StealIVCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("HMCost", HitmanCost)).ToString() + "zł";
-            StealIVLvl.text = "Level: " + PlayerPrefs.GetInt("HM", HMULvl);
-        }
+                StealIVCost.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("HMCost", HitmanCost)).ToString() + "zł";
+                StealIVLvl.text = "Level: " + PlayerPrefs.GetInt("HM", HMULvl);
+
+                HMUPB -= 1;
+                PlayerPrefs.SetInt("HMUPB", HMUPB);
+            };
+        };
     }
 
     public void UpgradePolice() {
-        if(moneyA.money >= PoliceCost) {
-            moneyA.money -= PoliceCost;
-            moneyA.moneyPerSec += 100;
+        if(POUPB > 0) {
+            if(moneyA.money >= PoliceCost) {
+                moneyA.money -= PoliceCost;
+                moneyA.moneyPerSec += 100;
 
-            PoliceULvl++;
-            PoliceCost += Mathf.RoundToInt(PoliceCost/4);
+                PoliceULvl++;
+                PoliceCost += Mathf.RoundToInt(PoliceCost/4);
 
-            PlayerPrefs.SetInt("HM", PoliceULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("PCost", PoliceCost);
+                PlayerPrefs.SetInt("HM", PoliceULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("PCost", PoliceCost);
 
-            PoliceCostTXT.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("PCost", PoliceCost)).ToString() + "zł";
-            PoliceLvl.text = "Level: " + PlayerPrefs.GetInt("Police", PoliceULvl);
-        }
+                PoliceCostTXT.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("PCost", PoliceCost)).ToString() + "zł";
+                PoliceLvl.text = "Level: " + PlayerPrefs.GetInt("Police", PoliceULvl);
+
+                POUPB -= 1;
+                PlayerPrefs.SetInt("POUPB", POUPB);
+            };
+        };
     }
 
     public void UpgradeBoss() {
-        if(moneyA.money >= BossCost) {
-            moneyA.money -= BossCost;
-            moneyA.moneyPerSec += 1000;
+        if(playerScript.PlayerLVL >= 20) {
+            if(moneyA.money >= BossCost) {
+                moneyA.money -= BossCost;
+                moneyA.moneyPerSec += 1000;
 
-            BossULvl++;
-            BossCost += Mathf.RoundToInt(BossCost/4);
+                BossULvl = 100;
+                BossCost += Mathf.RoundToInt(BossCost/4);
 
-            PlayerPrefs.SetInt("Boss", BossULvl);
-            PlayerPrefs.SetString("money", moneyA.money.ToString());
-            PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
-            PlayerPrefs.SetInt("BCost", BossCost);
+                PlayerPrefs.SetInt("Boss", BossULvl);
+                PlayerPrefs.SetString("money", moneyA.money.ToString());
+                PlayerPrefs.SetString("moneyPerSec", moneyA.moneyPerSec.ToString());
+                PlayerPrefs.SetInt("BCost", BossCost);
 
-            BossCostTXT.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("BCost", BossCost)).ToString() + "zł";
-            BossLvl.text = "Level: " + PlayerPrefs.GetInt("Boss", BossULvl);
-        }
+                BossCostTXT.text = "Cost: " + string.Format("{0:n0}", PlayerPrefs.GetInt("BCost", BossCost)).ToString() + "zł";
+                BossLvl.text = "Level: " + PlayerPrefs.GetInt("Boss", BossULvl);
+            };
+        };
     }
 }
