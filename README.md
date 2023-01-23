@@ -10,4 +10,4 @@ Roman Clicker, made for jokes
 
 # Future of the project
 From time to time the game will get content and QoL updates, but the changelog and game will only be on itch.io, the source-code will keep being updated tho<br>
-The basics of the game are finished, the itch.io page will be ready soon.
+The itch.io page is ready! https://cnnn666v2.itch.io/roman-clicker
