@@ -51,36 +51,46 @@ public class PlayerStats : MonoBehaviour
     int FCUPB;
 
     void Awake() {
+        scriptMoney = GetComponent<Money>();
+        scriptMenu = GameObject.Find("Canvas").GetComponent<MainMenu>();
+    }
+
+    void Start() {
         Health = PlayerPrefs.GetInt("Health", 5);
         HealthMAX = PlayerPrefs.GetInt("HealthMAX", 5);
         AttackSpeed = PlayerPrefs.GetInt("AttackSpeed", 10);
         Attack = PlayerPrefs.GetInt("Attack", 1);
         Defense = PlayerPrefs.GetInt("Defense", 0);
         CriticalChance = PlayerPrefs.GetInt("CriticalChance", 0);
+
         //soon
         Energy = PlayerPrefs.GetInt("Energy", 0);
         EnergyMAX = PlayerPrefs.GetInt("EnergyMAX", 0);
         EnergyRegen = PlayerPrefs.GetInt("EnergyRegen", 0);
         /////////////
+        
         PlayerLVL = PlayerPrefs.GetInt("PlayerLVL", 1);
-        //PlayerXP = PlayerPrefs.GetInt("PlayerXP", 0);
-        //PlayerXPMax = PlayerPrefs.GetInt("PlayerXPMax", 50);
 
+        HealthTXT.text = "Health: " + HealthMAX.ToString();
         AttackDmgTXT.text = "Attack: " + Attack.ToString();
         DefenseTXT.text = "Defense: " + Defense.ToString();
+        AttackSpeedTXT.text = "Attack Speed: " + AttackSpeed.ToString() + "s";
         CriticalChanceTXT.text = "Critical Chance: " + CriticalChance.ToString() + "%";
         EnergyTXT.text = "Energy: " + Energy.ToString() + "/" + EnergyMAX.ToString();
 
-        scriptMoney = GetComponent<Money>();
-        scriptMenu = GameObject.Find("Canvas").GetComponent<MainMenu>();
-    }
-
-    void Start() {
         string PlayerXPString = PlayerPrefs.GetString("PlayerXP", "0");
         string PlayerXPMaxString = PlayerPrefs.GetString("PlayerXPMax", "15");
 
         PlayerXP = long.Parse(PlayerXPString);
         PlayerXPMax = long.Parse(PlayerXPMaxString);
+
+        ProgressbarXP.value = PlayerXP/(float)PlayerXPMax;
+
+        PlayerLevelTXT.text = "Level: " + PlayerLVL.ToString();
+        PlayerXPTXT.text = "XP: " + PlayerXP.ToString() + "/" + PlayerXPMax.ToString();
+
+        HealthTXT.text = "Health: " + Health.ToString();
+        AttackSpeedTXT.text = "Attack Speed: " + AttackSpeed.ToString() + "s";
 
         S1UPB = PlayerPrefs.GetInt("S1UPB", 1);
         S2UPB = PlayerPrefs.GetInt("S2UPB", 0);
@@ -94,16 +104,6 @@ public class PlayerStats : MonoBehaviour
         P4UPB = PlayerPrefs.GetInt("P4UPB", 0);
         FTUPB = PlayerPrefs.GetInt("FTUPB", 0);
         FCUPB = PlayerPrefs.GetInt("FCUPB", 0);
-    }
-
-    void Update() {
-        ProgressbarXP.value = PlayerXP/(float)PlayerXPMax;
-
-        PlayerLevelTXT.text = "Level: " + PlayerLVL.ToString();
-        PlayerXPTXT.text = "XP: " + PlayerXP.ToString() + "/" + PlayerXPMax.ToString();
-
-        HealthTXT.text = "Health: " + Health.ToString();
-        AttackSpeedTXT.text = "Attack Speed: " + AttackSpeed.ToString() + "s";
 
         if(PlayerXP >= PlayerXPMax) {
             scriptMenu.LevelUPPanel.SetActive(true);
@@ -117,7 +117,6 @@ public class PlayerStats : MonoBehaviour
             PlayerPrefs.SetInt("PlayerLVL", PlayerLVL);
 
             scriptMoney.egg += 1;
-
             Health += 1;
             HealthMAX += 1;
 
@@ -125,10 +124,9 @@ public class PlayerStats : MonoBehaviour
             PlayerPrefs.SetInt("HealthMAX", HealthMAX);
             PlayerPrefs.SetString("egg", scriptMoney.egg.ToString());
 
-
-
             if(PlayerLVL <= 10)
                 AttackSpeed -= 1;
+                PlayerPrefs.SetInt("AttackSpeed", AttackSpeed);
 
             if(PlayerLVL % 1 == 0) {
                 S1UPB += 5;

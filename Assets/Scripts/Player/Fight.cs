@@ -60,6 +60,9 @@ public class Fight : MonoBehaviour
         
         EnemyNameTxT.text = "Enemy: " + enemyScript.EName;
         Time.timeScale = 1f;
+
+        PlayerHPSlider.value = playerScript.Health/(float)playerScript.HealthMAX;
+        EnemyHPSlider.value = enemyScript.EHealth/(float)enemyScript.EHealthMAX;
     }
 
 
@@ -67,15 +70,11 @@ public class Fight : MonoBehaviour
         EarnedXPTXT.text = "+ XP: " + EarnedXP.ToString();
         EarnedXPTXT1.text = "+ XP: " + EarnedXP.ToString();
 
-        PlayerHPTxT.text = "HP " + playerScript.Health.ToString() + "/" + playerScript.HealthMAX.ToString();
-        EnemyHPTxT.text = "HP " + enemyScript.EHealth.ToString() + "/" + enemyScript.EHealthMAX.ToString();
+        enemyScript = enemy.GetComponent<EnemyStats>();
         EnemyNameTxT.text = "Enemy: " + enemyScript.EName;
 
-        enemy = GameObject.Find("Enemy");
-        enemyScript = enemy.GetComponent<EnemyStats>();
-
-        PlayerHPSlider.value = playerScript.Health/(float)playerScript.HealthMAX;
-        EnemyHPSlider.value = enemyScript.EHealth/(float)enemyScript.EHealthMAX;
+        EnemyHPTxT.text = "HP " + enemyScript.EHealth.ToString() + "/" + enemyScript.EHealthMAX.ToString();
+        PlayerHPTxT.text = "HP " + playerScript.Health.ToString() + "/" + playerScript.HealthMAX.ToString();
 
         timePPassed += Time.deltaTime;
         timeEPassed += Time.deltaTime;
@@ -83,14 +82,16 @@ public class Fight : MonoBehaviour
 
         if (timePPassed >= playerScript.AttackSpeed) {
             timePPassed = 0;
-
+            
             enemyScript.EHealth -= playerScript.Attack;
+            EnemyHPSlider.value = enemyScript.EHealth/(float)enemyScript.EHealthMAX;
         };
 
         if (timeEPassed >= enemyScript.EAttackSpeed) {
             timeEPassed = 0;
 
             playerScript.Health -= enemyScript.EAttack;
+            PlayerHPSlider.value = playerScript.Health/(float)playerScript.HealthMAX;
         };
 
         if(DoRewards == false) {
@@ -106,18 +107,20 @@ public class Fight : MonoBehaviour
 
         if(enemyScript.EHealth <= 0) {
             enemyScript.EHealth = 0;
-            Destroy(GameObject.Find("Enemy"));
+            EnemyHPTxT.text = "HP " + enemyScript.EHealth.ToString() + "/" + enemyScript.EHealthMAX.ToString();
+            Destroy(enemy);
 
             scriptAreaStats.CurrentLevel += 1;
 
             int randomIndex = Random.Range(0, prefabs.Length);
             GameObject prefab = prefabs[randomIndex];
-            GameObject enemy = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            enemy = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
             enemy.name = "Enemy";
             EnemyNameTxT.text = "Enemy: " + enemyScript.EName;
 
             timeEPassed = 0;
             EarnedXP += enemyScript.XPGet;
+            EnemyHPSlider.value = enemyScript.EHealthMAX;
         };
 
         if(playerScript.Health <= 0) {
@@ -132,7 +135,7 @@ public class Fight : MonoBehaviour
     public void AddRewards() {
         if(DoRewards == true) {
             EarnedXPSc = playerCurrXP + EarnedXP;
-            PlayerPrefs.SetInt("PlayerXP", EarnedXPSc);
+            PlayerPrefs.SetString("PlayerXP", EarnedXPSc.ToString());
 
             DoRewards = false;
         }

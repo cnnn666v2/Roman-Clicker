@@ -13,9 +13,6 @@ public class BattleMenu : MonoBehaviour
     public TMP_Text SAHighestScoreTXT;
     public TMP_Text SADifficultyTXT;
 
-    //Remove later
-    public TMP_Text TempTXT;
-
     [Header("Areas")]
     public List<string> AreaList;
     public List<string> AreaDifficultyList;
@@ -24,15 +21,14 @@ public class BattleMenu : MonoBehaviour
     public int SelectedAreaGlobal;
 
     [Header("Other")]
-    public int currentIndex = 0;
+    public int currentIndex;
     public GameObject BattleConfirmLeavePanel;
 
     public int EarnedXPSc;
 
-
     void Start() {
+        currentIndex = 0;
         SelectedAreaTXT.text = "Current Area: " + AreaList[currentIndex];
-        SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
 
         SelectedAreaGlobal = PlayerPrefs.GetInt("SelAreaGlobal", 1);
@@ -48,12 +44,14 @@ public class BattleMenu : MonoBehaviour
         EarnedXPSc = scriptFight.EarnedXP;
     }
 
+    void Update() {
+        SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
+    }
+
     public void ChangeArea() {
         currentIndex = (currentIndex + 1) % AreaList.Count;
         SelectedAreaTXT.text = "Current Area: " + AreaList[currentIndex];
-        SAHighestScoreTXT.text = "Highest Level: " + AreaHSList[currentIndex].ToString();
         SADifficultyTXT.text = "Difficulty: " + AreaDifficultyList[currentIndex];
-        TempTXT.text = "Area Load Scene: " + AreaSceneIndexList[currentIndex];
     }
 
     public void AreaLoad() {
@@ -61,11 +59,14 @@ public class BattleMenu : MonoBehaviour
         SceneManager.LoadScene(AreaSceneIndexList[currentIndex]);
     }
 
+
+
     public void MenuLoad() {
         if(BattleConfirmLeavePanel.activeInHierarchy == true)
             BattleConfirmLeavePanel.SetActive(false);
         else
             BattleConfirmLeavePanel.SetActive(true);
+
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
     }
@@ -75,6 +76,7 @@ public class BattleMenu : MonoBehaviour
             BattleConfirmLeavePanel.SetActive(false);
         else
             BattleConfirmLeavePanel.SetActive(true);
+
 
         if(Time.timeScale == 1.0f)
             Time.timeScale = 0f;

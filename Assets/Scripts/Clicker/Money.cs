@@ -35,6 +35,8 @@ public class Money : MonoBehaviour
         TEgg.text = "EGG: " + PlayerPrefs.GetString("egg").ToString();
         TMoneyPerSecText.text = "Romans stealing per sec: zł" + moneyPerSec.ToString() + "/s";
         TMoneyPerClickText.text = "Monies per click: " + string.Format(",", moneyChange).ToString() + "zł";
+
+        Time.timeScale = 1f;
     }
 
     private void Update() {
