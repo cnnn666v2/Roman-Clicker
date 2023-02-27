@@ -34,12 +34,14 @@ public class Fight : MonoBehaviour
     public bool DoRewards = false;
 
     [Header("Private Variables")]
+    private string getXPString;
+
     private float timePPassed;
     private float timeEPassed;
     private float timeLeft;
 
-    private int playerCurrXP;
-    private int EarnedXPSc;
+    private long playerCurrXP;
+    private long EarnedXPSc;
 
     void Awake() {
         int randomIndex = Random.Range(0, prefabs.Length);
@@ -56,7 +58,8 @@ public class Fight : MonoBehaviour
         battlemenuScript = GetComponent<BattleMenu>();
         scriptAreaStats = GetComponent<AreaStats>();
 
-        playerCurrXP = PlayerPrefs.GetInt("PlayerXP", 0);
+        getXPString = PlayerPrefs.GetString("PlayerXP", "0");
+        playerCurrXP = long.Parse(getXPString);
         
         EnemyNameTxT.text = "Enemy: " + enemyScript.EName;
         Time.timeScale = 1f;
