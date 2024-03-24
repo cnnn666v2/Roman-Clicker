@@ -2,6 +2,7 @@
 Roman Clicker, made for jokes
 
 ## To do:
+*Main Focus:* Completely recreate the game from the ground up
 [ ] Move to URP<br>
 [ ] Bug fixes<br>
 [ ] QoL features<br>
