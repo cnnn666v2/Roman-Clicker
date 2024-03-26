@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2970677990074796267}
   - component: {fileID: 701531788876176879}
   - component: {fileID: -6512655590179193818}
+  - component: {fileID: -2949793092749516064}
   m_Layer: 0
   m_Name: PlayerChar
   m_TagString: Untagged
@@ -62,6 +63,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2949793092749516064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3071102115538795814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ae1c9f605b1ee4a91ff53e1f3ec74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerName: Cutiepie :3
+  PlayerMaxHealth: 10
+  PlayerCurrHealth: 10
+  PlayerDamage: 1
+  PlayerXP: 20
+  PlayerLevel: 1
+  PlayerLuck: 50
 --- !u!1 &6612358549087411586
 GameObject:
   m_ObjectHideFlags: 0
