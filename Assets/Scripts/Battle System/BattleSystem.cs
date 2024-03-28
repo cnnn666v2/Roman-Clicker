@@ -1,3 +1,7 @@
+// TODO
+// MAKE AI LOGIC FOR THE ENEMY
+// SOON
+
 using UnityEngine;
 using TMPro;
 
@@ -128,7 +132,7 @@ public class BattleSystem : MonoBehaviour
         GameTrack.text = "Battles: " + BattleCount + " || Turn: " + TurnCount;
 
         // Damage the player
-        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage);
+        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
         PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
     }
 

@@ -34,24 +34,42 @@ public class AttackMethods : MonoBehaviour
         TurnState = battleSystem.CurrentTurn;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, int critDmg, int critChance)
     {
         ScrapInfo();
+
+        // Define a variable for dealt dmg
+        int dealtDmg;
+        int randomized = Random.Range(0, 100);
+
+        Debug.Log("[TakeDamage]: Initiated variables");
+
+        // Determine if the hit should've been a crit or no via randomizing
+        if (randomized <= critChance) {
+            // if odds are in favour, Multiply base dmg by critDmg which is a multiplier
+            dealtDmg = damage * critDmg;
+        } else {
+            // if odds arent in favour, define dealtDmg as base dmg
+            dealtDmg = damage;
+        }
+
+        Debug.Log("[TakeDamage]: Rolled number is " + randomized);
+        Debug.Log("[TakeDamage]: It's " + TurnState + "'s turn");
 
         // Determine who should've been attacked
         if (TurnState == "Player") {
             // Deal damage to enemy
             Debug.Log("[TakeDamage]: Current health: " + statsE.PlayerCurrHealth);
-            statsE.PlayerCurrHealth -= damage;
-            Debug.Log("[TakeDamage]: Taken damage: " + damage + " || New health: " + statsE.PlayerCurrHealth);
+            statsE.PlayerCurrHealth -= dealtDmg;
+            Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsE.PlayerCurrHealth);
             CheckDeath();
 
             //if (statsE.PlayerCurrHealth <= 0) { return true; } else { return false; }
         } else if (TurnState == "Enemy") {
             // Deal damage to player
             Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
-            statsP.PlayerCurrHealth -= damage;
-            Debug.Log("[TakeDamage]: Taken damage: " + damage + " || New health: " + statsP.PlayerCurrHealth);
+            statsP.PlayerCurrHealth -= dealtDmg;
+            Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsP.PlayerCurrHealth);
             CheckDeath();
 
             //if (statsP.PlayerCurrHealth <= 0) { return true; } else { return false; }
@@ -64,6 +82,30 @@ public class AttackMethods : MonoBehaviour
         // Determine wether the enemy is dead or not
         //if (statsP.PlayerCurrHealth <= 0) { return true; } else { return false; }
         // ARCHIVE ->>>>>>> if (attackWho.PlayerCurrHealth <= 0) { return true; } else { return false; }
+    }
+
+    public void UseHealing(int healing)
+    {
+        ScrapInfo();
+
+        // Determine who should've been healed
+        if (TurnState == "Player") {
+            // Heal player
+            Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
+            statsP.PlayerCurrHealth += healing;
+            Debug.Log("[TakeDamage]: Taken health: " + healing + " || New health: " + statsP.PlayerCurrHealth);
+
+            CheckDeath();
+        } else if (TurnState == "Enemy") {
+            // Heal enemy
+            Debug.Log("[UseHealing]: Current health: " + statsE.PlayerCurrHealth);
+            statsE.PlayerCurrHealth += healing;
+            Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsE.PlayerCurrHealth);
+
+            CheckDeath();
+        } else {
+            Debug.Log("Something is wrong: " + TurnState);
+        }
     }
 
     bool CheckDeath()

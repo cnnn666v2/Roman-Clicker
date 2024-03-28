@@ -21,7 +21,20 @@ public class OnClickCalls : MonoBehaviour
         Debug.Log("State is playerturn :)");
 
         // Call damage function and update text
-        attackMethods.TakeDamage(bs.PlayableCharacter.PlayerDamage);
+        attackMethods.TakeDamage(bs.PlayableCharacter.PlayerDamage, bs.PlayableCharacter.PlayerCritical, bs.PlayableCharacter.PlayerLuck);
         bs.EnemyHealthTXT.text = "Health: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
+    }
+
+    public void ClickHeal()
+    {
+        // Check if it is playerturn
+        if (bs.State != BattleState.PLAYERTURN)
+            return;
+
+        Debug.Log("State is playerturn :)");
+
+        // Call damage function and update text
+        attackMethods.UseHealing(bs.PlayableCharacter.PlayerHealing);
+        bs.PlayerHealthTXT.text = "Health: " + bs.PlayableCharacter.PlayerCurrHealth + "/" + bs.PlayableCharacter.PlayerMaxHealth;
     }
 }

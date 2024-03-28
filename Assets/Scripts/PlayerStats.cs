@@ -7,13 +7,15 @@ public class PlayerStats : MonoBehaviour
     public int PlayerMaxHealth;
     public int PlayerCurrHealth;
     public int PlayerDamage;
+    public int PlayerHealing;
 
     [Header("Player Level")]
     public int PlayerXP;
     public int PlayerLevel;
 
     [Header("Player skills")]
-    public int PlayerLuck;
+    public int PlayerLuck; // Chance for critical
+    public int PlayerCritical; // Critical damage multiplier
 
     /*public bool TakeDamage(int damage)
     {

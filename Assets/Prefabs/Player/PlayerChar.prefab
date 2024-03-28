@@ -79,9 +79,11 @@ MonoBehaviour:
   PlayerMaxHealth: 10
   PlayerCurrHealth: 10
   PlayerDamage: 1
+  PlayerHealing: 1
   PlayerXP: 20
   PlayerLevel: 1
   PlayerLuck: 50
+  PlayerCritical: 2
 --- !u!1 &6612358549087411586
 GameObject:
   m_ObjectHideFlags: 0
