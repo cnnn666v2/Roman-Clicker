@@ -15,7 +15,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Player skills")]
     public int PlayerLuck;
 
-    public bool TakeDamage(int damage)
+    /*public bool TakeDamage(int damage)
     {
         Debug.Log("[TakeDamage]: Current health: " + PlayerCurrHealth);
         PlayerCurrHealth -= damage;
@@ -23,5 +23,5 @@ public class PlayerStats : MonoBehaviour
 
         // Determine wether the enemy is dead or not
         if(PlayerCurrHealth <= 0 ) {return true;} else {return false;}
-    }
+    }*/
 }
