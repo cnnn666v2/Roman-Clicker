@@ -1,2 +1,0 @@
-[X] Reset Enemy Stats on destroying object
-[X] Add XP for every defeated enemy
