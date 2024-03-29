@@ -4866,6 +4866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38d48243cbbf814db634e74cf352818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsed: 0
 --- !u!1 &1079704741
 GameObject:
   m_ObjectHideFlags: 0
@@ -5095,7 +5096,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack 2
+  m_text: Poison
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6562,7 +6563,7 @@ GameObject:
   - component: {fileID: 1470942793}
   - component: {fileID: 1470942792}
   m_Layer: 5
-  m_Name: Attack2 (1)
+  m_Name: Attack3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6631,7 +6632,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1470942793}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069550653}
+        m_TargetAssemblyTypeName: OnClickCalls, Assembly-CSharp
+        m_MethodName: ClickPoison
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1470942793
 MonoBehaviour:
   m_ObjectHideFlags: 0

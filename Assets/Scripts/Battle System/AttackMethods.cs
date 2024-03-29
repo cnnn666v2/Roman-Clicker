@@ -1,5 +1,8 @@
 // TODO
 // REPLACE CURRENTTURN STRING WITH BATTLESTATES IN BATTLESYSTEM AND ATTACKMETHODS SCRIPTS
+// POISON:
+//  MAKE TURNSLEFT VAR WORK
+//  ALLOW PLAYER DO ADDITIONAL FUNCTION WHILE POISONING IS ACTIVE
 // SOON
 
 using UnityEngine;
@@ -11,20 +14,28 @@ public class AttackMethods : MonoBehaviour
 
     BattleSystem battleSystem;
 
-    string TurnState;
+    OnClickCalls onClick;
 
-    private void Start()
+    string TurnState;
+    bool SetPoison;
+
+    void Awake()
     {
         // Get components and variables from BattleSystem script
         battleSystem = GetComponent<BattleSystem>();
         TurnState = battleSystem.CurrentTurn;
 
-        ScrapInfo();
+        // Get OnClickCalls component
+        onClick= GetComponent<OnClickCalls>();
+
+        // Poison has not been used yet
+        SetPoison = false;
     }
 
-    void ScrapInfo()
+    public void ScrapInfo()
     {
         // Get player stats
+        Debug.Log("Object inside ScrapInfo(): " + battleSystem + " || TurnState: " + TurnState + " || onClick: " + onClick);
         statsP = battleSystem.PlayableCharacter;
 
         // Get enemy stats
@@ -40,7 +51,7 @@ public class AttackMethods : MonoBehaviour
 
         // Define a variable for dealt dmg
         int dealtDmg;
-        int randomized = Random.Range(0, 100);
+        int randomized = Random.Range(1, 100);
 
         Debug.Log("[TakeDamage]: Initiated variables");
 
@@ -91,9 +102,9 @@ public class AttackMethods : MonoBehaviour
         // Determine who should've been healed
         if (TurnState == "Player") {
             // Heal player
-            Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
+            Debug.Log("[UseHealing]: Current health: " + statsP.PlayerCurrHealth);
             statsP.PlayerCurrHealth += healing;
-            Debug.Log("[TakeDamage]: Taken health: " + healing + " || New health: " + statsP.PlayerCurrHealth);
+            Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsP.PlayerCurrHealth);
 
             CheckDeath();
         } else if (TurnState == "Enemy") {
@@ -105,6 +116,56 @@ public class AttackMethods : MonoBehaviour
             CheckDeath();
         } else {
             Debug.Log("Something is wrong: " + TurnState);
+        }
+    }
+
+    public void Poisoning(int poisonDmg, int poisonDuration)
+    {
+        ScrapInfo();
+
+        // Get current turn count left for poison from battlesystem
+        int turnsLeft = battleSystem.durationPoisonLeft;
+
+        Debug.Log("Poison status: " + SetPoison);
+        
+        // Determine if poison has been already called by player
+        if(SetPoison == true) {
+            Debug.Log("Poison has been called already");
+        } else {
+            // Set how long the attack should last
+            Debug.Log("Activate poison");
+
+            // Do attack overtime
+            Debug.Log("[Poisoning]: isUsed status: " + onClick.isUsed);
+            if (onClick.isUsed == true) {
+                Debug.Log("Poison has been used, turns left: " + turnsLeft);
+
+                // Check if it should still poison the enemy
+                if (turnsLeft > 0) {
+                    // Subtract poison time left from battlesystem by 1
+                    battleSystem.durationPoisonLeft -= 1;
+
+                    // Determine who should've been poisoned
+                    if (TurnState == "Player") {
+                        // Poison enemy
+                        Debug.Log("[Poisoning]: Current health: " + statsE.PlayerCurrHealth);
+                        statsE.PlayerCurrHealth -= poisonDmg;
+                        Debug.Log("[Poisoning]: Taken dmg: " + poisonDmg + " || New health: " + statsE.PlayerCurrHealth + " || Duration left: " + turnsLeft);
+
+                        CheckDeath();
+                    } else if (TurnState == "Enemy") {
+                        // Poison player
+                        Debug.Log("[UseHealing]: Current health: " + statsE.PlayerCurrHealth);
+                        //statsE.PlayerCurrHealth += healing;
+                        //Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsE.PlayerCurrHealth);
+
+                        CheckDeath();
+                    } else { Debug.Log("Something is wrong: " + TurnState); }
+                } else { SetPoison = true; Debug.Log("Turns left from posioning: 0"); }
+            } else { Debug.Log("Poison has not been used yet."); }
+            // Tell that poison is used
+            //if (turnsLeft == 0) { SetPoison == true; }
+            //else { SetPoison = false; }
         }
     }
 

@@ -16,6 +16,9 @@ public class PlayerStats : MonoBehaviour
     [Header("Player skills")]
     public int PlayerLuck; // Chance for critical
     public int PlayerCritical; // Critical damage multiplier
+    //Special skill: poison
+    public int PlayerPoisonDmg; // Poison damage
+    public int PlayerPoisonTime; // Poison duration
 
     /*public bool TakeDamage(int damage)
     {
