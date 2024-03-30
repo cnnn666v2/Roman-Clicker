@@ -3,20 +3,27 @@
 // SOON
 
 using UnityEngine;
+using TMPro;
+using UnityEngine.UIElements.Experimental;
 
 public class AttackMethods : MonoBehaviour
 {
+    // Reference the necessary scripts
     PlayerStats statsP;
     PlayerStats statsE;
-
     BattleSystem battleSystem;
-
     OnClickCalls onClick;
 
+    // Determine turn state, will get rid of it soon
     string TurnState;
 
     // Poison status
     bool SetPoison;
+
+    // Prefabs
+    //Chat logs
+    public Transform MessageContainer;
+    public TMP_Text MessagePrefab;
 
     void Awake()
     {
@@ -72,26 +79,24 @@ public class AttackMethods : MonoBehaviour
             Debug.Log("[TakeDamage]: Current health: " + statsE.PlayerCurrHealth);
             statsE.PlayerCurrHealth -= dealtDmg;
             Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsE.PlayerCurrHealth);
-            CheckDeath();
 
-            //if (statsE.PlayerCurrHealth <= 0) { return true; } else { return false; }
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> damaged <color=#FF0000>" + statsE.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+
+            CheckDeath();
         } else if (TurnState == "Enemy") {
             // Deal damage to player
             Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
             statsP.PlayerCurrHealth -= dealtDmg;
             Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsP.PlayerCurrHealth);
+
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> damaged <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+
             CheckDeath();
-
-            //if (statsP.PlayerCurrHealth <= 0) { return true; } else { return false; }
-        } else
-        {
-            Debug.Log("Something is wrong: " + TurnState);
-        }
-
-        // --- the comments below should be useless, but I'll keep them just in case --- //
-        // Determine wether the enemy is dead or not
-        //if (statsP.PlayerCurrHealth <= 0) { return true; } else { return false; }
-        // ARCHIVE ->>>>>>> if (attackWho.PlayerCurrHealth <= 0) { return true; } else { return false; }
+        } else { Debug.Log("Something is wrong: " + TurnState); }
     }
 
     public void UseHealing(int healing)
@@ -103,7 +108,15 @@ public class AttackMethods : MonoBehaviour
             // Heal player
             Debug.Log("[UseHealing]: Current health: " + statsP.PlayerCurrHealth);
             statsP.PlayerCurrHealth += healing;
+
+            if (statsP.PlayerCurrHealth >= statsP.PlayerMaxHealth)
+                statsP.PlayerCurrHealth = statsP.PlayerMaxHealth;
+
             Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsP.PlayerCurrHealth);
+
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> healed themselves for: " + healing + "hp </color>";
 
             CheckDeath();
         } else if (TurnState == "Enemy") {
@@ -111,6 +124,10 @@ public class AttackMethods : MonoBehaviour
             Debug.Log("[UseHealing]: Current health: " + statsE.PlayerCurrHealth);
             statsE.PlayerCurrHealth += healing;
             Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsE.PlayerCurrHealth);
+
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> healed themselves for: " + healing + "hp </color>";
 
             CheckDeath();
         } else {
@@ -151,12 +168,20 @@ public class AttackMethods : MonoBehaviour
                         statsE.PlayerCurrHealth -= poisonDmg;
                         Debug.Log("[Poisoning]: Taken dmg: " + poisonDmg + " || New health: " + statsE.PlayerCurrHealth + " || Duration left: " + turnsLeft);
 
+                        // Spawn new message inside container
+                        TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                        messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> poisoned <color=#FF0000>" + statsE.PlayerName + "<color=#FFF>, damage dealt: " + poisonDmg + "hp </color>";
+
                         CheckDeath(true);
                     } else if (TurnState == "Enemy") {
                         // Poison player
                         Debug.Log("[Poisoning]: Current health: " + statsP.PlayerCurrHealth);
                         statsP.PlayerCurrHealth -= poisonDmg;
                         Debug.Log("[Poisoning]: Taken dmg: " + poisonDmg + " || New health: " + statsP.PlayerCurrHealth + " || Duration left: " + turnsLeft);
+
+                        // Spawn new message inside container
+                        TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                        messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> poisoned <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF>, damage dealt: " + poisonDmg + "hp </color>";
 
                         CheckDeath(true);
                     } else { Debug.Log("Something is wrong: " + TurnState); }
@@ -173,10 +198,20 @@ public class AttackMethods : MonoBehaviour
 
             // Check if the enemy is dead after attack
             if (isDead) {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00FFAA>won <color=#FFF>the battle </color>";
+
+                // Mark battle as "won"
                 battleSystem.State = BattleState.WIN;
                 battleSystem.EndBattle();
                 return true;
             } else {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageTXT.text = "It's <color=#FF0000>" + statsE.PlayerName + "'s <color=#FFF> turn</color>";
+
+                // Let enemy do its own thing
                 battleSystem.State = BattleState.ENEMYTURN;
                 battleSystem.EnemyTurn();
                 return false;
@@ -188,11 +223,21 @@ public class AttackMethods : MonoBehaviour
 
             // Check if the player is dead after attack
             if (isDead) {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#FF0000>lost <color=#FFF>the battle</color>";
+
+                // Mark battle as "lost"
                 battleSystem.State = BattleState.LOSS;
                 battleSystem.EndBattle();
                 Debug.Log("Player ded");
                 return true;
             } else {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageTXT.text = "It's <color=#00ECFF>" + statsP.PlayerName + "'s <color=#FFF> turn</color>";
+
+                // Set turn to player's
                 battleSystem.State = BattleState.PLAYERTURN;
                 battleSystem.PlayerTurn();
                 Debug.Log("Player not dead");

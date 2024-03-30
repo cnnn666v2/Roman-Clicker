@@ -20,13 +20,7 @@ public class PlayerStats : MonoBehaviour
     public int PlayerPoisonDmg; // Poison damage
     public int PlayerPoisonTime; // Poison duration
 
-    /*public bool TakeDamage(int damage)
-    {
-        Debug.Log("[TakeDamage]: Current health: " + PlayerCurrHealth);
-        PlayerCurrHealth -= damage;
-        Debug.Log("[TakeDamage]: Taken damage: " + damage + " || New health: " + PlayerCurrHealth);
-
-        // Determine wether the enemy is dead or not
-        if(PlayerCurrHealth <= 0 ) {return true;} else {return false;}
-    }*/
+    [Header("Economic stuff")]
+    public int PlayerMoney;
+    public int PlayerGem;
 }
