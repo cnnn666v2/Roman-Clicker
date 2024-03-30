@@ -1,8 +1,5 @@
 // TODO
 // REPLACE CURRENTTURN STRING WITH BATTLESTATES IN BATTLESYSTEM AND ATTACKMETHODS SCRIPTS
-// POISON:
-//  MAKE TURNSLEFT VAR WORK
-//  ALLOW PLAYER DO ADDITIONAL FUNCTION WHILE POISONING IS ACTIVE
 // SOON
 
 using UnityEngine;
@@ -17,6 +14,8 @@ public class AttackMethods : MonoBehaviour
     OnClickCalls onClick;
 
     string TurnState;
+
+    // Poison status
     bool SetPoison;
 
     void Awake()
@@ -152,26 +151,23 @@ public class AttackMethods : MonoBehaviour
                         statsE.PlayerCurrHealth -= poisonDmg;
                         Debug.Log("[Poisoning]: Taken dmg: " + poisonDmg + " || New health: " + statsE.PlayerCurrHealth + " || Duration left: " + turnsLeft);
 
-                        CheckDeath();
+                        CheckDeath(true);
                     } else if (TurnState == "Enemy") {
                         // Poison player
-                        Debug.Log("[UseHealing]: Current health: " + statsE.PlayerCurrHealth);
-                        //statsE.PlayerCurrHealth += healing;
-                        //Debug.Log("[UseHealing]: Taken health: " + healing + " || New health: " + statsE.PlayerCurrHealth);
+                        Debug.Log("[Poisoning]: Current health: " + statsP.PlayerCurrHealth);
+                        statsP.PlayerCurrHealth -= poisonDmg;
+                        Debug.Log("[Poisoning]: Taken dmg: " + poisonDmg + " || New health: " + statsP.PlayerCurrHealth + " || Duration left: " + turnsLeft);
 
-                        CheckDeath();
+                        CheckDeath(true);
                     } else { Debug.Log("Something is wrong: " + TurnState); }
                 } else { SetPoison = true; Debug.Log("Turns left from posioning: 0"); }
             } else { Debug.Log("Poison has not been used yet."); }
-            // Tell that poison is used
-            //if (turnsLeft == 0) { SetPoison == true; }
-            //else { SetPoison = false; }
         }
     }
 
     bool CheckDeath()
     {
-        if(TurnState == "Player") {
+        if (TurnState == "Player") {
             // Create a bool to determine enemy's health
             bool isDead = statsE.PlayerCurrHealth <= 0;
 
@@ -203,5 +199,20 @@ public class AttackMethods : MonoBehaviour
                 return false;
             }
         } return false; // <-- its only for the compiler, but in case something's wrong I'll put 2 debug logs above, if either of these is not displayed in console and something is not working correctly, there's a deep problem i can't imagine solving myself
+    }
+
+
+    public bool CheckDeath(bool isPoisoning)
+    {
+        // Determine if poison is active
+        if(isPoisoning == true) {
+            // If it's active, let user do an action
+            Debug.Log("[CheckDeath(bool)]: conitnue action.");
+            return false;
+        } else {
+            // If it's not, call CheckDeath()
+            CheckDeath();
+            return false;
+        }
     }
 }

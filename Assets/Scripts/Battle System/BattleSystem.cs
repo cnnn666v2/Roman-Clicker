@@ -49,11 +49,15 @@ public class BattleSystem : MonoBehaviour
     public GameObject DefeatPanel;
 
     // Misc variables
+    //Current turn string <-- temporary
     public string CurrentTurn = "Player";
+    //Game  tracking
     public TMP_Text GameTrack;
     int BattleCount;
     int TurnCount;
+    //Flagging player spawn
     bool isPlayerSpawned;
+    //Poison duration
     public int durationPoisonLeft;
 
     private void Awake()

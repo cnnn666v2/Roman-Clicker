@@ -63,6 +63,9 @@ public class OnClickCalls : MonoBehaviour
             // Call poison function and update text
             attackMethods.Poisoning(bs.PlayableCharacter.PlayerPoisonDmg, bs.PlayableCharacter.PlayerPoisonTime);
             bs.EnemyHealthTXT.text = "Health: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
+
+            // Prohibit further action
+            attackMethods.CheckDeath(false);
         }
     }
 }
