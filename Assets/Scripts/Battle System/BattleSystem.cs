@@ -49,8 +49,6 @@ public class BattleSystem : MonoBehaviour
     public GameObject DefeatPanel;
 
     // Misc variables
-    //Current turn string <-- temporary
-    public string CurrentTurn = "Player";
     //Game  tracking
     public TMP_Text GameTrack;
     int BattleCount;
@@ -133,8 +131,6 @@ public class BattleSystem : MonoBehaviour
 
     public void EnemyTurn()
     {
-        // Set current turn to enemy's
-        CurrentTurn = "Enemy";
         Debug.Log("Enemy turn now");
 
         // Update tracking game
@@ -149,9 +145,6 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerTurn()
     {
-        // Set current turn to player's
-        CurrentTurn = "Player";
-
         switchPanel.ToggleUIPanel(DisableHUD);
         //Debug.Log("Player turn");
 

@@ -4,7 +4,7 @@
 
 using UnityEngine;
 using TMPro;
-using UnityEngine.UIElements.Experimental;
+using System.Collections.Generic;
 
 public class AttackMethods : MonoBehaviour
 {
@@ -14,9 +14,6 @@ public class AttackMethods : MonoBehaviour
     BattleSystem battleSystem;
     OnClickCalls onClick;
 
-    // Determine turn state, will get rid of it soon
-    string TurnState;
-
     // Poison status
     bool SetPoison;
 
@@ -24,12 +21,13 @@ public class AttackMethods : MonoBehaviour
     //Chat logs
     public Transform MessageContainer;
     public TMP_Text MessagePrefab;
+    //int messages; // Count the amount of spawned messages
+    public List<TMP_Text> messageObjects = new List<TMP_Text>(); // List of spawned messages
 
     void Awake()
     {
         // Get components and variables from BattleSystem script
         battleSystem = GetComponent<BattleSystem>();
-        TurnState = battleSystem.CurrentTurn;
 
         // Get OnClickCalls component
         onClick= GetComponent<OnClickCalls>();
@@ -38,17 +36,22 @@ public class AttackMethods : MonoBehaviour
         SetPoison = false;
     }
 
+    void Update()
+    {
+        if(messageObjects.Count >= 10) {
+            Destroy(messageObjects[0]);
+            messageObjects.RemoveAt(0);
+        }
+    }
+
     public void ScrapInfo()
     {
         // Get player stats
-        Debug.Log("Object inside ScrapInfo(): " + battleSystem + " || TurnState: " + TurnState + " || onClick: " + onClick);
+        Debug.Log("Object inside ScrapInfo(): " + battleSystem + " || TurnState: " + battleSystem.State + " || onClick: " + onClick);
         statsP = battleSystem.PlayableCharacter;
 
         // Get enemy stats
         statsE = battleSystem.EnemyCharacter;
-
-        // Get current turn state
-        TurnState = battleSystem.CurrentTurn;
     }
 
     public void TakeDamage(int damage, int critDmg, int critChance)
@@ -71,10 +74,10 @@ public class AttackMethods : MonoBehaviour
         }
 
         Debug.Log("[TakeDamage]: Rolled number is " + randomized);
-        Debug.Log("[TakeDamage]: It's " + TurnState + "'s turn");
+        Debug.Log("[TakeDamage]: It's " + battleSystem.State + "'s turn");
 
         // Determine who should've been attacked
-        if (TurnState == "Player") {
+        if (battleSystem.State == BattleState.PLAYERTURN) {
             // Deal damage to enemy
             Debug.Log("[TakeDamage]: Current health: " + statsE.PlayerCurrHealth);
             statsE.PlayerCurrHealth -= dealtDmg;
@@ -82,10 +85,11 @@ public class AttackMethods : MonoBehaviour
 
             // Spawn new message inside container
             TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
             messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> damaged <color=#FF0000>" + statsE.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
 
             CheckDeath();
-        } else if (TurnState == "Enemy") {
+        } else if (battleSystem.State == BattleState.ENEMYTURN) {
             // Deal damage to player
             Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
             statsP.PlayerCurrHealth -= dealtDmg;
@@ -93,10 +97,11 @@ public class AttackMethods : MonoBehaviour
 
             // Spawn new message inside container
             TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
             messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> damaged <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
 
             CheckDeath();
-        } else { Debug.Log("Something is wrong: " + TurnState); }
+        } else { Debug.Log("Something is wrong: " + battleSystem.State); }
     }
 
     public void UseHealing(int healing)
@@ -104,7 +109,7 @@ public class AttackMethods : MonoBehaviour
         ScrapInfo();
 
         // Determine who should've been healed
-        if (TurnState == "Player") {
+        if (battleSystem.State == BattleState.PLAYERTURN) {
             // Heal player
             Debug.Log("[UseHealing]: Current health: " + statsP.PlayerCurrHealth);
             statsP.PlayerCurrHealth += healing;
@@ -116,10 +121,11 @@ public class AttackMethods : MonoBehaviour
 
             // Spawn new message inside container
             TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
             messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> healed themselves for: " + healing + "hp </color>";
 
             CheckDeath();
-        } else if (TurnState == "Enemy") {
+        } else if (battleSystem.State == BattleState.ENEMYTURN) {
             // Heal enemy
             Debug.Log("[UseHealing]: Current health: " + statsE.PlayerCurrHealth);
             statsE.PlayerCurrHealth += healing;
@@ -127,11 +133,12 @@ public class AttackMethods : MonoBehaviour
 
             // Spawn new message inside container
             TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
             messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> healed themselves for: " + healing + "hp </color>";
 
             CheckDeath();
         } else {
-            Debug.Log("Something is wrong: " + TurnState);
+            Debug.Log("Something is wrong: " + battleSystem.State);
         }
     }
 
@@ -162,7 +169,7 @@ public class AttackMethods : MonoBehaviour
                     battleSystem.durationPoisonLeft -= 1;
 
                     // Determine who should've been poisoned
-                    if (TurnState == "Player") {
+                    if (battleSystem.State == BattleState.PLAYERTURN) {
                         // Poison enemy
                         Debug.Log("[Poisoning]: Current health: " + statsE.PlayerCurrHealth);
                         statsE.PlayerCurrHealth -= poisonDmg;
@@ -170,10 +177,11 @@ public class AttackMethods : MonoBehaviour
 
                         // Spawn new message inside container
                         TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                        messageObjects.Add(messageTXT);
                         messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> poisoned <color=#FF0000>" + statsE.PlayerName + "<color=#FFF>, damage dealt: " + poisonDmg + "hp </color>";
 
                         CheckDeath(true);
-                    } else if (TurnState == "Enemy") {
+                    } else if (battleSystem.State == BattleState.ENEMYTURN) {
                         // Poison player
                         Debug.Log("[Poisoning]: Current health: " + statsP.PlayerCurrHealth);
                         statsP.PlayerCurrHealth -= poisonDmg;
@@ -181,10 +189,11 @@ public class AttackMethods : MonoBehaviour
 
                         // Spawn new message inside container
                         TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                        messageObjects.Add(messageTXT);
                         messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> poisoned <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF>, damage dealt: " + poisonDmg + "hp </color>";
 
                         CheckDeath(true);
-                    } else { Debug.Log("Something is wrong: " + TurnState); }
+                    } else { Debug.Log("Something is wrong: " + battleSystem.State); }
                 } else { SetPoison = true; Debug.Log("Turns left from posioning: 0"); }
             } else { Debug.Log("Poison has not been used yet."); }
         }
@@ -192,7 +201,7 @@ public class AttackMethods : MonoBehaviour
 
     bool CheckDeath()
     {
-        if (TurnState == "Player") {
+        if (battleSystem.State == BattleState.PLAYERTURN) {
             // Create a bool to determine enemy's health
             bool isDead = statsE.PlayerCurrHealth <= 0;
 
@@ -200,6 +209,7 @@ public class AttackMethods : MonoBehaviour
             if (isDead) {
                 // Spawn new message inside container
                 TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
                 messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00FFAA>won <color=#FFF>the battle </color>";
 
                 // Mark battle as "won"
@@ -209,6 +219,7 @@ public class AttackMethods : MonoBehaviour
             } else {
                 // Spawn new message inside container
                 TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
                 messageTXT.text = "It's <color=#FF0000>" + statsE.PlayerName + "'s <color=#FFF> turn</color>";
 
                 // Let enemy do its own thing
@@ -217,7 +228,7 @@ public class AttackMethods : MonoBehaviour
                 return false;
             }
 
-        } else if (TurnState == "Enemy") {
+        } else if (battleSystem.State == BattleState.ENEMYTURN) {
             // Create a bool to determine player's health
             bool isDead = statsP.PlayerCurrHealth <= 0;
 
@@ -225,6 +236,7 @@ public class AttackMethods : MonoBehaviour
             if (isDead) {
                 // Spawn new message inside container
                 TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
                 messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#FF0000>lost <color=#FFF>the battle</color>";
 
                 // Mark battle as "lost"
@@ -235,6 +247,7 @@ public class AttackMethods : MonoBehaviour
             } else {
                 // Spawn new message inside container
                 TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
                 messageTXT.text = "It's <color=#00ECFF>" + statsP.PlayerName + "'s <color=#FFF> turn</color>";
 
                 // Set turn to player's

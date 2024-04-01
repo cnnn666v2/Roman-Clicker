@@ -1305,8 +1305,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000083923, y: -36}
-  m_SizeDelta: {x: 618.82, y: 57.995}
+  m_AnchoredPosition: {x: -0.000022888, y: -20.1753}
+  m_SizeDelta: {x: 618.82, y: 98.3457}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344702298
 MonoBehaviour:
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'XP: 99 561 235/256 321 125'
+  m_text: 'XP: 99 561 235 / 256 321 125'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.15
+  m_fontSize: 43.35
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 14.875977, y: 0, z: 13.58252, w: 0}
+  m_margin: {x: 31.627014, y: 0, z: 30.333618, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5047,7 +5047,6 @@ MonoBehaviour:
   DisableHUD: {fileID: 374078812}
   ContinuePanel: {fileID: 369501918}
   DefeatPanel: {fileID: 50798891}
-  CurrentTurn: 
   GameTrack: {fileID: 766896883}
   durationPoisonLeft: 0
 --- !u!114 &1069550652
@@ -5626,7 +5625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000022888, y: 36}
+  m_AnchoredPosition: {x: -0.000022888, y: 60.49}
   m_SizeDelta: {x: 618.82, y: 57.995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1198855592
