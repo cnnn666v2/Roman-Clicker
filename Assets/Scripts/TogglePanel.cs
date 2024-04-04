@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TogglePanel : MonoBehaviour
@@ -12,5 +13,11 @@ public class TogglePanel : MonoBehaviour
             panel.SetActive(true);
             Debug.Log("Panel: " + panel.name + " has been displayed");
         }
+    }
+
+    public void SetItemInfo()
+    {
+        GameObject panel = GameObject.FindGameObjectWithTag("ItemInfoPanel");
+        panel.SetActive(true);
     }
 }
