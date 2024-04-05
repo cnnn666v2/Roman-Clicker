@@ -145,6 +145,8 @@ MonoBehaviour:
   PlayerMaxHealth: 5
   PlayerCurrHealth: 5
   PlayerDamage: 1
+  PlayerHealing: 2
   PlayerXP: 0
   PlayerLevel: 1
-  PlayerLuck: 0
+  PlayerLuck: 10
+  PlayerCritical: 5

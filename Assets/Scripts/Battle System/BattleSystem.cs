@@ -1,3 +1,7 @@
+// TODO
+// MAKE AI LOGIC FOR THE ENEMY
+// SOON
+
 using UnityEngine;
 using TMPro;
 
@@ -45,11 +49,14 @@ public class BattleSystem : MonoBehaviour
     public GameObject DefeatPanel;
 
     // Misc variables
-    public string CurrentTurn = "Player";
+    //Game  tracking
     public TMP_Text GameTrack;
     int BattleCount;
     int TurnCount;
+    //Flagging player spawn
     bool isPlayerSpawned;
+    //Poison duration
+    public int durationPoisonLeft;
 
     private void Awake()
     {
@@ -95,11 +102,17 @@ public class BattleSystem : MonoBehaviour
             // Scrap info and spawn player
             GameObject player = Instantiate(PlayerPrefab, PlayerSpawn);
             PlayableCharacter = player.GetComponent<PlayerStats>();
+
+            // Decide how long should poison last, based on player statistics
+            durationPoisonLeft = PlayableCharacter.PlayerPoisonTime;
         }
 
         // Spawn enemy and scrap info
         GameObject enemy = Instantiate(EnemyPrefab, EnemySpawn);
         EnemyCharacter = enemy.GetComponent<PlayerStats>();
+
+        // Call ScrapInfo() function
+        attackMethods.ScrapInfo();
 
         // Set info about player&enemy with text
         //Enemy
@@ -118,8 +131,6 @@ public class BattleSystem : MonoBehaviour
 
     public void EnemyTurn()
     {
-        // Set current turn to enemy's
-        CurrentTurn = "Enemy";
         Debug.Log("Enemy turn now");
 
         // Update tracking game
@@ -128,15 +139,12 @@ public class BattleSystem : MonoBehaviour
         GameTrack.text = "Battles: " + BattleCount + " || Turn: " + TurnCount;
 
         // Damage the player
-        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage);
+        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
         PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
     }
 
     public void PlayerTurn()
     {
-        // Set current turn to player's
-        CurrentTurn = "Player";
-
         switchPanel.ToggleUIPanel(DisableHUD);
         //Debug.Log("Player turn");
 
@@ -146,6 +154,10 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("[PlayerTurn]: Turn count: " + TurnCount);
         //Set Texts
         GameTrack.text = "Battles: " + BattleCount + " || Turn: " + TurnCount;
+
+        // Call poison action every turn
+        attackMethods.Poisoning(PlayableCharacter.PlayerPoisonDmg, PlayableCharacter.PlayerPoisonTime);
+        EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
 
         // Toggle panel so that player cant do action
         switchPanel.ToggleUIPanel(DisableHUD);
