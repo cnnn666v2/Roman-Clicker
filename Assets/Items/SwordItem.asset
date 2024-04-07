@@ -24,4 +24,4 @@ MonoBehaviour:
   ItemDMGOTDuration: 0
   ItemMoneyCost: 3600
   ItemGemCost: 2
-  IsOwned: 1
+  IsOwned: 0

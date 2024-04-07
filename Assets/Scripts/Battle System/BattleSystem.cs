@@ -120,7 +120,7 @@ public class BattleSystem : MonoBehaviour
         EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
         EnemyDamageTXT.text = "Damage: " + EnemyCharacter.PlayerDamage;
         //Player
-        PlayerNameTXT.text = PlayableCharacter.PlayerName;
+        PlayerNameTXT.text = SaveLoad.inventory.PlayerName;
         PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
         PlayerDamageTXT.text = "Damage: " + PlayableCharacter.PlayerDamage;
 

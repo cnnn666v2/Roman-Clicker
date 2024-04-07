@@ -33,10 +33,7 @@ public class ItemInfoDisplay : MonoBehaviour
     public TMP_Text PIDOT; // <-- DOT stands for "Damage over time"
     public TMP_Text PIDOTD; // <-- DOT is same as above, last D stands for "Duration"
 
-    /*[Header("Popup item info - economy")]
-    //C stands for "Cost"
-    public TMP_Text PIMoneyC;
-    public TMP_Text PIGemC;*/
+    public GameObject LockPanel; // <-- It will prohibit user from buying the item again
 
     // <-- END OF POPUP INFO --> //
     //////////////////////////////
@@ -50,6 +47,10 @@ public class ItemInfoDisplay : MonoBehaviour
         // Economy
         MoneyCost.text = "Money: " + "\n" + item.ItemMoneyCost.ToString() + "$";
         GemCost.text = "Gem: " + "\n" + item.ItemGemCost.ToString() + " Gems";
+
+        // Lock or unlock item based on ownership status
+        if(item.IsOwned == true) { LockPanel.SetActive(true); }
+        else { LockPanel.SetActive(false); }
     }
 
     public void SetPopupInfo()
