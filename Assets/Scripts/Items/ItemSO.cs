@@ -23,5 +23,6 @@ public class ItemSO : ScriptableObject
     // Economic stuff
     public int ItemMoneyCost;
     public int ItemGemCost;
+    public int RequiredLevel;
     public bool IsOwned = false;
 }

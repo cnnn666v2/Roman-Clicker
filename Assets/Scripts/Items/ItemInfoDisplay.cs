@@ -70,4 +70,27 @@ public class ItemInfoDisplay : MonoBehaviour
         PIDOT.text = "Damage over time: " + item.ItemDmgOvertime.ToString();
         PIDOTD.text = "Damage over time duration: " + item.ItemDMGOTDuration.ToString();
     }
+
+    public void SetItem()
+    {
+        // Assign item to a slot based on its type
+        //Slot 1 - Weapon
+        //Slot 2 - Armor
+        //Slot 3 - Defense weapon
+        // (All are subject to change)
+        switch(item.ItemType)
+        {
+            case "Weapon":
+                SaveLoad.playercharacter.slot1 = item;
+                Debug.Log("Set item to weapon slot");
+                break;
+
+            case "Armor":
+                SaveLoad.playercharacter.slot2 = item;
+                Debug.Log("Set item to armor slot");
+                break;
+        }
+        
+        Debug.Log("Gratulacje u¿ytkowniku, zosta³eœ wybrany na darmowego: " + item.ItemName);
+    }
 }

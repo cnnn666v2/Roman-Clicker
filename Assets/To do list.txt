@@ -1,0 +1,20 @@
+[Player Stuff]
+- Move entire player stats to json format
+- Create local variables during battle and change them
+- UI to display player stats
+- Level system
+
+[AI Attack Logic]
+- Make AI use different attack types
+- Make it smarter
+
+[Inventory]:
+- Player selected items
+- Scrollable inventory (adjusted to owned items)
+- Make inventory load items dynamically
+
+[Save - Load]:
+- Make game save data to corresponding json files when quitting the game
+- Create an auto-save
+
+[ SOME TO DO STUFF MIGHT BE LAYING AROUND SCRIPTS ]
