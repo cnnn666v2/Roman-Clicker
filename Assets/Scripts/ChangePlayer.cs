@@ -11,6 +11,11 @@ public class ChangePlayer : MonoBehaviour
     [SerializeField]
     Image slot1, slot2, slot3;
 
+    [SerializeField]
+    TMP_Text MaxHP, AtkDMG, CritMult, CritChance,
+        Healing, 
+        PlayerXP, PlayerLVL;
+
     void Start()
     {
         // Load current player's name into the input field
@@ -18,8 +23,11 @@ public class ChangePlayer : MonoBehaviour
 
         // Load selected item sprites
         slot1.sprite = SaveLoad.playercharacter.slot1.ItemIcon;
-        slot2.sprite = SaveLoad.playercharacter.slot2.ItemIcon;
-        slot3.sprite = SaveLoad.playercharacter.slot3.ItemIcon;
+        //slot2.sprite = SaveLoad.playercharacter.slot2.ItemIcon;
+        //slot3.sprite = SaveLoad.playercharacter.slot3.ItemIcon;
+
+        // Load player stats
+        LoadStats();
     }
 
     public void ChangeUsername(string newName)
@@ -32,5 +40,17 @@ public class ChangePlayer : MonoBehaviour
 
         // Debug it out
         Debug.Log("New name:" + SaveLoad.playercharacter.Name);
+    }
+
+    public void LoadStats()
+    {
+        // Setup texts
+        MaxHP.text = "Health: " + SaveLoad.playercharacter.MaxHealth;
+        AtkDMG.text = "Attack: " + SaveLoad.playercharacter.Damage;
+        CritMult.text = "Critical damage: x" + SaveLoad.playercharacter.Critical;
+        CritChance.text = "Critical chance: " + SaveLoad.playercharacter.Luck + "%";
+        Healing.text = "Healing: +" + SaveLoad.playercharacter.Healing + "HP";
+        PlayerXP.text = "Player XP: " + SaveLoad.playercharacter.XP + "XP";
+        PlayerLVL.text = "Player Level: " + SaveLoad.playercharacter.Level;
     }
 }

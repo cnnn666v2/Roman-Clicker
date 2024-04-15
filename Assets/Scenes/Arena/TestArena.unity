@@ -4973,6 +4973,7 @@ GameObject:
   - component: {fileID: 1069550648}
   - component: {fileID: 1069550651}
   - component: {fileID: 1069550652}
+  - component: {fileID: 1069550655}
   - component: {fileID: 1069550653}
   - component: {fileID: 1069550654}
   m_Layer: 0
@@ -5041,6 +5042,8 @@ MonoBehaviour:
   PlayerNameTXT: {fileID: 1599570671}
   PlayerHealthTXT: {fileID: 719360937}
   PlayerDamageTXT: {fileID: 919964805}
+  PlayerXPTXT: {fileID: 344702298}
+  PlayerLVLTXT: {fileID: 1198855592}
   EnemyNameTXT: {fileID: 434807215}
   EnemyHealthTXT: {fileID: 2042190475}
   EnemyDamageTXT: {fileID: 1487570471}
@@ -5090,6 +5093,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a622353c75cd521419a295a9ed5cdcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSO: {fileID: 0}
+--- !u!114 &1069550655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069550647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ae1c9f605b1ee4a91ff53e1f3ec74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerName: 
+  PlayerMaxHealth: 0
+  PlayerCurrHealth: 0
+  PlayerDamage: 0
+  PlayerHealing: 0
+  PlayerXP: 0
+  PlayerLevel: 0
+  PlayerLuck: 0
+  PlayerCritical: 0
+  PlayerPoisonDmg: 0
+  PlayerPoisonTime: 0
+  PlayerMoney: 0
+  PlayerGem: 0
 --- !u!1 &1079704741
 GameObject:
   m_ObjectHideFlags: 0

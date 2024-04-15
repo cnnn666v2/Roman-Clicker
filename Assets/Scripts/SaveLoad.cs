@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SaveLoad : MonoBehaviour
@@ -7,8 +8,13 @@ public class SaveLoad : MonoBehaviour
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
 
-    // [DEBUG]: slot item reference // Little todo - replace the instanceID storing referenece?
+    // [DEBUG]: slot item reference
     public ItemSO itemSO;
+
+    // Level up popup objects
+    TMP_Text MoneyT, GemsT, NewXPT, LvlT, StatsT, NewArenaT, NewItemsT, NewSkillsT, NewQuestsT;
+    [SerializeField]
+    GameObject PanelL;
 
     void Awake()
     {
@@ -19,7 +25,7 @@ public class SaveLoad : MonoBehaviour
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
 
         // Check if the file already exists
-        if (!System.IO.File.Exists(filePathInv) && !System.IO.File.Exists(filePathPlayer))
+        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer))
         {
             Debug.Log("Not every file exists!!");
             Debug.Log("Creating files...");
@@ -27,19 +33,8 @@ public class SaveLoad : MonoBehaviour
             Debug.Log("Files created and saved!");
         }
 
-        // Save json file read to a string
-        string inventoryData = System.IO.File.ReadAllText(filePathInv);
-        Debug.Log(filePathInv);
-        string playerData = System.IO.File.ReadAllText(filePathPlayer);
-        Debug.Log(filePathPlayer);
-
-        // Approve the existence of the files
-        Debug.Log("Files exist");
-
-        // Load the data
-        inventory = JsonUtility.FromJson<Inventory>(inventoryData);
-        playercharacter = JsonUtility.FromJson<PlayerCharacter>(playerData);
-        Debug.Log("Data loaded!");
+        // Load data
+        LoadFromJson();
 
         // Check if the json data files are up to date or not
         if(inventory.VersionNumber != PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number"))
@@ -48,6 +43,24 @@ public class SaveLoad : MonoBehaviour
         }
 
         Debug.Log("Game version: " + inventory.VersionNumber);
+    }
+
+    void Start()
+    {
+        // Load Data on start
+        LoadFromJson();
+
+        // Auto save data every 5 minutes
+        InvokeRepeating("SaveToJson", 0.0f, 300.0f);
+
+        // Level up player
+        LevelUP();
+    }
+
+    void OnApplicationQuit()
+    {
+        // Save data when shutting down game
+        SaveToJson();
     }
 
     public void SaveToJson()
@@ -93,6 +106,64 @@ public class SaveLoad : MonoBehaviour
         playercharacter = JsonUtility.FromJson<PlayerCharacter>(playerData);
         Debug.Log("Data loaded!");
     }
+
+    public void LoadInventory()
+    {
+        // Define save file locations
+        string filePathInv = Application.persistentDataPath + "/InventoryData.json";
+        Debug.Log("Checkpoint A");
+
+        // Read save files
+        string inventoryData = System.IO.File.ReadAllText(filePathInv);
+        Debug.Log("Checkpoint B");
+
+        // Load the data
+        inventory = JsonUtility.FromJson<Inventory>(inventoryData);
+        Debug.Log("Loaded inventory!");
+    }
+
+    void LevelUP()
+    {
+        // Check if XP is equal or higher to required xp for lvl up
+        if (playercharacter.XP >= playercharacter.ReqXP)
+        {
+            // Remove XP amount
+            playercharacter.XP -= playercharacter.ReqXP;
+            // Level up
+            playercharacter.Level++;
+
+            // Rewards
+            //Convert money int to float
+            float MoneyTemp;
+            MoneyTemp = (float)playercharacter.Money;
+            Debug.Log("Old money: " + MoneyTemp);
+            //Add money
+            MoneyTemp += playercharacter.Level * (playercharacter.ReqXP * 0.1f) + ((playercharacter.Level * 100)/2) * 25/2;
+            Debug.Log("New money: " + MoneyTemp);
+            //Round up money to int
+            MoneyTemp = Mathf.RoundToInt(MoneyTemp);
+            Debug.Log("Rounded money: " + MoneyTemp);
+            //Convert float to int
+            playercharacter.Money = (int)MoneyTemp;
+            Debug.Log("Converted money: " + playercharacter.Money);
+            //Add Gems
+            playercharacter.Gem += playercharacter.Level * 2;
+
+            // Set new Required XP
+            playercharacter.ReqXP += (playercharacter.Level + ((playercharacter.ReqXP/2) + (playercharacter.Level * playercharacter.ReqXP/50)));
+            Mathf.RoundToInt(playercharacter.ReqXP);
+            Debug.Log("New req xp: " + playercharacter.ReqXP + " || " + (playercharacter.Level * playercharacter.ReqXP) / 50);
+
+            // Set up info
+            DisplayLevelInfo();
+        }
+    }
+
+    void DisplayLevelInfo()
+    {
+        PanelL.SetActive(true);
+        Debug.Log("Displayed level up panel");
+    }
 }
 
 [System.Serializable]
@@ -120,6 +191,7 @@ public class PlayerCharacter
 
     [Header("Player Level")]
     public int XP;
+    public int ReqXP;
     public int Level;
 
     [Header("Player skills")]

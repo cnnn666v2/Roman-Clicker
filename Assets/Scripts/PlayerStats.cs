@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Player Level")]
     public int PlayerXP;
+    public int PlayerReqXP;
     public int PlayerLevel;
 
     [Header("Player skills")]
@@ -23,4 +24,26 @@ public class PlayerStats : MonoBehaviour
     [Header("Economic stuff")]
     public int PlayerMoney;
     public int PlayerGem;
+
+    public void LoadPlayer()
+    {
+        // Define local variables from the saved data file
+        PlayerName = SaveLoad.playercharacter.Name;
+        PlayerMaxHealth = SaveLoad.playercharacter.MaxHealth;
+        PlayerCurrHealth = SaveLoad.playercharacter.MaxHealth;
+        PlayerHealing = SaveLoad.playercharacter.Healing;
+
+        PlayerDamage = SaveLoad.playercharacter.Damage + SaveLoad.playercharacter.slot1.ItemAttack;
+
+        PlayerXP = SaveLoad.playercharacter.XP;
+        PlayerReqXP = SaveLoad.playercharacter.ReqXP;
+        PlayerLevel = SaveLoad.playercharacter.Level;
+
+        PlayerLuck = SaveLoad.playercharacter.Luck;
+        PlayerCritical = SaveLoad.playercharacter.Critical;
+
+        PlayerPoisonDmg = SaveLoad.playercharacter.PoisonDmg;
+        PlayerPoisonTime = SaveLoad.playercharacter.PoisonTime;
+        ///////////////////
+    }
 }

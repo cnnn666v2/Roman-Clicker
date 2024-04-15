@@ -32,6 +32,8 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text PlayerNameTXT;
     public TMP_Text PlayerHealthTXT;
     public TMP_Text PlayerDamageTXT;
+    public TMP_Text PlayerXPTXT;
+    public TMP_Text PlayerLVLTXT;
     //Enemy
     public TMP_Text EnemyNameTXT;
     public TMP_Text EnemyHealthTXT;
@@ -72,12 +74,16 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Start");
         // Get TogglePanel script
         switchPanel = GetComponent<TogglePanel>();
+        Debug.Log("Start 2");
 
         // Set BattleState to START
         State = BattleState.START;
+        Debug.Log("Start 3");
         SetupBattle();
+        Debug.Log("Start 4");
     }
 
     public void SetupBattle()
@@ -101,7 +107,10 @@ public class BattleSystem : MonoBehaviour
         } else {
             // Scrap info and spawn player
             GameObject player = Instantiate(PlayerPrefab, PlayerSpawn);
-            PlayableCharacter = player.GetComponent<PlayerStats>();
+            PlayableCharacter = GetComponent<PlayerStats>();
+
+            // Load player stats
+            PlayableCharacter.LoadPlayer();
 
             // Decide how long should poison last, based on player statistics
             durationPoisonLeft = PlayableCharacter.PlayerPoisonTime;
@@ -123,6 +132,8 @@ public class BattleSystem : MonoBehaviour
         PlayerNameTXT.text = PlayableCharacter.PlayerName;
         PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
         PlayerDamageTXT.text = "Damage: " + PlayableCharacter.PlayerDamage;
+        PlayerXPTXT.text = "XP: " + PlayableCharacter.PlayerXP + "/" + PlayableCharacter.PlayerReqXP;
+        PlayerLVLTXT.text = "Level: " + PlayableCharacter.PlayerLevel;
 
         // Set BattleState and call next function
         State = BattleState.PLAYERTURN;
