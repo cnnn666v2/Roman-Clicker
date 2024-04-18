@@ -19,11 +19,11 @@ public class ItemBuy : MonoBehaviour
         // Check if item is already owned inside a list
         if(SaveLoad.inventory.OwnedItems.Contains(Item.ItemID) == true) {
             // If it exists, lock this thing up
-            Debug.Log(Item.ItemName + " exists inside the list, locking it");
+            Debug.Log("[IB]: " + Item.ItemName + " exists inside the list, locking it");
             itemInfo.LockPanel.SetActive(true);
         } else {
             // If it doesnt, FREEEEDOM AMERICAAA FUCK YEAH
-            Debug.Log(Item.ItemName + " does NOT exist inside the list");
+            Debug.Log("[IB]: " + Item.ItemName + " does NOT exist inside the list");
             itemInfo.LockPanel.SetActive(false);
         }
     }

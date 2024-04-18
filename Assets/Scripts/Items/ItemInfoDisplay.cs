@@ -49,8 +49,8 @@ public class ItemInfoDisplay : MonoBehaviour
         GemCost.text = "Gem: " + "\n" + item.ItemGemCost.ToString() + " Gems";
 
         // Lock or unlock item based on ownership status
-        if(item.IsOwned == true) { LockPanel.SetActive(true); }
-        else { LockPanel.SetActive(false); }
+        //if(item.IsOwned == true) { LockPanel.SetActive(true); }
+        //else { LockPanel.SetActive(false); }
     }
 
     public void SetPopupInfo()
