@@ -17,7 +17,7 @@ public class ItemBuy : MonoBehaviour
         itemInfo = GetComponent<ItemInfoDisplay>();
 
         // Check if item is already owned inside a list
-        if(SaveLoad.inventory.OwnedItems.Contains(Item) == true) {
+        if(SaveLoad.inventory.OwnedItems.Contains(Item.ItemID) == true) {
             // If it exists, lock this thing up
             Debug.Log(Item.ItemName + " exists inside the list, locking it");
             itemInfo.LockPanel.SetActive(true);
@@ -43,7 +43,7 @@ public class ItemBuy : MonoBehaviour
             Item.IsOwned = true;
 
             // Add item to the Owned list
-            SaveLoad.inventory.OwnedItems.Add(Item);
+            SaveLoad.inventory.OwnedItems.Add(Item.ItemID);
             Debug.Log("Successfully bought: " + Item.ItemName + " for " + Item.ItemGemCost + " gems and " + Item.ItemMoneyCost + "$");
         } else {
             Debug.Log("You're too poor to buy " + Item.ItemName + " or you already own it");

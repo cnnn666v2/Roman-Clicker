@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class SaveLoad : MonoBehaviour
     // Reference to Player's inventory
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
+    public List<ItemsDB> ItemsDB = new List<ItemsDB>(); // Create a list of all items
 
     // [DEBUG]: slot item reference
     public ItemSO itemSO;
@@ -44,7 +46,6 @@ public class SaveLoad : MonoBehaviour
 
         Debug.Log("Game version: " + inventory.VersionNumber);
     }
-
     void Start()
     {
         // Load Data on start
@@ -56,7 +57,6 @@ public class SaveLoad : MonoBehaviour
         // Level up player
         LevelUP();
     }
-
     void OnApplicationQuit()
     {
         // Save data when shutting down game
@@ -167,13 +167,21 @@ public class SaveLoad : MonoBehaviour
 }
 
 [System.Serializable]
+public class ItemsDB
+{
+    // This will be used as a 2 value, single element list
+    public int itemID; // ID of the item
+    public ItemSO Item; // ScriptableObject reference for the said item
+}
+
+[System.Serializable]
 public class Inventory
 {
     // Create list of owned items
-    public List<ItemSO> OwnedItems;
+    public List<int> OwnedItems;
     public Inventory()
     {
-        OwnedItems = new List<ItemSO>();
+        OwnedItems = new List<int>();
     }
 
     public string VersionNumber;

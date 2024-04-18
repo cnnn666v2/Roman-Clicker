@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68cdee2d8eb81e64ea3246c6005a8b31, type: 3}
-  m_Name: Sword2Item
+  m_Name: Sword3Item
   m_EditorClassIdentifier: 
-  ItemName: Sword 2
-  ItemDescription: It's a sword, but sequel
+  ItemName: Sword 3
+  ItemDescription: Get ready for... Sword 3! Now in your local cinema!
   ItemType: Weapon
-  ItemID: 1
-  ItemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  ItemID: 2
+  ItemIcon: {fileID: 21300000, guid: affeade9874cf2347abb155e8d0db4d8, type: 3}
   ItemAttack: 10
-  ItemCritChance: 50
-  ItemCritMP: 13
-  ItemBlockChance: 500
+  ItemCritChance: 1
+  ItemCritMP: 2
+  ItemBlockChance: 0
   ItemDmgOvertime: 0
   ItemDMGOTDuration: 0
-  ItemMoneyCost: 8500
-  ItemGemCost: 50
-  RequiredLevel: 0
+  ItemMoneyCost: 69000
+  ItemGemCost: 6969
+  RequiredLevel: 69
   IsOwned: 0

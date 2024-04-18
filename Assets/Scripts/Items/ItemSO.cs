@@ -7,7 +7,7 @@ public class ItemSO : ScriptableObject
     public string ItemName;
     public string ItemDescription;
     public string ItemType;
-    //public string ItemID; // <-- might use in the future
+    public int ItemID;
     public Sprite ItemIcon;
 
     // Attack related stuff
