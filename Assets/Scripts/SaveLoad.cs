@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class SaveLoad : MonoBehaviour
@@ -8,15 +6,12 @@ public class SaveLoad : MonoBehaviour
     // Reference to Player's inventory
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
-    public List<ItemsDB> ItemsDB = new List<ItemsDB>(); // Create a list of all items
+
+    // Get local stats variables
+    public PlayerStats Stats;
 
     // [DEBUG]: slot item reference
     public ItemSO itemSO;
-
-    // Level up popup objects
-    TMP_Text MoneyT, GemsT, NewXPT, LvlT, StatsT, NewArenaT, NewItemsT, NewSkillsT, NewQuestsT;
-    [SerializeField]
-    GameObject PanelL;
 
     void Awake()
     {
@@ -52,10 +47,10 @@ public class SaveLoad : MonoBehaviour
         LoadFromJson();
 
         // Auto save data every 5 minutes
-        InvokeRepeating("SaveToJson", 0.0f, 300.0f);
+        InvokeRepeating("SaveToJson", 10.0f, 300.0f);
 
-        // Level up player
-        LevelUP();
+        // Load player stats
+        Stats.LoadPlayer();
     }
     void OnApplicationQuit()
     {
@@ -68,9 +63,13 @@ public class SaveLoad : MonoBehaviour
         // Update game version json file
         Debug.Log("Old version: " + inventory.VersionNumber);
         PlayerPrefs.SetString("version-branch", "dev");
-        PlayerPrefs.SetFloat("version-number", 3.3f);
+        PlayerPrefs.SetFloat("version-number", 4.0f);
         inventory.VersionNumber = PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number");
         Debug.Log("New version: " + inventory.VersionNumber);
+
+        // Save player data from local variables to json
+        //Stats.LoadPlayer();
+        Stats.SavePlayer();
 
         // Define inventory data and its location
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
@@ -121,57 +120,6 @@ public class SaveLoad : MonoBehaviour
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         Debug.Log("Loaded inventory!");
     }
-
-    void LevelUP()
-    {
-        // Check if XP is equal or higher to required xp for lvl up
-        if (playercharacter.XP >= playercharacter.ReqXP)
-        {
-            // Remove XP amount
-            playercharacter.XP -= playercharacter.ReqXP;
-            // Level up
-            playercharacter.Level++;
-
-            // Rewards
-            //Convert money int to float
-            float MoneyTemp;
-            MoneyTemp = (float)playercharacter.Money;
-            Debug.Log("Old money: " + MoneyTemp);
-            //Add money
-            MoneyTemp += playercharacter.Level * (playercharacter.ReqXP * 0.1f) + ((playercharacter.Level * 100)/2) * 25/2;
-            Debug.Log("New money: " + MoneyTemp);
-            //Round up money to int
-            MoneyTemp = Mathf.RoundToInt(MoneyTemp);
-            Debug.Log("Rounded money: " + MoneyTemp);
-            //Convert float to int
-            playercharacter.Money = (int)MoneyTemp;
-            Debug.Log("Converted money: " + playercharacter.Money);
-            //Add Gems
-            playercharacter.Gem += playercharacter.Level * 2;
-
-            // Set new Required XP
-            playercharacter.ReqXP += (playercharacter.Level + ((playercharacter.ReqXP/2) + (playercharacter.Level * playercharacter.ReqXP/50)));
-            Mathf.RoundToInt(playercharacter.ReqXP);
-            Debug.Log("New req xp: " + playercharacter.ReqXP + " || " + (playercharacter.Level * playercharacter.ReqXP) / 50);
-
-            // Set up info
-            DisplayLevelInfo();
-        }
-    }
-
-    void DisplayLevelInfo()
-    {
-        PanelL.SetActive(true);
-        Debug.Log("Displayed level up panel");
-    }
-}
-
-[System.Serializable]
-public class ItemsDB
-{
-    // This will be used as a 2 value, single element list
-    public int itemID; // ID of the item
-    public ItemSO Item; // ScriptableObject reference for the said item
 }
 
 [System.Serializable]
@@ -193,7 +141,6 @@ public class PlayerCharacter
     [Header("Player main stats")]
     public string Name;
     public int MaxHealth;
-    // public int CurrHealth; // <-- turn it into a local variable in battlesystem?
     public int Damage;
     public int Healing;
 
@@ -214,7 +161,7 @@ public class PlayerCharacter
     public int Gem;
 
     [Header("Equipped Items")]
-    public ItemSO slot1;
+    public int slot1; // ID to selected item
     public ItemSO slot2;
     public ItemSO slot3;
 }

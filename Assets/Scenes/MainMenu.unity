@@ -713,8 +713,9 @@ GameObject:
   - component: {fileID: 77921670}
   - component: {fileID: 77921671}
   - component: {fileID: 77921672}
-  - component: {fileID: 77921673}
   - component: {fileID: 77921674}
+  - component: {fileID: 77921673}
+  - component: {fileID: 77921675}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -777,11 +778,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 77921669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcc5ce1bd91c4d448361d0a2bfdbc9b, type: 3}
+  m_Script: {fileID: 11500000, guid: d3ae1c9f605b1ee4a91ff53e1f3ec74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMoney: 15000
-  PlayerGems: 250
+  ItemManager: {fileID: 0}
+  PlayerName: 
+  PlayerMaxHealth: 0
+  PlayerCurrHealth: 0
+  PlayerHealing: 0
+  PlayerDamage: 0
+  PlayerSATK: 0
+  PlayerIATK: 0
+  PlayerXP: 0
+  PlayerReqXP: 0
+  PlayerLevel: 0
+  PlayerLuck: 0
+  PlayerCritical: 0
+  PlayerPoisonDmg: 0
+  PlayerPoisonTime: 0
+  PlayerMoney: 0
+  PlayerGem: 0
 --- !u!114 &77921674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,15 +810,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a622353c75cd521419a295a9ed5cdcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemsDB:
-  - itemID: 0
-    Item: {fileID: 11400000, guid: bd787fd226b716f4186b4816610cf3a9, type: 2}
-  - itemID: 1
-    Item: {fileID: 11400000, guid: 3a8fb835683670c4ab1b9511a07e1d40, type: 2}
-  - itemID: 2
-    Item: {fileID: 11400000, guid: aa80473836b5dcc4187ca262185cb4af, type: 2}
+  Stats: {fileID: 77921673}
   itemSO: {fileID: 0}
-  PanelL: {fileID: 1880194357}
+--- !u!114 &77921675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77921669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c98f874b18c772447b786a21a401710d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 1880194357}
+  MoneyT: {fileID: 2107739407}
+  GemsT: {fileID: 1651645324}
+  NewXPT: {fileID: 1651645324}
+  LvlT: {fileID: 1651645324}
+  StatsT: {fileID: 1651645324}
+  NewArenaT: {fileID: 1230964943}
+  NewItemsT: {fileID: 472345186}
+  NewSkillsT: {fileID: 1642076002}
+  NewQuestsT: {fileID: 1342518099}
 --- !u!1 &79329028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,7 +1746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b35bfe207d83f5438b1724455518abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SL: {fileID: 77921674}
+  ItemsDBS: {fileID: 170123536}
   InventoryPanel: {fileID: 160082076}
   ItemSlotPrefab: {fileID: 2953500339433228958, guid: 6a66300f177c0f7459f907ddb7b4ca15, type: 3}
   itemS: {fileID: 11400000, guid: 3a8fb835683670c4ab1b9511a07e1d40, type: 2}
@@ -1893,6 +1924,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.00041544373}
   m_SizeDelta: {x: 1597.3, y: 545.3259}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &170123534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 170123535}
+  - component: {fileID: 170123536}
+  m_Layer: 0
+  m_Name: ItemsDBManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &170123535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170123534}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 964.6473, y: 625.4677, z: -1172.2397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170123536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170123534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2f38d99f1def1428527d3e3ba8f44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemsDB:
+  - itemID: 0
+    Item: {fileID: 11400000, guid: bd787fd226b716f4186b4816610cf3a9, type: 2}
+  - itemID: 1
+    Item: {fileID: 11400000, guid: 3a8fb835683670c4ab1b9511a07e1d40, type: 2}
+  - itemID: 2
+    Item: {fileID: 11400000, guid: aa80473836b5dcc4187ca262185cb4af, type: 2}
 --- !u!1 &172178108
 GameObject:
   m_ObjectHideFlags: 0
@@ -5996,13 +6077,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 77921674}
-        m_TargetAssemblyTypeName: SaveLoad, Assembly-CSharp
-        m_MethodName: LevelUP
-        m_Mode: 1
+      - m_Target: {fileID: 77921671}
+        m_TargetAssemblyTypeName: TogglePanel, Assembly-CSharp
+        m_MethodName: ToggleUIPanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1880194357}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

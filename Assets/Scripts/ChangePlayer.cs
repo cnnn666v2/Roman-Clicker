@@ -22,7 +22,7 @@ public class ChangePlayer : MonoBehaviour
         inputName.text = SaveLoad.playercharacter.Name;
 
         // Load selected item sprites
-        slot1.sprite = SaveLoad.playercharacter.slot1.ItemIcon;
+        //slot1.sprite = SaveLoad.playercharacter.slot1.ItemIcon;
         //slot2.sprite = SaveLoad.playercharacter.slot2.ItemIcon;
         //slot3.sprite = SaveLoad.playercharacter.slot3.ItemIcon;
 

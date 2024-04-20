@@ -81,7 +81,7 @@ public class ItemInfoDisplay : MonoBehaviour
         switch(item.ItemType)
         {
             case "Weapon":
-                SaveLoad.playercharacter.slot1 = item;
+                SaveLoad.playercharacter.slot1 = item.ItemID;
                 Debug.Log("Set item to weapon slot");
                 break;
 

@@ -8,12 +8,12 @@ public class ItemBuy : MonoBehaviour
     public ItemInfoDisplay itemInfo;
 
     // Economy script
-    PlayerEconomy Economy;
+    PlayerStats Economy;
 
     private void Start()
     {
         // Reference economy script
-        Economy = GameManager.GetComponent<PlayerEconomy>();
+        Economy = GameManager.GetComponent<PlayerStats>();
         itemInfo = GetComponent<ItemInfoDisplay>();
 
         // Check if item is already owned inside a list
@@ -31,10 +31,10 @@ public class ItemBuy : MonoBehaviour
     public void BuyItem()
     {
         // Check if player has enough money and gems to buy item
-        if(Economy.PlayerMoney >= Item.ItemMoneyCost && Economy.PlayerGems >= Item.ItemGemCost && Item.IsOwned != true) {
+        if(Economy.PlayerMoney >= Item.ItemMoneyCost && Economy.PlayerGem >= Item.ItemGemCost && Item.IsOwned != true) {
             // Subtract player's money and gems
             Economy.PlayerMoney -= Item.ItemMoneyCost;
-            Economy.PlayerGems -= Item.ItemGemCost;
+            Economy.PlayerGem -= Item.ItemGemCost;
 
             // Lock the item
             itemInfo.LockPanel.SetActive(true);

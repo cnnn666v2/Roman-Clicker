@@ -74,16 +74,12 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Start");
         // Get TogglePanel script
         switchPanel = GetComponent<TogglePanel>();
-        Debug.Log("Start 2");
 
         // Set BattleState to START
         State = BattleState.START;
-        Debug.Log("Start 3");
         SetupBattle();
-        Debug.Log("Start 4");
     }
 
     public void SetupBattle()

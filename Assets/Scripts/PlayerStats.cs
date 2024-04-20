@@ -2,12 +2,21 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    // Reference to ItemsDB
+    [SerializeField]
+    GameObject ItemManager;
+    ItemsDBScript ItemsDBS;
+
     [Header("Player main stats")]
     public string PlayerName;
     public int PlayerMaxHealth;
     public int PlayerCurrHealth;
-    public int PlayerDamage;
     public int PlayerHealing;
+
+    [Header("Player damage")]
+    public int PlayerDamage; // Total damage
+    public int PlayerSATK; // S - means Skill, in this case it's skill attack
+    public int PlayerIATK; // I - means Item, in this case it's item attack
 
     [Header("Player Level")]
     public int PlayerXP;
@@ -25,15 +34,37 @@ public class PlayerStats : MonoBehaviour
     public int PlayerMoney;
     public int PlayerGem;
 
+    private void Awake()
+    {
+        // Find ItemsManager and get the items db
+        ItemManager = GameObject.Find("ItemsDBManager");
+        ItemsDBS = ItemManager.GetComponent<ItemsDBScript>();
+        
+        DontDestroyOnLoad(ItemManager);
+        DontDestroyOnLoad(ItemsDBS);
+    }
+
+    void Start()
+    {
+        // Load items
+        LoadItems();
+    }
+
     public void LoadPlayer()
     {
+        // Load all selected items
+        LoadItems();
+
         // Define local variables from the saved data file
         PlayerName = SaveLoad.playercharacter.Name;
         PlayerMaxHealth = SaveLoad.playercharacter.MaxHealth;
         PlayerCurrHealth = SaveLoad.playercharacter.MaxHealth;
+        
         PlayerHealing = SaveLoad.playercharacter.Healing;
 
-        PlayerDamage = SaveLoad.playercharacter.Damage + SaveLoad.playercharacter.slot1.ItemAttack;
+        PlayerSATK = SaveLoad.playercharacter.Damage;
+        //PlayerIATK = SaveLoad.playercharacter.slot1.ItemAttack;
+        PlayerDamage = PlayerSATK + PlayerIATK;
 
         PlayerXP = SaveLoad.playercharacter.XP;
         PlayerReqXP = SaveLoad.playercharacter.ReqXP;
@@ -44,6 +75,43 @@ public class PlayerStats : MonoBehaviour
 
         PlayerPoisonDmg = SaveLoad.playercharacter.PoisonDmg;
         PlayerPoisonTime = SaveLoad.playercharacter.PoisonTime;
-        ///////////////////
+
+        PlayerMoney = SaveLoad.playercharacter.Money;
+        PlayerGem = SaveLoad.playercharacter.Gem;
+    }
+
+    public void SavePlayer()
+    {
+        SaveLoad.playercharacter.Name = PlayerName;
+        SaveLoad.playercharacter.MaxHealth = PlayerMaxHealth;
+
+        SaveLoad.playercharacter.Healing = PlayerHealing;
+        SaveLoad.playercharacter.Damage = PlayerSATK;
+
+        SaveLoad.playercharacter.XP = PlayerXP;
+        SaveLoad.playercharacter.ReqXP = PlayerReqXP;
+        SaveLoad.playercharacter.Level = PlayerLevel;
+
+        SaveLoad.playercharacter.Luck = PlayerLuck;
+        SaveLoad.playercharacter.Critical = PlayerCritical;
+
+        SaveLoad.playercharacter.PoisonDmg = PlayerPoisonDmg;
+        SaveLoad.playercharacter.PoisonTime = PlayerPoisonTime;
+
+        SaveLoad.playercharacter.Money = PlayerMoney;
+        SaveLoad.playercharacter.Gem = PlayerGem;
+    }
+
+    public void LoadItems()
+    {
+        // Search for item ID
+        for(int i = 0;i < ItemsDBS.ItemsDB.Count; i++) {
+            // If the selected ID matches with in the DB
+            if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot1) {
+                // Set Item attack value to the selected item
+                PlayerIATK = ItemsDBS.ItemsDB[i].Item.ItemAttack;
+                break;
+            }
+        }
     }
 }

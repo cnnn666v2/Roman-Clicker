@@ -8,8 +8,7 @@ public class InventoryDisplay : MonoBehaviour
 {
     // Reference to full item list
     [SerializeField]
-    SaveLoad SL;
-
+    ItemsDBScript ItemsDBS;
 
     // Reference the spawn and prefab of what is supposed to be spawned and where
     public Transform InventoryPanel;
@@ -26,26 +25,22 @@ public class InventoryDisplay : MonoBehaviour
         // THIS IS SO FUCKING DUMB
 
         // Check how many prefabs should it spawn
-        for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++)
-        {
-            for(int j = 0; j < SL.ItemsDB.Count; j++)
-            {
-                if (SL.ItemsDB[j].itemID == SaveLoad.inventory.OwnedItems[i])
-                {
-                    Debug.Log("[IID] Item ID inside SL is: " + SL.ItemsDB[j].itemID);
+        for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++) {
+            for(int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
+                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.inventory.OwnedItems[i]) {
+                    Debug.Log("[IID] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
                     Debug.Log("[IID] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
 
-                    ItemSlotPrefab.GetComponent<ItemInfoDisplay>().item = SL.ItemsDB[j].Item;
+                    // Spawn item inside inventory
+                    ItemSlotPrefab.GetComponent<ItemInfoDisplay>().item = ItemsDBS.ItemsDB[j].Item;
                     Instantiate(ItemSlotPrefab, InventoryPanel);
-                } else
-                {
-                    Debug.Log("[IID] Does not exist SL inside SvaeLoad or vice versa || " + SL.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
+
+                    // Stop searching further
+                    break;
+                } else {
+                    Debug.Log("[IID] Does not exist SL inside SvaeLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
                 }
             }
-
-            // Spawn item based on current element in the list
-            /*ItemSlotPrefab.GetComponent<ItemInfoDisplay>().item = SaveLoad.inventory.OwnedItems[i];
-            Instantiate(ItemSlotPrefab, InventoryPanel);*/
         }
     }
 

@@ -5093,6 +5093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a622353c75cd521419a295a9ed5cdcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stats: {fileID: 1069550655}
   itemSO: {fileID: 0}
 --- !u!114 &1069550655
 MonoBehaviour:
@@ -5106,12 +5107,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ae1c9f605b1ee4a91ff53e1f3ec74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemManager: {fileID: 0}
   PlayerName: 
   PlayerMaxHealth: 0
   PlayerCurrHealth: 0
-  PlayerDamage: 0
   PlayerHealing: 0
+  PlayerDamage: 0
+  PlayerSATK: 0
+  PlayerIATK: 0
   PlayerXP: 0
+  PlayerReqXP: 0
   PlayerLevel: 0
   PlayerLuck: 0
   PlayerCritical: 0
