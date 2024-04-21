@@ -141,12 +141,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ae1c9f605b1ee4a91ff53e1f3ec74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemManager: {fileID: 0}
   PlayerName: Bwaa v2
   PlayerMaxHealth: 5
   PlayerCurrHealth: 5
-  PlayerDamage: 1
   PlayerHealing: 2
-  PlayerXP: 0
+  PlayerDamage: 1
+  PlayerSATK: 0
+  PlayerIATK: 0
+  PlayerXP: 10
+  PlayerReqXP: 0
   PlayerLevel: 1
   PlayerLuck: 10
   PlayerCritical: 5
+  PlayerPoisonDmg: 0
+  PlayerPoisonTime: 0
+  PlayerMoney: 0
+  PlayerGem: 0

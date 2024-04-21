@@ -52,6 +52,8 @@ public class PlayerStats : MonoBehaviour
 
     public void LoadPlayer()
     {
+        Debug.Log("Loading...");
+
         // Load all selected items
         LoadItems();
 
@@ -78,10 +80,14 @@ public class PlayerStats : MonoBehaviour
 
         PlayerMoney = SaveLoad.playercharacter.Money;
         PlayerGem = SaveLoad.playercharacter.Gem;
+
+        Debug.Log("Loaded!");
     }
 
     public void SavePlayer()
     {
+        Debug.Log("Saving...");
+
         SaveLoad.playercharacter.Name = PlayerName;
         SaveLoad.playercharacter.MaxHealth = PlayerMaxHealth;
 
@@ -98,8 +104,12 @@ public class PlayerStats : MonoBehaviour
         SaveLoad.playercharacter.PoisonDmg = PlayerPoisonDmg;
         SaveLoad.playercharacter.PoisonTime = PlayerPoisonTime;
 
+        Debug.Log(PlayerMoney);
         SaveLoad.playercharacter.Money = PlayerMoney;
         SaveLoad.playercharacter.Gem = PlayerGem;
+
+        Debug.Log(SaveLoad.playercharacter.Money);
+        Debug.Log("Saved!");
     }
 
     public void LoadItems()

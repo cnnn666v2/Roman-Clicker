@@ -1514,8 +1514,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.9, y: -425.64}
-  m_SizeDelta: {x: 700.8, y: 214.34}
+  m_AnchoredPosition: {x: -600, y: -370.53}
+  m_SizeDelta: {x: 700.8, y: 324.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &391684832
 GameObject:
@@ -3272,7 +3272,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1674274674}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3679,8 +3679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0012475}
-  m_SizeDelta: {x: 700.8, y: 214.34}
+  m_AnchoredPosition: {x: 0, y: -0.00050354004}
+  m_SizeDelta: {x: 700.8, y: 324.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844910351
 MonoBehaviour:
@@ -5053,6 +5053,8 @@ MonoBehaviour:
   DefeatPanel: {fileID: 50798891}
   GameTrack: {fileID: 766896883}
   durationPoisonLeft: 0
+  TempMoney: 0
+  TempGems: 0
 --- !u!114 &1069550652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5289,7 +5291,7 @@ RectTransform:
   - {fileID: 369501919}
   - {fileID: 50798892}
   m_Father: {fileID: 1674274674}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7858,9 +7860,9 @@ RectTransform:
   - {fileID: 1571835549}
   - {fileID: 1338635632}
   - {fileID: 1394437163}
-  - {fileID: 1096346342}
-  - {fileID: 374078813}
   - {fileID: 766896882}
+  - {fileID: 374078813}
+  - {fileID: 1096346342}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
