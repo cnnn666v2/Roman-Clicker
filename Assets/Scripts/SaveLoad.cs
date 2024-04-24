@@ -6,10 +6,7 @@ public class SaveLoad : MonoBehaviour
     // Reference to Player's inventory
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
-<<<<<<< Updated upstream
-=======
     public static PlayerSkills playerskills = new PlayerSkills();
->>>>>>> Stashed changes
 
     // Get local stats variables
     public PlayerStats Stats;
@@ -114,17 +111,9 @@ public class SaveLoad : MonoBehaviour
     {
         // Define save file locations
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
-<<<<<<< Updated upstream
-        Debug.Log("Checkpoint A");
 
         // Read save files
         string inventoryData = System.IO.File.ReadAllText(filePathInv);
-        Debug.Log("Checkpoint B");
-=======
-
-        // Read save files
-        string inventoryData = System.IO.File.ReadAllText(filePathInv);
->>>>>>> Stashed changes
 
         // Load the data
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
@@ -175,8 +164,6 @@ public class PlayerCharacter
     public ItemSO slot2;
     public ItemSO slot3;
 }
-<<<<<<< Updated upstream
-=======
 
 [System.Serializable]
 public class PlayerSkills
@@ -184,4 +171,3 @@ public class PlayerSkills
     // Currency
     public int SkillPoints;
 }
->>>>>>> Stashed changes
