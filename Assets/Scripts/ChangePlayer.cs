@@ -4,13 +4,27 @@ using UnityEngine.UI;
 
 public class ChangePlayer : MonoBehaviour
 {
+<<<<<<< Updated upstream
+=======
+    // Reference playerstats script
+    [SerializeField] PlayerStats PS;
+
+>>>>>>> Stashed changes
     // Reference input field
     [SerializeField]
     TMP_InputField inputName;
 
+<<<<<<< Updated upstream
     [SerializeField]
     Image slot1, slot2, slot3;
 
+=======
+    // Selected items icons
+    [SerializeField]
+    Image slot1, slot2, slot3;
+
+    // Player stats
+>>>>>>> Stashed changes
     [SerializeField]
     TMP_Text MaxHP, AtkDMG, CritMult, CritChance,
         Healing, 
@@ -36,6 +50,10 @@ public class ChangePlayer : MonoBehaviour
         newName = inputName.text;
 
         // Set the player name to this string in inventory
+<<<<<<< Updated upstream
+=======
+        PS.PlayerName = newName;
+>>>>>>> Stashed changes
         SaveLoad.playercharacter.Name = newName;
 
         // Debug it out
