@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillTree : MonoBehaviour
 {
-    [SerializeField] private TogglePanel TP; // Reference toggle panel for lock/unlock
-    [SerializeField] private GameObject LockPanel; // Get lock panel
     [SerializeField] private PlayerStats PS; // Get player stats
+    [SerializeField] private GameObject LockPanel; // Get lock panel
 
     // This script is a template for new skill tree
     // Apply it to the parent panel of a skill tree
@@ -16,26 +13,32 @@ public class SkillTree : MonoBehaviour
     string STName;
     bool STisUnlocked;
 
-    // 
-    int STunlockPrice;
-    List<Skill> STSkills;
+    // Sub info
+    [SerializeField] int STunlockPrice;
+    //List<Skill> STSkills;
 
     private void Start()
     {
         // If skill tree is not unlocked then display lock panel
         if (!STisUnlocked)
         {
-            TP.ToggleUIPanel(LockPanel);
+            LockPanel.SetActive(true);
         }
     }
 
     public void UnlockST()
     {
+        // Check if the tree is unlocked
         if (!STisUnlocked)
         {
+            // If it's not then check if player has enough to unlock it
             if (SaveLoad.playerskills.SkillPoints >= STunlockPrice)
             {
+                // Unlock tree
+                STisUnlocked = true;
 
+                // Remove currency
+                SaveLoad.playerskills.SkillPoints -= STunlockPrice;
             }
         }
     }
