@@ -10,6 +10,7 @@ public class SkillTree : MonoBehaviour
     // ST - it's a short form for SkillTree
 
     // Main info
+    [SerializeField]
     string STName;
     bool STisUnlocked;
 
@@ -19,10 +20,18 @@ public class SkillTree : MonoBehaviour
 
     private void Start()
     {
+        // Some debugging
+        //Debug.Log(PlayerPrefs.GetInt("skilltree-" + STName));
+        //PlayerPrefs.SetInt("skilltree-" + STName, (STisUnlocked ? 1 : 0));
+        //Debug.Log(PlayerPrefs.GetInt("skilltree-" + STName));
+
+        // Convert playeprefs int to a boolean
+        STisUnlocked = (PlayerPrefs.GetInt("skilltree-" + STName) != 0);
+
         // If skill tree is not unlocked then display lock panel
-        if (!STisUnlocked)
+        if (STisUnlocked)
         {
-            LockPanel.SetActive(true);
+            LockPanel.SetActive(false);
         }
     }
 
@@ -36,9 +45,12 @@ public class SkillTree : MonoBehaviour
             {
                 // Unlock tree
                 STisUnlocked = true;
+                PlayerPrefs.SetInt("skilltree-" + STName, (STisUnlocked ? 1 : 0));
 
                 // Remove currency
                 SaveLoad.playerskills.SkillPoints -= STunlockPrice;
+
+                LockPanel.SetActive(false);
             }
         }
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item")]
+[CreateAssetMenu(fileName="New Item", menuName="RPG Maker/Item")]
 public class ItemSO : ScriptableObject
 {
     // Main information stuff

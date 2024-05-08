@@ -9,8 +9,7 @@ public class SwitchInvPanels : MonoBehaviour
     public void SwitchPanel(GameObject panel)
     {
         // Disable every child
-        foreach (Transform child in PanelsParent)
-        {
+        foreach (Transform child in PanelsParent) {
             child.gameObject.SetActive(false);
             Debug.Log("Panel: " + child.name + " has been hidden");
         }

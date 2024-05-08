@@ -14,8 +14,8 @@ public class InventoryDisplay : MonoBehaviour
     public Transform InventoryPanel;
     public GameObject ItemSlotPrefab;
 
-    [SerializeField]
-    private ItemSO itemS;
+    //[SerializeField]
+    //private ItemSO itemS;
 
     void Start()
     {
@@ -38,7 +38,7 @@ public class InventoryDisplay : MonoBehaviour
                     // Stop searching further
                     break;
                 } else {
-                    Debug.Log("[IID] Does not exist SL inside SvaeLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
+                    Debug.Log("[IID] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
                 }
             }
         }

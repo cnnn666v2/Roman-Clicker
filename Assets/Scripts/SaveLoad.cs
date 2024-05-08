@@ -22,8 +22,11 @@ public class SaveLoad : MonoBehaviour
         // Define player profile location
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
 
+        // Define player skill location
+        string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
+
         // Check if the file already exists
-        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer))
+        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer) || !System.IO.File.Exists(filePathSkills))
         {
             Debug.Log("Not every file exists!!");
             Debug.Log("Creating files...");
@@ -48,7 +51,7 @@ public class SaveLoad : MonoBehaviour
         LoadFromJson();
 
         // Auto save data every 5 minutes
-        InvokeRepeating("SaveToJson", 10.0f, 300.0f);
+        InvokeRepeating("SaveToJson", 5.0f, 300.0f);
 
         // Load player stats
         Stats.LoadPlayer();
@@ -78,6 +81,9 @@ public class SaveLoad : MonoBehaviour
         // Define player data and its location
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
         string playerData = JsonUtility.ToJson(playercharacter);
+        // Define player skills and its location
+        string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
+        string skillsData = JsonUtility.ToJson(playerskills);
 
         Debug.Log(filePathInv);
         // Actually write the file with correct data
@@ -87,6 +93,10 @@ public class SaveLoad : MonoBehaviour
         // Actually write the file with correct data
         System.IO.File.WriteAllText(filePathPlayer, playerData);
 
+        Debug.Log(filePathSkills);
+        // Actually write the file with correct data
+        System.IO.File.WriteAllText(filePathSkills, skillsData);
+
         Debug.Log("Saving complete!");
     }
 
@@ -95,15 +105,18 @@ public class SaveLoad : MonoBehaviour
         // Define save file locations
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
+        string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
 
         // Read save files
         string inventoryData = System.IO.File.ReadAllText(filePathInv);
         string playerData = System.IO.File.ReadAllText(filePathPlayer);
-        Debug.Log(filePathInv + " || " + filePathPlayer);
+        string skillsData = System.IO.File.ReadAllText(filePathSkills);
+        Debug.Log(filePathInv + " || " + filePathPlayer + " || " + filePathSkills);
 
         // Load the data
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         playercharacter = JsonUtility.FromJson<PlayerCharacter>(playerData);
+        playerskills = JsonUtility.FromJson<PlayerSkills>(skillsData);
         Debug.Log("Data loaded!");
     }
 
@@ -117,6 +130,19 @@ public class SaveLoad : MonoBehaviour
 
         // Load the data
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
+        Debug.Log("Loaded inventory!");
+    }
+
+    public void LoadSkills()
+    {
+        // Define save file locations
+        string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
+
+        // Read save files
+        string skillsData = System.IO.File.ReadAllText(filePathSkills);
+
+        // Load the data
+        playerskills = JsonUtility.FromJson<PlayerSkills>(skillsData);
         Debug.Log("Loaded inventory!");
     }
 }
@@ -170,4 +196,11 @@ public class PlayerSkills
 {
     // Currency
     public int SkillPoints;
+
+    // Other
+    public List<int> OwnedSkills;
+    public PlayerSkills()
+    {
+        OwnedSkills = new List<int>();
+    }
 }
