@@ -1,0 +1,28 @@
+[Player Stuff]:
+- Move entire player stats to json format // Done I think?
+- Switch direct loading and saving during game from json to local variables
+- Create local variables during battle and change them // Partially done, stats such as XP should've been saved after battle ends
+- UI to display player statsc // [X] Done
+- Level system || Finish balancing it
+- Skill tree
+
+[AI Attack Logic]:
+- Make AI use different attack types
+- Make it smarter
+
+[Shop]:
+- Sort shop items
+
+[Inventory]:
+- Player selects items
+- Sort inventory
+- Scrollable inventory (adjusted to owned items) // [X] Done
+- Make inventory load items dynamically // [X] Done
+- Change saving items from InstanceID to smthn more reliable
+  || ^ Switched from the instanceID to ItemID, I have to change equipped items now also to ItemID instead of InstanceID
+
+[Save - Load]:
+- Make the game save data to corresponding json files when quitting the game // Done? Not sure if it works as intended
+- Create an auto-save // [X] Done, should work as intended
+
+[ SOME TO DO STUFF MIGHT BE LAYING AROUND SCRIPTS ]

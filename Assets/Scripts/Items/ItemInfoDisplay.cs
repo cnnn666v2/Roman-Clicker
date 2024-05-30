@@ -33,10 +33,7 @@ public class ItemInfoDisplay : MonoBehaviour
     public TMP_Text PIDOT; // <-- DOT stands for "Damage over time"
     public TMP_Text PIDOTD; // <-- DOT is same as above, last D stands for "Duration"
 
-    /*[Header("Popup item info - economy")]
-    //C stands for "Cost"
-    public TMP_Text PIMoneyC;
-    public TMP_Text PIGemC;*/
+    public GameObject LockPanel; // <-- It will prohibit user from buying the item again
 
     // <-- END OF POPUP INFO --> //
     //////////////////////////////
@@ -48,8 +45,12 @@ public class ItemInfoDisplay : MonoBehaviour
         IconIMG.sprite = item.ItemIcon;
 
         // Economy
-        MoneyCost.text = "Money: " + "\n" + item.ItemMoneyCost.ToString() + "$";
-        GemCost.text = "Gem: " + "\n" + item.ItemGemCost.ToString() + " Gems";
+        MoneyCost.text = item.ItemMoneyCost.ToString() + "$";
+        GemCost.text = item.ItemGemCost.ToString() + " Gems";
+
+        // Lock or unlock item based on ownership status
+        //if(item.IsOwned == true) { LockPanel.SetActive(true); }
+        //else { LockPanel.SetActive(false); }
     }
 
     public void SetPopupInfo()
@@ -68,5 +69,28 @@ public class ItemInfoDisplay : MonoBehaviour
         PIBC.text = "Block chance: " + item.ItemBlockChance.ToString();
         PIDOT.text = "Damage over time: " + item.ItemDmgOvertime.ToString();
         PIDOTD.text = "Damage over time duration: " + item.ItemDMGOTDuration.ToString();
+    }
+
+    public void SetItem()
+    {
+        // Assign item to a slot based on its type
+        //Slot 1 - Weapon
+        //Slot 2 - Armor
+        //Slot 3 - Defense weapon
+        // (All are subject to change)
+        switch(item.ItemType)
+        {
+            case "Weapon":
+                SaveLoad.playercharacter.slot1 = item.ItemID;
+                Debug.Log("Set item to weapon slot");
+                break;
+
+            case "Armor":
+                SaveLoad.playercharacter.slot2 = item;
+                Debug.Log("Set item to armor slot");
+                break;
+        }
+        
+        Debug.Log("Gratulacje u¿ytkowniku, zosta³eœ wybrany na darmowego: " + item.ItemName);
     }
 }

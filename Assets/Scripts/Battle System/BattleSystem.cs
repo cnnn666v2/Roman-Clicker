@@ -32,6 +32,8 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text PlayerNameTXT;
     public TMP_Text PlayerHealthTXT;
     public TMP_Text PlayerDamageTXT;
+    public TMP_Text PlayerXPTXT;
+    public TMP_Text PlayerLVLTXT;
     //Enemy
     public TMP_Text EnemyNameTXT;
     public TMP_Text EnemyHealthTXT;
@@ -57,6 +59,10 @@ public class BattleSystem : MonoBehaviour
     bool isPlayerSpawned;
     //Poison duration
     public int durationPoisonLeft;
+    //Local variables for rewards
+    public int TempMoney = 0;
+    public int TempGems = 0;
+    public int TempXP = 0;
 
     private void Awake()
     {
@@ -101,7 +107,10 @@ public class BattleSystem : MonoBehaviour
         } else {
             // Scrap info and spawn player
             GameObject player = Instantiate(PlayerPrefab, PlayerSpawn);
-            PlayableCharacter = player.GetComponent<PlayerStats>();
+            PlayableCharacter = GetComponent<PlayerStats>();
+
+            // Load player stats
+            PlayableCharacter.LoadPlayer();
 
             // Decide how long should poison last, based on player statistics
             durationPoisonLeft = PlayableCharacter.PlayerPoisonTime;
@@ -123,6 +132,8 @@ public class BattleSystem : MonoBehaviour
         PlayerNameTXT.text = PlayableCharacter.PlayerName;
         PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
         PlayerDamageTXT.text = "Damage: " + PlayableCharacter.PlayerDamage;
+        PlayerXPTXT.text = "XP: " + PlayableCharacter.PlayerXP + "/" + PlayableCharacter.PlayerReqXP;
+        PlayerLVLTXT.text = "Level: " + PlayableCharacter.PlayerLevel;
 
         // Set BattleState and call next function
         State = BattleState.PLAYERTURN;
@@ -138,9 +149,25 @@ public class BattleSystem : MonoBehaviour
         //Set Texts
         GameTrack.text = "Battles: " + BattleCount + " || Turn: " + TurnCount;
 
-        // Damage the player
-        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
-        PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+        // Define random number
+        int random = Random.Range(0, 2);
+
+        // Determine what action to do
+        if (random == 1 && EnemyCharacter.PlayerCurrHealth <= EnemyCharacter.PlayerMaxHealth / 2) {
+            // Heal up
+            attackMethods.UseHealing(EnemyCharacter.PlayerHealing);
+            EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
+
+        } else if (random == 2 && EnemyCharacter.PlayerPoisonDmg > 0) {
+            // Poison player
+            attackMethods.Poisoning(EnemyCharacter.PlayerPoisonDmg, EnemyCharacter.PlayerPoisonTime);
+            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+
+        } else {
+            // Damage the player
+            attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
+            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+        }        
     }
 
     public void PlayerTurn()
@@ -176,56 +203,24 @@ public class BattleSystem : MonoBehaviour
 
             // Display the WIN panel
             switchPanel.ToggleUIPanel(ContinuePanel);
+
+            // Add reward for winning
+            //Money
+            TempMoney += 250 * EnemyCharacter.PlayerLevel;
+            //Gems
+            if((EnemyCharacter.PlayerLevel % 10) == 0 )
+            {
+                // Add the doubled value of enemy's level if it's dividable by 10
+                TempGems += EnemyCharacter.PlayerGem * 2;
+            }
+            //XP Points
+            TempXP += Random.Range(EnemyCharacter.PlayerXP/2, EnemyCharacter.PlayerXP + 1);
+
             Debug.Log("Player win");
+            Debug.Log("[REWARD]: Money - " + TempMoney + " || Gems - " + TempGems);
         } else if (State == BattleState.LOSS) {
             switchPanel.ToggleUIPanel(DefeatPanel);
             Debug.Log("Player lose");
         }
     }
-
-    /*void PlayerAttack()
-{
-
-    // Damage the enemy
-    //bool isDead = EnemyCharacter.TakeDamage(PlayableCharacter.PlayerDamage);
-    Debug.Log("I'm in playerattack");
-    attackMethods.TakeDamage(PlayableCharacter.PlayerDamage);
-    EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
-
-    //attackMethods.CheckDeath();
-
-    // Check if the enemy is dead after attack
-
-    //////////////if (isDead) {
-        State = BattleState.WIN;
-        EndBattle();
-    } else {
-        State = BattleState.ENEMYTURN;
-        EnemyTurn();
-    }/////////////////
-}*/
-
-    /*public void OnAttackButton(string functionName)
-    {
-        // Check if it is playerturn
-        if (State != BattleState.PLAYERTURN)
-            return;
-
-        Debug.Log("State is playerturn :)");
-
-        // Continue
-        attackMethods.Invoke(functionName, 0f); //PlayerAttack();
-    }*/
-
-    /*public void OnHealButton()
-    {
-        // Check if it is playerturn
-        if (State != BattleState.PLAYERTURN)
-            return;
-
-        Debug.Log("State is playerturn :)");
-
-        // Continue
-        PlayerHeal();
-    }*/
 }

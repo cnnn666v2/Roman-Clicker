@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item")]
+[CreateAssetMenu(fileName="New Item", menuName="RPG Maker/Item")]
 public class ItemSO : ScriptableObject
 {
     // Main information stuff
     public string ItemName;
     public string ItemDescription;
     public string ItemType;
-    //public string ItemID; // <-- might use in the future
+    public int ItemID;
     public Sprite ItemIcon;
 
     // Attack related stuff
@@ -23,5 +23,6 @@ public class ItemSO : ScriptableObject
     // Economic stuff
     public int ItemMoneyCost;
     public int ItemGemCost;
+    public int RequiredLevel;
     public bool IsOwned = false;
 }
