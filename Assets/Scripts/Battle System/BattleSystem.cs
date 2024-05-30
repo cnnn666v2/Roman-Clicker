@@ -149,9 +149,25 @@ public class BattleSystem : MonoBehaviour
         //Set Texts
         GameTrack.text = "Battles: " + BattleCount + " || Turn: " + TurnCount;
 
-        // Damage the player
-        attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
-        PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+        // Define random number
+        int random = Random.Range(0, 2);
+
+        // Determine what action to do
+        if (random == 1 && EnemyCharacter.PlayerCurrHealth <= EnemyCharacter.PlayerMaxHealth / 2) {
+            // Heal up
+            attackMethods.UseHealing(EnemyCharacter.PlayerHealing);
+            EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
+
+        } else if (random == 2 && EnemyCharacter.PlayerPoisonDmg > 0) {
+            // Poison player
+            attackMethods.Poisoning(EnemyCharacter.PlayerPoisonDmg, EnemyCharacter.PlayerPoisonTime);
+            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+
+        } else {
+            // Damage the player
+            attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
+            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+        }        
     }
 
     public void PlayerTurn()

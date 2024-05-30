@@ -15,7 +15,8 @@ MonoBehaviour:
   ItemName: Sword
   ItemDescription: It's a sword
   ItemType: Weapon
-  ItemIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  ItemID: 0
+  ItemIcon: {fileID: 21300000, guid: b2b1432c6ff51d1429f34829cce881e2, type: 3}
   ItemAttack: 5
   ItemCritChance: 2
   ItemCritMP: 3
@@ -24,4 +25,5 @@ MonoBehaviour:
   ItemDMGOTDuration: 0
   ItemMoneyCost: 3600
   ItemGemCost: 2
+  RequiredLevel: 0
   IsOwned: 0

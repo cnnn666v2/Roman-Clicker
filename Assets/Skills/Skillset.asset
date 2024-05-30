@@ -17,10 +17,10 @@ MonoBehaviour:
   SkillID: 1
   Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   isPoison: 0
-  isHealer: 0
+  isHealer: 1
   isDamager: 0
   CostSP: 1
   PDamage: 0
   PDuration: 0
-  HAmount: 0
+  HAmount: 2
   DAmount: 0

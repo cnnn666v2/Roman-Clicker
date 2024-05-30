@@ -5,36 +5,31 @@ using UnityEngine.UI;
 public class SkillChecker : MonoBehaviour
 {
     // Define Skills DB
-    [SerializeField]
-    SkillsDBScript SkillDBS;
+    [SerializeField] SkillsDBScript SkillDBS;
+
+    // Reference PlayerStats script to make local changes to the player stats
+    [SerializeField] PlayerStats PS; // PS stands for PlayerStats
 
     // Define required and future skills, as well as the skill to unlock
-    [SerializeField]
-    SkillSO Skill;
-    [SerializeField]
-    List<SkillSO> PreviousSkills;
-    [SerializeField]
-    Transform[] NextSkills;
+    [SerializeField] SkillSO Skill;
+    [SerializeField] List<SkillSO> PreviousSkills;
+    [SerializeField] List<Transform> NextSkills;
 
     // Define wether the skills is first in the tree
-    [SerializeField]
-    bool isFirstSkill;
+    [SerializeField] bool isFirstSkill;
 
     // Define the lock panel for a skill
-    [SerializeField]
-    GameObject LockPanel;
+    [SerializeField] GameObject LockPanel;
 
     // Define the button to buy skill
-    [SerializeField]
-    Button BuyBTN;
+    [SerializeField] Button BuyBTN;
 
     // Define the parent of skill game object
-    [SerializeField]
-    GameObject SkillParent;
+    [SerializeField] GameObject SkillParent;
 
     // Reference script to show skill stats
-    [SerializeField]
-    SkillStatsCheck StatsDisplay;
+    [SerializeField] SkillStatsCheck StatsDisplay;
+
 
     private void Start()
     {
@@ -83,6 +78,25 @@ public class SkillChecker : MonoBehaviour
                         button.interactable = true;
                     }
                 }
+            }
+
+            // Modify player stats
+            //Poison Stats
+            if(Skill.isPoison) {
+                // Add poison dmg
+                PS.PlayerPoisonDmg += Skill.PDamage;
+                // Add poison duration
+                PS.PlayerPoisonTime += Skill.PDuration;
+            }
+            //Heal Stats
+            if(Skill.isHealer) {
+                // Add healing amount
+                PS.PlayerHealing += Skill.HAmount;
+            } 
+            //Damage Stats
+            if(Skill.isDamager) {
+                // Add damage
+                PS.PlayerSATK += Skill.DAmount;
             }
         }
     }

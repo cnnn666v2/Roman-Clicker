@@ -45,8 +45,8 @@ public class ItemInfoDisplay : MonoBehaviour
         IconIMG.sprite = item.ItemIcon;
 
         // Economy
-        MoneyCost.text = "Money: " + "\n" + item.ItemMoneyCost.ToString() + "$";
-        GemCost.text = "Gem: " + "\n" + item.ItemGemCost.ToString() + " Gems";
+        MoneyCost.text = item.ItemMoneyCost.ToString() + "$";
+        GemCost.text = item.ItemGemCost.ToString() + " Gems";
 
         // Lock or unlock item based on ownership status
         //if(item.IsOwned == true) { LockPanel.SetActive(true); }

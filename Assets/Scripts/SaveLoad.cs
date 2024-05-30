@@ -66,8 +66,8 @@ public class SaveLoad : MonoBehaviour
     {
         // Update game version json file
         Debug.Log("Old version: " + inventory.VersionNumber);
-        PlayerPrefs.SetString("version-branch", "dev");
-        PlayerPrefs.SetFloat("version-number", 4.0f);
+        PlayerPrefs.SetString("version-branch", "beta");
+        PlayerPrefs.SetFloat("version-number", 1.0f);
         inventory.VersionNumber = PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number");
         Debug.Log("New version: " + inventory.VersionNumber);
 

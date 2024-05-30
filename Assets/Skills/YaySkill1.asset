@@ -20,7 +20,7 @@ MonoBehaviour:
   isHealer: 1
   isDamager: 0
   CostSP: 0
-  PDamage: 0
-  PDuration: 0
-  HAmount: 0
+  PDamage: 10000
+  PDuration: 1000
+  HAmount: 1
   DAmount: 0

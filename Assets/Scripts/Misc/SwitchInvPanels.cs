@@ -6,6 +6,10 @@ public class SwitchInvPanels : MonoBehaviour
     [SerializeField]
     Transform PanelsParent;
 
+    // Reference skill info panel just to disable it, it's a very special use case
+    [SerializeField]
+    GameObject SkillInfoPanel;
+
     public void SwitchPanel(GameObject panel)
     {
         // Disable every child
@@ -17,5 +21,11 @@ public class SwitchInvPanels : MonoBehaviour
         // Enable desired panel
         panel.SetActive(true);
         Debug.Log("Panel: " + panel.name + " has been displayed");
+    }
+
+    public void DisableSIP()
+    {
+        // Disable skill info panel, SIP (above/method name) stands for SkillInfoPanel
+        SkillInfoPanel.SetActive(false);
     }
 }

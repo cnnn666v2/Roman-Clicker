@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class ChangePlayer : MonoBehaviour
 {
-    // Reference playerstats script
+    // Reference scripts
     [SerializeField] PlayerStats PS;
+    [SerializeField] SaveLoad SL;
+    [SerializeField] ItemsDBScript ItemsDBS;
 
     // Reference input field
     [SerializeField]
@@ -23,6 +25,50 @@ public class ChangePlayer : MonoBehaviour
 
     void Start()
     {
+        // Load the item sprite by iterating through the DB
+        for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++) {
+            for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
+                // Load (Slot 1/Weapon) sprite
+                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot1.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else {
+                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
+                }
+
+                // Load (Slot 2/Armor) sprite
+                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot2.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else {
+                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
+                }
+
+                // Load (Slot 3/Soon) sprite
+                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot1.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else {
+                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
+                }
+            }
+        }
+
         // Load current player's name into the input field
         inputName.text = SaveLoad.playercharacter.Name;
 
@@ -43,6 +89,7 @@ public class ChangePlayer : MonoBehaviour
         // Set the player name to this string in inventory
         PS.PlayerName = newName;
         SaveLoad.playercharacter.Name = newName;
+        SL.SaveToJson();
 
         // Debug it out
         Debug.Log("New name:" + SaveLoad.playercharacter.Name);

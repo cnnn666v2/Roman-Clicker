@@ -23,4 +23,4 @@ MonoBehaviour:
   PDamage: 50
   PDuration: 0
   HAmount: 0
-  DAmount: 0
+  DAmount: 1
