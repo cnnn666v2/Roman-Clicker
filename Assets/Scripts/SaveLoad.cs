@@ -168,6 +168,7 @@ public class PlayerCharacter
     public int MaxHealth;
     public int Damage;
     public int Healing;
+    public float BlockChance;
 
     [Header("Player Level")]
     public int XP;
@@ -187,7 +188,7 @@ public class PlayerCharacter
 
     [Header("Equipped Items")]
     public int slot1; // ID to selected item
-    public ItemSO slot2;
+    public int slot2;
     public ItemSO slot3;
 }
 

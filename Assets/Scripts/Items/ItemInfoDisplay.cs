@@ -86,7 +86,7 @@ public class ItemInfoDisplay : MonoBehaviour
                 break;
 
             case "Armor":
-                SaveLoad.playercharacter.slot2 = item;
+                SaveLoad.playercharacter.slot2 = item.ItemID;
                 Debug.Log("Set item to armor slot");
                 break;
         }

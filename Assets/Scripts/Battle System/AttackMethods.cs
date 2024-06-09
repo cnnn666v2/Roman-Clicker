@@ -35,15 +35,6 @@ public class AttackMethods : MonoBehaviour
         // Poison has not been used yet
         SetPoison = false;
     }
-
-    void Update()
-    {
-        if(messageObjects.Count >= 10) {
-            Destroy(messageObjects[0]);
-            messageObjects.RemoveAt(0);
-        }
-    }
-
     public void ScrapInfo()
     {
         // Get player stats
@@ -80,25 +71,40 @@ public class AttackMethods : MonoBehaviour
         if (battleSystem.State == BattleState.PLAYERTURN) {
             // Deal damage to enemy
             Debug.Log("[TakeDamage]: Current health: " + statsE.PlayerCurrHealth);
-            statsE.PlayerCurrHealth -= dealtDmg;
-            Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsE.PlayerCurrHealth);
+            // Try to block damage by enemy
+            if(Random.Range(0, 100) <= statsE.PlayerBlockChance) {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
+                messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> has blocked the attack";
+            } else {
+                statsE.PlayerCurrHealth -= dealtDmg;
+                Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsE.PlayerCurrHealth);
 
-            // Spawn new message inside container
-            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
-            messageObjects.Add(messageTXT);
-            messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> damaged <color=#FF0000>" + statsE.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
+                messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> damaged <color=#FF0000>" + statsE.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+            }
 
             CheckDeath();
         } else if (battleSystem.State == BattleState.ENEMYTURN) {
             // Deal damage to player
             Debug.Log("[TakeDamage]: Current health: " + statsP.PlayerCurrHealth);
-            statsP.PlayerCurrHealth -= dealtDmg;
-            Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsP.PlayerCurrHealth);
+            if(Random.Range(0, 100) <= statsP.PlayerBlockChance) {
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
+                messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has blocked the attack";
+            } else {
+                statsP.PlayerCurrHealth -= dealtDmg;
+                Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsP.PlayerCurrHealth);
 
-            // Spawn new message inside container
-            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
-            messageObjects.Add(messageTXT);
-            messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> damaged <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+                // Spawn new message inside container
+                TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                messageObjects.Add(messageTXT);
+                messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> damaged <color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> for: " + dealtDmg + "hp </color>";
+            }
 
             CheckDeath();
         } else { Debug.Log("Something is wrong: " + battleSystem.State); }
@@ -197,6 +203,19 @@ public class AttackMethods : MonoBehaviour
                 } else { SetPoison = true; Debug.Log("Turns left from posioning: 0"); }
             } else { Debug.Log("Poison has not been used yet."); }
         }
+    }
+
+    public void SkipTurn()
+    {
+        ScrapInfo();
+
+        // Spawn new message inside container
+        TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+        messageObjects.Add(messageTXT);
+        messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00ECFF>skipped <color=#FFF>turn their</color>";
+
+        // Determine next turn
+        CheckDeath();
     }
 
     bool CheckDeath()

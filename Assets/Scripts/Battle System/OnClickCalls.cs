@@ -68,4 +68,16 @@ public class OnClickCalls : MonoBehaviour
             attackMethods.CheckDeath(false);
         }
     }
+
+    public void ClickSkipTurn()
+    {
+        // Check if it is player's turn
+        if (bs.State != BattleState.PLAYERTURN)
+            return;
+
+        Debug.Log("State is playerturn :)");
+
+        // Skip turn
+        attackMethods.SkipTurn();
+    }
 }

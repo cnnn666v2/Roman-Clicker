@@ -18,6 +18,12 @@ public class PlayerStats : MonoBehaviour
     public int PlayerSATK; // S - means Skill, in this case it's skill attack
     public int PlayerIATK; // I - means Item, in this case it's item attack
 
+    [Header("Player blocking")]
+    public float PlayerBlockChance; // Total chance
+    public float PlayerSBC; // BC stands for Block Chance, S and I are the same as above
+    public float PlayerIBC;
+
+
     [Header("Player Level")]
     public int PlayerXP;
     public int PlayerReqXP;
@@ -68,6 +74,9 @@ public class PlayerStats : MonoBehaviour
         //PlayerIATK = SaveLoad.playercharacter.slot1.ItemAttack;
         PlayerDamage = PlayerSATK + PlayerIATK;
 
+        PlayerSBC = SaveLoad.playercharacter.BlockChance;
+        PlayerBlockChance = PlayerIBC + PlayerSBC;
+
         PlayerXP = SaveLoad.playercharacter.XP;
         PlayerReqXP = SaveLoad.playercharacter.ReqXP;
         PlayerLevel = SaveLoad.playercharacter.Level;
@@ -93,6 +102,7 @@ public class PlayerStats : MonoBehaviour
 
         SaveLoad.playercharacter.Healing = PlayerHealing;
         SaveLoad.playercharacter.Damage = PlayerSATK;
+        SaveLoad.playercharacter.BlockChance = PlayerSBC;
 
         SaveLoad.playercharacter.XP = PlayerXP;
         SaveLoad.playercharacter.ReqXP = PlayerReqXP;
@@ -114,12 +124,22 @@ public class PlayerStats : MonoBehaviour
 
     public void LoadItems()
     {
-        // Search for item ID
+        // Search for attack item ID
         for(int i = 0;i < ItemsDBS.ItemsDB.Count; i++) {
             // If the selected ID matches with in the DB
             if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot1) {
                 // Set Item attack value to the selected item
                 PlayerIATK = ItemsDBS.ItemsDB[i].Item.ItemAttack;
+                break;
+            }
+        }
+
+        // Search for block chance item ID
+        for (int i = 0; i < ItemsDBS.ItemsDB.Count; i++) {
+            // If the selected ID matches with in the DB
+            if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot2) {
+                // Set Item attack value to the selected item
+                PlayerIBC = ItemsDBS.ItemsDB[i].Item.ItemBlockChance;
                 break;
             }
         }
