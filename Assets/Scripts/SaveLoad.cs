@@ -169,6 +169,7 @@ public class PlayerCharacter
     public int Damage;
     public int Healing;
     public float BlockChance;
+    public float BlockAmount;
 
     [Header("Player Level")]
     public int XP;

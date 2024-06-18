@@ -19,6 +19,7 @@ public class PlayerStats : MonoBehaviour
     public int PlayerIATK; // I - means Item, in this case it's item attack
 
     [Header("Player blocking")]
+    public float PlayerBlockedDamageP; // P stands for Percentage
     public float PlayerBlockChance; // Total chance
     public float PlayerSBC; // BC stands for Block Chance, S and I are the same as above
     public float PlayerIBC;
@@ -76,6 +77,7 @@ public class PlayerStats : MonoBehaviour
 
         PlayerSBC = SaveLoad.playercharacter.BlockChance;
         PlayerBlockChance = PlayerIBC + PlayerSBC;
+        PlayerBlockedDamageP = SaveLoad.playercharacter.BlockAmount;
 
         PlayerXP = SaveLoad.playercharacter.XP;
         PlayerReqXP = SaveLoad.playercharacter.ReqXP;
@@ -103,6 +105,7 @@ public class PlayerStats : MonoBehaviour
         SaveLoad.playercharacter.Healing = PlayerHealing;
         SaveLoad.playercharacter.Damage = PlayerSATK;
         SaveLoad.playercharacter.BlockChance = PlayerSBC;
+        SaveLoad.playercharacter.BlockAmount = PlayerBlockedDamageP;
 
         SaveLoad.playercharacter.XP = PlayerXP;
         SaveLoad.playercharacter.ReqXP = PlayerReqXP;
