@@ -1,3 +1,6 @@
+# Default branch
+I decided to make the dev branch a default one for little green boxes on my profile to appear more to make my brain happy. The "stable/release" branch is the "main" one
+
 # Roman-Clicker
 Roman Clicker, made for jokes
 
