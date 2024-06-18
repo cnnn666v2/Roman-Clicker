@@ -9,5 +9,5 @@ From time to time the game will get content and QoL updates, but the changelog a
 The itch.io page is ready! https://cnnn666v2.itch.io/roman-clicker
 
 # Used Assets
-Minecraft Font by 123467 - https://www.fontspace.com/f77-minecraft-font-f30628
+Minecraft Font by 123467 - https://www.fontspace.com/f77-minecraft-font-f30628<br>
 All other Assets are created by me (Cnnn666) and are distributed under the CC BY-SA 4.0 license
