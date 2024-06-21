@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerMainMenuInfo : MonoBehaviour
 {
     [SerializeField] Scrollbar scrollbar;
-    [SerializeField] TMP_Text XPTXT, LevelTXT, MoneyTXT, GemsTXT, SPGMoneyTXT, SPGGemsTXT; // SPG stands for: SP - Shop, G - GUI |||
+    [SerializeField] TMP_Text XPTXT, LevelTXT, MoneyTXT, GemsTXT, SPGMoneyTXT, SPGGemsTXT, SKPointsTXT; // SPG stands for: SP - Shop, G - GUI ||| SK stands for: Skill Points |||
     [SerializeField] PlayerStats PS;
 
     private void Start()
@@ -28,5 +28,7 @@ public class PlayerMainMenuInfo : MonoBehaviour
         //Update ShopGUI Currency
         SPGMoneyTXT.text = "Money: " + PS.PlayerMoney + "$";
         SPGGemsTXT.text = "Gems: " + PS.PlayerGem;
+        //Update Skill Points Currency
+        SKPointsTXT.text = "Available Skill Points: " + PS.PlayerSkillPoints;
     }
 }

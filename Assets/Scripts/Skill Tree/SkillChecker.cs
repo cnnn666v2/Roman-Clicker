@@ -54,9 +54,9 @@ public class SkillChecker : MonoBehaviour
     public void BuySkill(int cost)
     {
         // Check if player has enough skill points
-        if(SaveLoad.playerskills.SkillPoints >= cost) {
+        if(PS.PlayerSkillPoints >= cost) {
             // Remove skill point from the player
-            SaveLoad.playerskills.SkillPoints -= cost;
+            PS.PlayerSkillPoints -= cost;
 
             // Add player's skill to list
             SaveLoad.playerskills.OwnedSkills.Add(Skill.SkillID);

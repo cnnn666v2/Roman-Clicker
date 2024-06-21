@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSS }
 
@@ -12,7 +13,8 @@ public class BattleSystem : MonoBehaviour
     // Player and Enemy prefabs
     [Header("Prefabs")]
     public GameObject PlayerPrefab;
-    public GameObject EnemyPrefab;
+    //public GameObject EnemyPrefab;
+    public List<GameObject> EnemyList; // List of enemy objects
 
     // Reference player&enemy stats script
     public PlayerStats PlayableCharacter;
@@ -117,7 +119,11 @@ public class BattleSystem : MonoBehaviour
         }
 
         // Spawn enemy and scrap info
-        GameObject enemy = Instantiate(EnemyPrefab, EnemySpawn);
+        Debug.Log("Enemy count: " + EnemyList.Count + "|| (-1): " + (EnemyList.Count - 1));
+        //Select random enemy from list
+        int RandomSpawn = Random.Range(0, EnemyList.Count);
+        GameObject enemy = Instantiate(EnemyList[RandomSpawn], EnemySpawn);
+        //Asign enemy stats
         EnemyCharacter = enemy.GetComponent<PlayerStats>();
 
         // Call ScrapInfo() function

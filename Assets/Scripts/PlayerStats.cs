@@ -1,4 +1,5 @@
 using UnityEngine;
+//TO DO - Move Skill Points across the game from SL to PS
 
 public class PlayerStats : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Economic stuff")]
     public int PlayerMoney;
     public int PlayerGem;
+    public int PlayerSkillPoints;
 
     private void Awake()
     {
@@ -91,6 +93,7 @@ public class PlayerStats : MonoBehaviour
 
         PlayerMoney = SaveLoad.playercharacter.Money;
         PlayerGem = SaveLoad.playercharacter.Gem;
+        PlayerSkillPoints = SaveLoad.playerskills.SkillPoints;
 
         Debug.Log("Loaded!");
     }
@@ -120,6 +123,7 @@ public class PlayerStats : MonoBehaviour
         Debug.Log(PlayerMoney);
         SaveLoad.playercharacter.Money = PlayerMoney;
         SaveLoad.playercharacter.Gem = PlayerGem;
+        SaveLoad.playerskills.SkillPoints = PlayerSkillPoints;
 
         Debug.Log(SaveLoad.playercharacter.Money);
         Debug.Log("Saved!");
@@ -128,7 +132,9 @@ public class PlayerStats : MonoBehaviour
     public void LoadItems()
     {
         // Search for attack item ID
-        for(int i = 0;i < ItemsDBS.ItemsDB.Count; i++) {
+        Debug.Log("Loading items...");
+        Debug.Log("Loading Weapon items...");
+        for (int i = 0;i < ItemsDBS.ItemsDB.Count; i++) {
             // If the selected ID matches with in the DB
             if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot1) {
                 // Set Item attack value to the selected item
@@ -136,8 +142,11 @@ public class PlayerStats : MonoBehaviour
                 break;
             }
         }
+        Debug.Log("Loaded!");
+
 
         // Search for block chance item ID
+        Debug.Log("Loading Armor items...");
         for (int i = 0; i < ItemsDBS.ItemsDB.Count; i++) {
             // If the selected ID matches with in the DB
             if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot2) {
@@ -146,5 +155,7 @@ public class PlayerStats : MonoBehaviour
                 break;
             }
         }
+        Debug.Log("Loaded!");
+        Debug.Log("Loaded all items!");
     }
 }

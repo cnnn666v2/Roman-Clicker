@@ -41,14 +41,14 @@ public class SkillTree : MonoBehaviour
         if (!STisUnlocked)
         {
             // If it's not then check if player has enough to unlock it
-            if (SaveLoad.playerskills.SkillPoints >= STunlockPrice)
+            if (PS.PlayerSkillPoints >= STunlockPrice)
             {
                 // Unlock tree
                 STisUnlocked = true;
                 PlayerPrefs.SetInt("skilltree-" + STName, (STisUnlocked ? 1 : 0));
 
                 // Remove currency
-                SaveLoad.playerskills.SkillPoints -= STunlockPrice;
+                PS.PlayerSkillPoints -= STunlockPrice;
 
                 LockPanel.SetActive(false);
             }

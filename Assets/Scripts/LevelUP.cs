@@ -8,11 +8,10 @@ public class LevelUP : MonoBehaviour
     //Panel texts
     [SerializeField] TMP_Text MoneyT, GemsT, NewXPT, LvlT, StatsT, NewArenaT, NewItemsT, NewSkillsT, NewQuestsT;
 
-    // Get player stats script
+    // Get necessary scripts
     PlayerStats Player;
-
-    // Get Save system script
     SaveLoad SaveSystem;
+    PlayerMainMenuInfo PMMI;
 
     void Start()
     {
@@ -24,16 +23,21 @@ public class LevelUP : MonoBehaviour
         // Get save system script
         SaveSystem = GetComponent<SaveLoad>();
 
+        // Get player main menu info script
+        PMMI = GetComponent<PlayerMainMenuInfo>();
+
         // Level up player
         LevelUp();
     }
 
     // REWRITE ENTRIE THING TO LOCAL VARS NSTEAD OF DIRECT JSON READ-WRITE
-    void LevelUp()
+    public void LevelUp()
     {
         // Check if XP is equal or higher to required xp for lvl up
         if (Player.PlayerXP >= Player.PlayerReqXP)
         {
+            Debug.Log("Available level up");
+
             // Remove XP amount
             Player.PlayerXP -= Player.PlayerReqXP;
             // Level up
@@ -66,7 +70,9 @@ public class LevelUP : MonoBehaviour
 
             // Set up info
             DisplayLevelInfo();
-        }
+            PMMI.UpdateUI();
+
+        } else { Debug.Log("No available level up"); }
     }
 
     void DisplayLevelInfo()
