@@ -45,12 +45,12 @@ public class AttackMethods : MonoBehaviour
         statsE = battleSystem.EnemyCharacter;
     }
 
-    public void TakeDamage(int damage, int critDmg, int critChance)
+    public void TakeDamage(int damage, float critDmg, float critChance)
     {
         ScrapInfo();
 
         // Define a variable for dealt dmg
-        int dealtDmg;
+        float dealtDmg;
         int randomized = Random.Range(1, 100);
 
         Debug.Log("[TakeDamage]: Initiated variables");
@@ -63,6 +63,8 @@ public class AttackMethods : MonoBehaviour
             // if odds arent in favour, define dealtDmg as base dmg
             dealtDmg = damage;
         }
+
+        Mathf.RoundToInt(dealtDmg);
 
         Debug.Log("[TakeDamage]: Rolled number is " + randomized);
         Debug.Log("[TakeDamage]: It's " + battleSystem.State + "'s turn");
@@ -78,7 +80,7 @@ public class AttackMethods : MonoBehaviour
                 messageObjects.Add(messageTXT);
                 messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> has blocked the attack";
             } else {
-                statsE.PlayerCurrHealth -= dealtDmg;
+                statsE.PlayerCurrHealth -= (int)dealtDmg;
                 Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsE.PlayerCurrHealth);
 
                 // Spawn new message inside container
@@ -97,7 +99,7 @@ public class AttackMethods : MonoBehaviour
                 messageObjects.Add(messageTXT);
                 messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has blocked the attack";
             } else {
-                statsP.PlayerCurrHealth -= dealtDmg;
+                statsP.PlayerCurrHealth -= (int)dealtDmg;
                 Debug.Log("[TakeDamage]: Taken damage: " + dealtDmg + " || New health: " + statsP.PlayerCurrHealth);
 
                 // Spawn new message inside container

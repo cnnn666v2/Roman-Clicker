@@ -177,8 +177,8 @@ public class PlayerCharacter
     public int Level;
 
     [Header("Player skills")]
-    public int Luck; // Chance for critical
-    public int Critical; // Critical damage multiplier
+    public float Luck; // Chance for critical
+    public float Critical; // Critical damage multiplier
     //Special skill: poison
     public int PoisonDmg; // Poison damage
     public int PoisonTime; // Poison duration
