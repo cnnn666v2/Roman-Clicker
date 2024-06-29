@@ -5,6 +5,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSS }
 
@@ -36,10 +37,12 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text PlayerDamageTXT;
     public TMP_Text PlayerXPTXT;
     public TMP_Text PlayerLVLTXT;
+    public Slider PlayerHPBar;
     //Enemy
     public TMP_Text EnemyNameTXT;
     public TMP_Text EnemyHealthTXT;
     public TMP_Text EnemyDamageTXT;
+    public Slider EnemyHPBar;
 
     // Battle state
     [Header("BattleState")]
@@ -88,6 +91,27 @@ public class BattleSystem : MonoBehaviour
         SetupBattle();
     }
 
+    public void UpdateUI()
+    {
+        //Pointless, but stays to avoid errors
+        PlayerDamageTXT.text = "Damage: " + PlayableCharacter.PlayerDamage;
+        EnemyDamageTXT.text = "Damage: " + EnemyCharacter.PlayerDamage;
+        ////////////////////////////////////////////////////////////////////////
+
+        PlayerXPTXT.text = "XP: " + (PlayableCharacter.PlayerXP + TempXP) + "/" + PlayableCharacter.PlayerReqXP;
+        PlayerLVLTXT.text = "Level: " + PlayableCharacter.PlayerLevel;
+
+        // Set info about player&enemy with text
+        //Player
+        PlayerNameTXT.text = PlayableCharacter.PlayerName;
+        PlayerHealthTXT.text = PlayableCharacter.PlayerCurrHealth + "HP / " + PlayableCharacter.PlayerMaxHealth + "HP";
+        PlayerHPBar.value = (float)PlayableCharacter.PlayerCurrHealth / (float)PlayableCharacter.PlayerMaxHealth;
+
+        //Enemy
+        EnemyNameTXT.text = EnemyCharacter.PlayerName;
+        EnemyHealthTXT.text = EnemyCharacter.PlayerCurrHealth + "HP / " + EnemyCharacter.PlayerMaxHealth + "HP";
+        EnemyHPBar.value = (float)EnemyCharacter.PlayerCurrHealth / (float)EnemyCharacter.PlayerMaxHealth;
+    }
     public void SetupBattle()
     {
         Debug.Log("Setting up the battle");
@@ -129,17 +153,8 @@ public class BattleSystem : MonoBehaviour
         // Call ScrapInfo() function
         attackMethods.ScrapInfo();
 
-        // Set info about player&enemy with text
-        //Enemy
-        EnemyNameTXT.text = EnemyCharacter.PlayerName;
-        EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
-        EnemyDamageTXT.text = "Damage: " + EnemyCharacter.PlayerDamage;
-        //Player
-        PlayerNameTXT.text = PlayableCharacter.PlayerName;
-        PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
-        PlayerDamageTXT.text = "Damage: " + PlayableCharacter.PlayerDamage;
-        PlayerXPTXT.text = "XP: " + PlayableCharacter.PlayerXP + "/" + PlayableCharacter.PlayerReqXP;
-        PlayerLVLTXT.text = "Level: " + PlayableCharacter.PlayerLevel;
+        // Set info about player&enemy
+        UpdateUI();
 
         // Set BattleState and call next function
         State = BattleState.PLAYERTURN;
@@ -162,17 +177,17 @@ public class BattleSystem : MonoBehaviour
         if (random == 1 && EnemyCharacter.PlayerCurrHealth <= EnemyCharacter.PlayerMaxHealth / 2) {
             // Heal up
             attackMethods.UseHealing(EnemyCharacter.PlayerHealing);
-            EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
+            UpdateUI();
 
         } else if (random == 2 && EnemyCharacter.PlayerPoisonDmg > 0) {
             // Poison player
             attackMethods.Poisoning(EnemyCharacter.PlayerPoisonDmg, EnemyCharacter.PlayerPoisonTime);
-            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+            UpdateUI();
 
         } else {
             // Damage the player
             attackMethods.TakeDamage(EnemyCharacter.PlayerDamage, EnemyCharacter.PlayerCritical, EnemyCharacter.PlayerLuck);
-            PlayerHealthTXT.text = "Health: " + PlayableCharacter.PlayerCurrHealth + "/" + PlayableCharacter.PlayerMaxHealth;
+            UpdateUI();
         }        
     }
 
@@ -190,7 +205,7 @@ public class BattleSystem : MonoBehaviour
 
         // Call poison action every turn
         attackMethods.Poisoning(PlayableCharacter.PlayerPoisonDmg, PlayableCharacter.PlayerPoisonTime);
-        EnemyHealthTXT.text = "Health: " + EnemyCharacter.PlayerCurrHealth + "/" + EnemyCharacter.PlayerMaxHealth;
+        UpdateUI();
 
         // Toggle panel so that player cant do action
         switchPanel.ToggleUIPanel(DisableHUD);

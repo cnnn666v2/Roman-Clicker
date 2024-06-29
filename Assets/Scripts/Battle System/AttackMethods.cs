@@ -222,6 +222,9 @@ public class AttackMethods : MonoBehaviour
 
     bool CheckDeath()
     {
+        // Update UI
+        battleSystem.UpdateUI();
+
         if (battleSystem.State == BattleState.PLAYERTURN) {
             // Create a bool to determine enemy's health
             bool isDead = statsE.PlayerCurrHealth <= 0;
@@ -286,7 +289,7 @@ public class AttackMethods : MonoBehaviour
         // Determine if poison is active
         if(isPoisoning == true) {
             // If it's active, let user do an action
-            Debug.Log("[CheckDeath(bool)]: conitnue action.");
+            Debug.Log("[CheckDeath(bool)]: continue action.");
             return false;
         } else {
             // If it's not, call CheckDeath()

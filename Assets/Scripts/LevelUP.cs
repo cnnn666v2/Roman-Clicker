@@ -40,6 +40,9 @@ public class LevelUP : MonoBehaviour
         // Reset Variables
         ResetVars();
 
+        // Setup strings
+        CS.SetStrings();
+
         // Level up player
         LevelUp();
     }
@@ -59,11 +62,6 @@ public class LevelUP : MonoBehaviour
     // REWRITE ENTRIE THING TO LOCAL VARS NSTEAD OF DIRECT JSON READ-WRITE
     public void LevelUp()
     {
-        // Disable texts
-        CritChanceT.gameObject.SetActive(false);
-        BlockChanceT.gameObject.SetActive(false);
-        BlockDamageT.gameObject.SetActive(false);
-
         // Reset Variables
         ResetVars();
 
@@ -158,6 +156,12 @@ public class LevelUP : MonoBehaviour
 
     void EnableTexts()
     {
+        // Disable texts
+        CritChanceT.gameObject.SetActive(false);
+        BlockChanceT.gameObject.SetActive(false);
+        BlockDamageT.gameObject.SetActive(false);
+
+        // Enable texts based on level
         switch (isLvl5, isLvl7, isLvl12)
         {
             case (true, false, false):
@@ -183,7 +187,7 @@ public class LevelUP : MonoBehaviour
         GemsT.text = CS.C + "Gems<color=white>: " + CS.G + "+" + GemAdd;
         SkillPointsT.text = CS.PK + "Skill Points<color=white>: " + CS.G + "+" + Player.PlayerLevel;
         NewXPT.text = CS.C + "Req. " + CS.W + "XP: " + CS.GD + OldXP + CS.W + " -> " + CS.G + NewXP2;
-        LvlT.text = CS.S + "Level<color=white>: " + CS.GY + (Player.PlayerLevel-1) + CS.W + " -> " + CS.GY + Player.PlayerLevel;
+        LvlT.text = CS.S + "Level<color=white>: " + CS.GY + (Player.PlayerLevel-1) + CS.W + " -> " + CS.S + Player.PlayerLevel;
 
         HealthT.text = "Hea" + CS.R + "lth<color=white>: " + CS.G + "+1" + CS.W + "H" + CS.R + "P";
         DamageT.text = CS.GY + "Damage<color=white>: " + CS.G + "+1";

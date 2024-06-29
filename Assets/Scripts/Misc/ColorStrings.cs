@@ -21,7 +21,11 @@ public class ColorStrings : MonoBehaviour
     public string W = "<color=white>"; // White
     public string BK = "<color=black>"; // Black
 
-    private void Start()
+    void Start()
+    {
+        SetStrings();
+    }
+    public void SetStrings()
     {
         R = "<color=red>";
         O = "<color=orange>";
