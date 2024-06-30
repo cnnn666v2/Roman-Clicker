@@ -7,15 +7,16 @@ public class ToggleArenas : MonoBehaviour
 {
     [Header("Text Fields")]
     public TMP_Text ArenaNameTXT;
-    //public TMP_Text AreaDifficultyTXT;
-    //public TMP_Text AreaHSTXT;
-    //public TMP_Text ArenaDescriptionTXT;
+    public TMP_Text AreaDifficultyTXT;
+    public TMP_Text AreaHSTXT;
+    public TMP_Text ArenaDescriptionTXT;
     public TMP_Text ArenaCountTXT;
 
     [Header("Arenas")]
     public List<string> ArenaName;
-    //public List<string> ArenaDifficulty;
-    //public List<int> ArenaHighscore;
+    public List<string> ArenaDifficulty;
+    public List<string> ArenaDescription;
+    public List<int> ArenaHighscore;
     public List<int> ArenaSceneIndex;
 
     [Header("Misc")]
