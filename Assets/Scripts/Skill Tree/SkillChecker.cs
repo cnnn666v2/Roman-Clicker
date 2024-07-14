@@ -4,12 +4,17 @@ using UnityEngine.UI;
 
 public class SkillChecker : MonoBehaviour
 {
+    [Header("Scripts")]
     // Define Skills DB
     [SerializeField] SkillsDBScript SkillDBS;
+
+    // Define Menu UI Updater Script
+    [SerializeField] PlayerMainMenuInfo PMMI;
 
     // Reference PlayerStats script to make local changes to the player stats
     [SerializeField] PlayerStats PS; // PS stands for PlayerStats
 
+    [Header("Skills")]
     // Define required and future skills, as well as the skill to unlock
     [SerializeField] SkillSO Skill;
     [SerializeField] List<SkillSO> PreviousSkills;
@@ -18,6 +23,8 @@ public class SkillChecker : MonoBehaviour
     // Define wether the skills is first in the tree
     [SerializeField] bool isFirstSkill;
 
+    [Space]
+
     // Define the lock panel for a skill
     [SerializeField] GameObject LockPanel;
 
@@ -25,10 +32,16 @@ public class SkillChecker : MonoBehaviour
     [SerializeField] Button BuyBTN;
 
     // Define the parent of skill game object
-    [SerializeField] GameObject SkillParent;
+    //[SerializeField] GameObject SkillParent;
 
     // Reference script to show skill stats
     [SerializeField] SkillStatsCheck StatsDisplay;
+
+    [Header("Spells")]
+    // Spells
+    [SerializeField] bool UnlocksSpells;
+    [SerializeField] List<int> SpellIDs; // Spell IDs to unlock
+    
 
 
     private void Start()
@@ -98,6 +111,21 @@ public class SkillChecker : MonoBehaviour
                 // Add damage
                 PS.PlayerSATK += Skill.DAmount;
             }
+
+            // If skill unlocks a spell
+            if(UnlocksSpells) {
+                for(int i = 0; i < SpellIDs.Count;i++) {
+                    Debug.Log("[SkillChecker]: Current index: " + i + " | Current Spell ID: " + SpellIDs[i]);
+
+                    // Check if skill already exists
+                    if (!SaveLoad.playerspells.OwnedSpells.Contains(SpellIDs[i])) {
+                        SaveLoad.playerspells.OwnedSpells.Add(SpellIDs[i]);
+                    }    
+                }
+            }
+
+            // Update UI
+            PMMI.UpdateUI();
         }
     }
 

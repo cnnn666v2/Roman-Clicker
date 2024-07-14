@@ -7,6 +7,7 @@ public class SaveLoad : MonoBehaviour
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
     public static PlayerSkills playerskills = new PlayerSkills();
+    public static PlayerSpells playerspells = new PlayerSpells();
 
     // Get local stats variables
     public PlayerStats Stats;
@@ -16,17 +17,14 @@ public class SaveLoad : MonoBehaviour
 
     void Awake()
     {
-        // Define inventory location
+        // Define save files location
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
-
-        // Define player profile location
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
-
-        // Define player skill location
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
+        string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
 
         // Check if the file already exists
-        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer) || !System.IO.File.Exists(filePathSkills))
+        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer) || !System.IO.File.Exists(filePathSkills) || !System.IO.File.Exists(filePathSpells))
         {
             Debug.Log("Not every file exists!!");
             Debug.Log("Creating files...");
@@ -40,7 +38,7 @@ public class SaveLoad : MonoBehaviour
         // Check if the json data files are up to date or not
         if(inventory.VersionNumber != PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number"))
         {
-            Debug.Log("Version mismatch! Might cause errors");
+            Debug.LogWarning("File save version mismatch! Might cause errors");
         }
 
         Debug.Log("Game version: " + inventory.VersionNumber);
@@ -51,7 +49,7 @@ public class SaveLoad : MonoBehaviour
         LoadFromJson();
 
         // Auto save data every 5 minutes
-        InvokeRepeating("SaveToJson", 5.0f, 300.0f);
+        InvokeRepeating("SaveToJson", 120.0f, 120.0f);
 
         // Load player stats
         Stats.LoadPlayer();
@@ -67,7 +65,7 @@ public class SaveLoad : MonoBehaviour
         // Update game version json file
         Debug.Log("Old version: " + inventory.VersionNumber);
         PlayerPrefs.SetString("version-branch", "beta");
-        PlayerPrefs.SetFloat("version-number", 2.0f);
+        PlayerPrefs.SetFloat("version-number", 2.1f);
         inventory.VersionNumber = PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number");
         Debug.Log("New version: " + inventory.VersionNumber);
 
@@ -84,6 +82,9 @@ public class SaveLoad : MonoBehaviour
         // Define player skills and its location
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
         string skillsData = JsonUtility.ToJson(playerskills);
+        // Define player skills and its location
+        string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
+        string spellsData = JsonUtility.ToJson(playerspells);
 
         Debug.Log(filePathInv);
         // Actually write the file with correct data
@@ -97,6 +98,9 @@ public class SaveLoad : MonoBehaviour
         // Actually write the file with correct data
         System.IO.File.WriteAllText(filePathSkills, skillsData);
 
+        Debug.Log(filePathSpells);
+        System.IO.File.WriteAllText(filePathSpells, spellsData);
+
         Debug.Log("Saving complete!");
     }
 
@@ -106,17 +110,20 @@ public class SaveLoad : MonoBehaviour
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
+        string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
 
         // Read save files
         string inventoryData = System.IO.File.ReadAllText(filePathInv);
         string playerData = System.IO.File.ReadAllText(filePathPlayer);
         string skillsData = System.IO.File.ReadAllText(filePathSkills);
-        Debug.Log(filePathInv + " || " + filePathPlayer + " || " + filePathSkills);
+        string spellsData = System.IO.File.ReadAllText(filePathSpells);
+        Debug.Log(filePathInv + " || " + filePathPlayer + " || " + filePathSkills + " || " + filePathSpells);
 
         // Load the data
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         playercharacter = JsonUtility.FromJson<PlayerCharacter>(playerData);
         playerskills = JsonUtility.FromJson<PlayerSkills>(skillsData);
+        playerspells = JsonUtility.FromJson<PlayerSpells>(spellsData);
         Debug.Log("Data loaded!");
     }
 
@@ -143,7 +150,20 @@ public class SaveLoad : MonoBehaviour
 
         // Load the data
         playerskills = JsonUtility.FromJson<PlayerSkills>(skillsData);
-        Debug.Log("Loaded inventory!");
+        Debug.Log("Loaded skills!");
+    }
+
+    public void LoadSpells()
+    {
+        // Define save file locations
+        string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
+
+        // Read save files
+        string spellsData = System.IO.File.ReadAllText(filePathSpells);
+
+        // Load the data
+        playerspells = JsonUtility.FromJson<PlayerSpells>(spellsData);
+        Debug.Log("Loaded spells!");
     }
 }
 
@@ -191,6 +211,12 @@ public class PlayerCharacter
     public int slot1; // ID to selected item
     public int slot2;
     public ItemSO slot3;
+
+    [Header("Equipped Skills")]
+    public int skill1; // ID to selected skill
+    public int skill2;
+    public int skill3;
+    public int skill4;
 }
 
 [System.Serializable]
@@ -204,5 +230,15 @@ public class PlayerSkills
     public PlayerSkills()
     {
         OwnedSkills = new List<int>();
+    }
+}
+
+[System.Serializable]
+public class PlayerSpells
+{
+    public List<int> OwnedSpells;
+    public PlayerSpells()
+    {
+        OwnedSpells = new List<int>();
     }
 }

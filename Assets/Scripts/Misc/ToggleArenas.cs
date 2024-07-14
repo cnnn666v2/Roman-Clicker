@@ -7,8 +7,8 @@ public class ToggleArenas : MonoBehaviour
 {
     [Header("Text Fields")]
     public TMP_Text ArenaNameTXT;
-    public TMP_Text AreaDifficultyTXT;
-    public TMP_Text AreaHSTXT;
+    public TMP_Text ArenaDifficultyTXT;
+    public TMP_Text ArenaHSTXT;
     public TMP_Text ArenaDescriptionTXT;
     public TMP_Text ArenaCountTXT;
 
@@ -28,8 +28,7 @@ public class ToggleArenas : MonoBehaviour
         currentIndex = 0;
 
         // Set Arena name to current index (0)
-        ArenaNameTXT.text = "Arena - " + ArenaName[currentIndex];
-        ArenaCountTXT.text = "Arena: " + (currentIndex + 1) + "/" + ArenaName.Count;
+        SwitchArena();
         Debug.Log("Loaded: " + "Arena name:" + ArenaName[currentIndex] + ", Index: " + currentIndex + ", Count: " + ArenaName.Count + " || Current scene index: " + ArenaSceneIndex[currentIndex]);
     }
 
@@ -38,7 +37,10 @@ public class ToggleArenas : MonoBehaviour
         // Cycle the index through the list
         currentIndex = (currentIndex + 1) % ArenaName.Count;
         // Set text to match current arena index
-        ArenaNameTXT.text = "Arena - " + ArenaName[currentIndex];
+        ArenaNameTXT.text = "Arena: " + ArenaName[currentIndex];
+        ArenaDifficultyTXT.text = "Difficulty: " + ArenaDifficulty[currentIndex];
+        ArenaDescriptionTXT.text = "Description: <br><size=35>" + ArenaDescription[currentIndex];
+        ArenaHSTXT.text = "Highscore: " + ArenaHighscore[currentIndex] + " Battles";
         ArenaCountTXT.text = "Arena: " + (currentIndex + 1) + "/" + ArenaName.Count;
         Debug.Log("Current arena index name: " + ArenaName[currentIndex] + " || Current index: " + currentIndex + " || Current scene index: " + ArenaSceneIndex[currentIndex]);
     }

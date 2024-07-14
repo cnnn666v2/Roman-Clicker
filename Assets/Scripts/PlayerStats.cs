@@ -65,6 +65,8 @@ public class PlayerStats : MonoBehaviour
 
         // Load all selected items
         LoadItems();
+        // Load all spells
+        LoadItems();
 
         // Define local variables from the saved data file
         PlayerName = SaveLoad.playercharacter.Name;

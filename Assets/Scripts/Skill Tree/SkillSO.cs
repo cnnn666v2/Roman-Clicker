@@ -10,7 +10,6 @@ public class SkillSO : ScriptableObject
     public Sprite Icon;
     public bool isPoison, isHealer, isDamager;
     public int CostSP; // SP stands for Skill Point
-    //public int CostMana;
 
     [Header("Special Effects:")]
     // Poisoning - P stands for Poison
