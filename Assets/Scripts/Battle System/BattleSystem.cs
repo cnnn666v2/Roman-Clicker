@@ -62,8 +62,9 @@ public class BattleSystem : MonoBehaviour
     int TurnCount;
     //Flagging player spawn
     bool isPlayerSpawned;
-    //Poison duration
+    //Special attack durations
     public int durationPoisonLeft;
+    public int durationFreezeLeft;
     //Local variables for rewards
     public int TempMoney = 0;
     public int TempGems = 0;
@@ -112,6 +113,7 @@ public class BattleSystem : MonoBehaviour
         EnemyHealthTXT.text = EnemyCharacter.PlayerCurrHealth + "HP / " + EnemyCharacter.PlayerMaxHealth + "HP";
         EnemyHPBar.value = (float)EnemyCharacter.PlayerCurrHealth / (float)EnemyCharacter.PlayerMaxHealth;
     }
+
     public void SetupBattle()
     {
         Debug.Log("Setting up the battle");
@@ -165,6 +167,17 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log("Enemy turn now");
 
+        // Check if enemy is frozen
+        if (attackMethods.SetFreeze && attackMethods.FreezeAuthor == "Player" && durationFreezeLeft > 0) {
+            Debug.Log("[Freeze]: Enemy is frozen!");
+            attackMethods.SkipTurn();
+            durationFreezeLeft -= 1;
+
+            // Unset freeze if it's over
+            if (durationFreezeLeft <= 0) { attackMethods.SetFreeze = false; }
+            return;
+        }
+
         // Update tracking game
         TurnCount++;
         //Set Texts
@@ -194,7 +207,18 @@ public class BattleSystem : MonoBehaviour
     public void PlayerTurn()
     {
         switchPanel.ToggleUIPanel(DisableHUD);
-        //Debug.Log("Player turn");
+        Debug.Log("Player turn");
+
+        // Check if enemy is frozen
+        if (attackMethods.SetFreeze && attackMethods.FreezeAuthor == "Enemy" && durationFreezeLeft > 0) {
+            Debug.Log("[Freeze]: Player is frozen!");
+            attackMethods.SkipTurn();
+            durationFreezeLeft -= 1;
+
+            // Unset freeze if it's over
+            if (durationFreezeLeft <= 0) { attackMethods.SetFreeze = false; }
+            return;
+        }
 
         Debug.Log("[PlayerTurn]: Turn count: " + TurnCount);
         // Update tracking game

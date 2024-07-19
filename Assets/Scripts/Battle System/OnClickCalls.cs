@@ -4,6 +4,11 @@ public class OnClickCalls : MonoBehaviour
 {
     AttackMethods attackMethods;
     BattleSystem bs;
+    PlayerStats PS;
+
+    GameObject SpellManager;
+    SpellsDBScript SpellsDBS;
+
 
     // Use this bool to determine if attack has been used already or not
     public bool isUsed = false;
@@ -13,6 +18,10 @@ public class OnClickCalls : MonoBehaviour
         // Get reference to battlesystem and attackmethods
         bs = GetComponent<BattleSystem>();
         attackMethods = GetComponent<AttackMethods>();
+        PS = GetComponent<PlayerStats>();
+
+        SpellManager = GameObject.Find("SpellsDBManager");
+        SpellsDBS = SpellManager.GetComponent<SpellsDBScript>();
     }
 
     public void ClickAttack()
@@ -79,5 +88,23 @@ public class OnClickCalls : MonoBehaviour
 
         // Skip turn
         attackMethods.SkipTurn();
+    }
+
+    public void ClickFreeze()
+    {
+        // Check if it is player's turn
+        if (bs.State != BattleState.PLAYERTURN)
+            return;
+
+        if (PS.PlayerMana < SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.CostMana)
+            return;
+
+        if (attackMethods.SetFreeze)
+            return;
+
+        Debug.Log("State is playerturn :)");
+
+        attackMethods.FreezeATK(SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.Value1);
+        PS.PlayerMana -= SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.CostMana;
     }
 }

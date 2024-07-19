@@ -2911,7 +2911,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 766606253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069550653}
+        m_TargetAssemblyTypeName: OnClickCalls, Assembly-CSharp
+        m_MethodName: ClickFreeze
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &766606253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5083,6 +5095,7 @@ MonoBehaviour:
   DefeatPanel: {fileID: 50798891}
   GameTrack: {fileID: 766896883}
   durationPoisonLeft: 0
+  durationFreezeLeft: 0
   TempMoney: 0
   TempGems: 0
   TempXP: 0
@@ -5098,6 +5111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f661b39a98e596840b83d4b901e95f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetFreeze: 0
+  FreezeAuthor: 
   MessageContainer: {fileID: 1217139954}
   MessagePrefab: {fileID: 7364773446539868864, guid: d3f74d8c3cee20a4fb29b8899c908a90, type: 3}
   messageObjects: []

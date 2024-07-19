@@ -27,5 +27,6 @@ public class SpellAttacks : MonoBehaviour
     public void FreezeEnemyATK()
     {
         ScrapInfo();
+
     }
 }

@@ -5,14 +5,16 @@ public class PlayerStats : MonoBehaviour
 {
     // Reference to ItemsDB
     [SerializeField]
-    GameObject ItemManager;
+    GameObject ItemManager, SpellManager;
     ItemsDBScript ItemsDBS;
+    SpellsDBScript SpellsDBS;
 
     [Header("Player main stats")]
     public string PlayerName;
     public int PlayerMaxHealth;
     public int PlayerCurrHealth;
     public int PlayerHealing;
+    public int PlayerMana;
 
     [Header("Player damage")]
     public int PlayerDamage; // Total damage
@@ -48,9 +50,15 @@ public class PlayerStats : MonoBehaviour
         // Find ItemsManager and get the items db
         ItemManager = GameObject.Find("ItemsDBManager");
         ItemsDBS = ItemManager.GetComponent<ItemsDBScript>();
-        
+
+        // Find SpellManager and get the spells db
+        SpellManager = GameObject.Find("SpellsDBManager");
+        SpellsDBS = SpellManager.GetComponent<SpellsDBScript>();
+
         DontDestroyOnLoad(ItemManager);
         DontDestroyOnLoad(ItemsDBS);
+        DontDestroyOnLoad(SpellManager);
+        DontDestroyOnLoad(SpellsDBS);
     }
 
     void Start()

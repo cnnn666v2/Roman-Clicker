@@ -14,8 +14,10 @@ public class AttackMethods : MonoBehaviour
     BattleSystem battleSystem;
     OnClickCalls onClick;
 
-    // Poison status
+    // Special attacks status
     bool SetPoison;
+    public bool SetFreeze;
+    public string FreezeAuthor;
 
     // Prefabs
     //Chat logs
@@ -207,17 +209,66 @@ public class AttackMethods : MonoBehaviour
         }
     }
 
+    public void FreezeATK(int FreezeTime)
+    {
+        ScrapInfo();
+
+        if(SetFreeze && battleSystem.durationFreezeLeft != 0) {
+            Debug.Log("[Freeze]: Freeze has been used");
+        } else {
+            if (!SetFreeze) { battleSystem.durationFreezeLeft = FreezeTime; }
+
+            if (battleSystem.durationFreezeLeft > 0) {
+                // Determine who should've been frozen
+                if (battleSystem.State == BattleState.PLAYERTURN) {
+                    Debug.Log("[Freeze]: it's playerturn");
+                    Debug.Log("[Freeze]: Duration left: " + battleSystem.durationFreezeLeft);
+
+                    // Set freeze to true and set it's author
+                    SetFreeze = true;
+                    FreezeAuthor = "Player";
+
+                    // Spawn new message inside container
+                    TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                    messageObjects.Add(messageTXT);
+                    messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00ECFF>frozen <color=#FF0000>" + statsE.PlayerName + "</color>";
+                } else if (battleSystem.State == BattleState.ENEMYTURN) {
+                    Debug.Log("[Freeze]: it's enemyturn");
+                    Debug.Log("[Freeze]: Duration left: " + battleSystem.durationFreezeLeft);
+
+                    // Set freeze to true and set it's author
+                    SetFreeze = true;
+                    FreezeAuthor = "Enemy";
+
+                    // Spawn new message inside container// Spawn new message inside container
+                    TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+                    messageObjects.Add(messageTXT);
+                    messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> has <color=#00ECFF>frozen <color=#00ECFF>" + statsP.PlayerName + "</color>";
+                } else { Debug.Log("Something is wrong: " + battleSystem.State); }
+            } else { SetFreeze = false; Debug.Log("[Freeze]: duration is over"); }
+        }
+    }
+
     public void SkipTurn()
     {
         ScrapInfo();
 
-        // Spawn new message inside container
-        TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
-        messageObjects.Add(messageTXT);
-        messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00ECFF>skipped <color=#FFF>turn their</color>";
+        // Determine who should've been frozen
+        if (battleSystem.State == BattleState.PLAYERTURN) {
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
+            messageTXT.text = "<color=#00ECFF>" + statsP.PlayerName + "<color=#FFF> has <color=#00ECFF>skipped <color=#FFF>their turn</color>";
 
-        // Determine next turn
-        CheckDeath();
+            CheckDeath();
+        } else if (battleSystem.State == BattleState.ENEMYTURN) {
+            // Spawn new message inside container
+            TMP_Text messageTXT = Instantiate(MessagePrefab, MessageContainer);
+            messageObjects.Add(messageTXT);
+            messageTXT.text = "<color=#FF0000>" + statsE.PlayerName + "<color=#FFF> has <color=#00ECFF>skipped <color=#FFF>their turn</color>";
+
+            CheckDeath();
+        } else { Debug.Log("Something is wrong: " + battleSystem.State); }
     }
 
     bool CheckDeath()

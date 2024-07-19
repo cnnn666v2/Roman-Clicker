@@ -1350,6 +1350,7 @@ MonoBehaviour:
   PlayerMaxHealth: 0
   PlayerCurrHealth: 0
   PlayerHealing: 0
+  PlayerMana: 0
   PlayerDamage: 0
   PlayerSATK: 0
   PlayerIATK: 0
@@ -3050,14 +3051,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemsDB:
+  - itemID: 0
+    Item: {fileID: 11400000, guid: f2b5aff8fe95aa145bfe57d1a240d9dc, type: 2}
   - itemID: 1
     Item: {fileID: 11400000, guid: bd787fd226b716f4186b4816610cf3a9, type: 2}
   - itemID: 2
     Item: {fileID: 11400000, guid: 3a8fb835683670c4ab1b9511a07e1d40, type: 2}
   - itemID: 3
     Item: {fileID: 11400000, guid: aa80473836b5dcc4187ca262185cb4af, type: 2}
-  - itemID: 0
-    Item: {fileID: 11400000, guid: f2b5aff8fe95aa145bfe57d1a240d9dc, type: 2}
 --- !u!1 &172178108
 GameObject:
   m_ObjectHideFlags: 0
@@ -14295,7 +14296,7 @@ Transform:
   m_LocalScale: {x: 2.3651, y: 2.3651, z: 2.3651}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &677790978
 GameObject:
@@ -25161,7 +25162,7 @@ Transform:
   m_LocalScale: {x: 30.068, y: 1, z: 30.023}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1152164714
 GameObject:
@@ -29379,6 +29380,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318963824}
   m_CullTransparentMesh: 1
+--- !u!1 &1325531585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325531586}
+  - component: {fileID: 1325531587}
+  m_Layer: 0
+  m_Name: SpellsDBManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1325531586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325531585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 982.5125, y: 280.81497, z: -1022.2188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325531587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325531585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b7a30a45a65054b86d92a9108b8c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpellsDB:
+  - SpellID: 1
+    Spell: {fileID: 11400000, guid: fdcf977b1f55a03439ee38df96f41fa4, type: 2}
 --- !u!1 &1325980917
 GameObject:
   m_ObjectHideFlags: 0
