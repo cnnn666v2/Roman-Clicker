@@ -17,68 +17,17 @@ public class ChangePlayer : MonoBehaviour
     [SerializeField]
     Image slot1, slot2, slot3;
 
-    // Player stats
-    [SerializeField]
+    // Player stats - Legacy
+    /*[SerializeField]
     TMP_Text MaxHP, AtkDMG, CritMult, CritChance,
         Healing, 
-        PlayerXP, PlayerLVL;
+        PlayerXP, PlayerLVL;*/
 
     void Start()
     {
-        // Load the item sprite by iterating through the DB
-        for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++) {
-            for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
-                // Load (Slot 1/Weapon) sprite
-                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
-                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
-                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
-
-                    slot1.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
-
-                    // Stop searching further
-                    break;
-                } else {
-                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
-                }
-
-                // Load (Slot 2/Armor) sprite
-                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
-                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
-                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
-
-                    slot2.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
-
-                    // Stop searching further
-                    break;
-                } else {
-                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
-                }
-
-                // Load (Slot 3/Soon) sprite
-                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) {
-                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
-                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
-
-                    slot1.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
-
-                    // Stop searching further
-                    break;
-                } else {
-                    Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]);
-                }
-            }
-        }
-
-        // Load current player's name into the input field
-        inputName.text = SaveLoad.playercharacter.Name;
-
-        // Load selected item sprites
-        //slot1.sprite = SaveLoad.playercharacter.slot1.ItemIcon;
-        //slot2.sprite = SaveLoad.playercharacter.slot2.ItemIcon;
-        //slot3.sprite = SaveLoad.playercharacter.slot3.ItemIcon;
-
         // Load player stats
-        LoadStats();
+        LoadCharacterInfo();
+        //LoadStats();
     }
 
     public void ChangeUsername(string newName)
@@ -95,7 +44,63 @@ public class ChangePlayer : MonoBehaviour
         Debug.Log("New name:" + SaveLoad.playercharacter.Name);
     }
 
-    public void LoadStats()
+    public void LoadCharacterInfo()
+    {
+        Debug.Log("[CP]: Loading character info");
+        // Load the item sprite by iterating through the DB
+        for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++) {
+
+            Debug.Log("[CP]: Stage 1");
+            for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
+                // Load (Slot 1/Weapon) sprite
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Weapon" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot1.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else { Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]); }
+            }
+
+            Debug.Log("[CP]: Stage 2");
+            for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
+                // Load (Slot 2/Armor) sprite
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot2) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Armor" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot2.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else { Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]); }
+            }
+
+            Debug.Log("[CP]: Stage 3");
+            for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
+                // Load (Slot 3/Shield) sprite
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot3) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Shield" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                    Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
+                    Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
+
+                    slot3.sprite = ItemsDBS.ItemsDB[j].Item.ItemIcon;
+
+                    // Stop searching further
+                    break;
+                } else { Debug.Log("[ICP] Does not exist SL inside SaveLoad or vice versa || " + ItemsDBS.ItemsDB[j].itemID + " || " + SaveLoad.inventory.OwnedItems[i]); }
+            }
+        }
+
+        Debug.Log("[CP]: Finished loading");
+        Debug.Log("[CP]: Loading name");
+        // Load current player's name into the input field
+        inputName.text = SaveLoad.playercharacter.Name;
+        Debug.Log("[CP]: Loaded name!");
+    }
+
+    /*public void LoadStats()
     {
         // Setup texts
         MaxHP.text = "Health: " + SaveLoad.playercharacter.MaxHealth;
@@ -105,5 +110,5 @@ public class ChangePlayer : MonoBehaviour
         Healing.text = "Healing: +" + SaveLoad.playercharacter.Healing + "HP";
         PlayerXP.text = "Player XP: " + SaveLoad.playercharacter.XP + "XP";
         PlayerLVL.text = "Player Level: " + SaveLoad.playercharacter.Level;
-    }
+    }*/
 }

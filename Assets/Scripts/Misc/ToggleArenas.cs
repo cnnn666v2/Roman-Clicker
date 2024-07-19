@@ -26,22 +26,27 @@ public class ToggleArenas : MonoBehaviour
     {
         // Default the index to 0
         currentIndex = 0;
+        UpdateArenaUI();
 
-        // Set Arena name to current index (0)
-        SwitchArena();
         Debug.Log("Loaded: " + "Arena name:" + ArenaName[currentIndex] + ", Index: " + currentIndex + ", Count: " + ArenaName.Count + " || Current scene index: " + ArenaSceneIndex[currentIndex]);
     }
 
-    public void SwitchArena()
+    void UpdateArenaUI()
     {
-        // Cycle the index through the list
-        currentIndex = (currentIndex + 1) % ArenaName.Count;
         // Set text to match current arena index
         ArenaNameTXT.text = "Arena: " + ArenaName[currentIndex];
         ArenaDifficultyTXT.text = "Difficulty: " + ArenaDifficulty[currentIndex];
         ArenaDescriptionTXT.text = "Description: <br><size=35>" + ArenaDescription[currentIndex];
         ArenaHSTXT.text = "Highscore: " + ArenaHighscore[currentIndex] + " Battles";
         ArenaCountTXT.text = "Arena: " + (currentIndex + 1) + "/" + ArenaName.Count;
+    }
+
+    public void SwitchArena()
+    {
+        // Cycle the index through the list
+        currentIndex = (currentIndex + 1) % ArenaName.Count;
+        UpdateArenaUI();
+
         Debug.Log("Current arena index name: " + ArenaName[currentIndex] + " || Current index: " + currentIndex + " || Current scene index: " + ArenaSceneIndex[currentIndex]);
     }
 
@@ -49,9 +54,8 @@ public class ToggleArenas : MonoBehaviour
     {
         // Cycle the index through the list backwards
         currentIndex = (currentIndex - 1 + ArenaName.Count) % ArenaName.Count;
-        // Set text to match current arena index
-        ArenaNameTXT.text = "Arena - " + ArenaName[currentIndex];
-        ArenaCountTXT.text = "Arena: " + ((currentIndex - 1) + ArenaName.Count - 1) + "/" + ArenaName.Count;
+        UpdateArenaUI();
+
         Debug.Log("Current arena index name: " + ArenaName[currentIndex] + " || Current index: " + currentIndex + " || Current scene index: " + ArenaSceneIndex[currentIndex]);
     }
 

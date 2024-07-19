@@ -9,6 +9,7 @@ public class PlayerMainMenuInfo : MonoBehaviour
     [SerializeField] TMP_Text DmgT, CritChanceT, DmgMultT, BlockChanceT, BlockDmgT, MaxHPT, HealingT, DmgPoisonT, PoisonTurnT;
     PlayerStats PS;
     ColorStrings CS;
+    [SerializeField] ChangePlayer CP;
     
 
     private void Start()
@@ -49,5 +50,8 @@ public class PlayerMainMenuInfo : MonoBehaviour
 
         DmgPoisonT.text = CS.GD + "Poison " + CS.GY + "Damage<color=white>: " + CS.G + PS.PlayerPoisonDmg;
         PoisonTurnT.text = CS.GD + "Poison " + CS.W + "Duration: " + CS.G + PS.PlayerPoisonTime + CS.O + " Turns";
+
+        // Update character UI item slots
+        CP.LoadCharacterInfo();
     }
 }

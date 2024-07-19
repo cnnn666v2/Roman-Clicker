@@ -210,13 +210,13 @@ public class PlayerCharacter
     [Header("Equipped Items")]
     public int slot1; // ID to selected item
     public int slot2;
-    public ItemSO slot3;
+    public int slot3;
 
-    [Header("Equipped Skills")]
-    public int skill1; // ID to selected skill
-    public int skill2;
-    public int skill3;
-    public int skill4;
+    [Header("Equipped Spells")]
+    public int spell1; // ID to selected spell
+    public int spell2;
+    public int spell3;
+    public int spell4;
 }
 
 [System.Serializable]
