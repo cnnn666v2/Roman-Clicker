@@ -675,8 +675,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -59.99997}
+  m_SizeDelta: {x: 0, y: -120.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285316249
 MonoBehaviour:
@@ -698,9 +698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spell
-
-    1'
+  m_text: Mana Cost
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
   m_sharedMaterial: {fileID: 4938661017532657883, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
@@ -727,8 +725,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2912,9 +2910,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1069550653}
-        m_TargetAssemblyTypeName: OnClickCalls, Assembly-CSharp
-        m_MethodName: ClickFreeze
+      - m_Target: {fileID: 1069550658}
+        m_TargetAssemblyTypeName: SpellSetButton, Assembly-CSharp
+        m_MethodName: SpellSlot1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3355,8 +3353,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -60}
+  m_SizeDelta: {x: 0, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819234752
 MonoBehaviour:
@@ -3378,9 +3376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spell
-
-    3'
+  m_text: Mana Cost
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
   m_sharedMaterial: {fileID: 4938661017532657883, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
@@ -3407,8 +3403,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3748,7 +3744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 849122174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069550658}
+        m_TargetAssemblyTypeName: SpellSetButton, Assembly-CSharp
+        m_MethodName: SpellSlot3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &849122174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3821,8 +3829,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -60}
+  m_SizeDelta: {x: 0, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889116519
 MonoBehaviour:
@@ -3844,9 +3852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spell
-
-    4'
+  m_text: Mana Cost
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
   m_sharedMaterial: {fileID: 4938661017532657883, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
@@ -3873,8 +3879,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4556,7 +4562,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 984693969}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069550658}
+        m_TargetAssemblyTypeName: SpellSetButton, Assembly-CSharp
+        m_MethodName: SpellSlot4
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &984693969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5014,6 +5032,7 @@ GameObject:
   - component: {fileID: 1069550654}
   - component: {fileID: 1069550656}
   - component: {fileID: 1069550657}
+  - component: {fileID: 1069550658}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5156,10 +5175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemManager: {fileID: 0}
+  SpellManager: {fileID: 0}
   PlayerName: 
   PlayerMaxHealth: 0
   PlayerCurrHealth: 0
   PlayerHealing: 0
+  PlayerMana: 0
   PlayerDamage: 0
   PlayerSATK: 0
   PlayerIATK: 0
@@ -5202,6 +5223,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302eebaf36274c044a0bb98be6d664ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1069550658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069550647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0e4b8ef98889647892979f655b2518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SPBTN1: {fileID: 766606252}
+  SPBTN2: {fileID: 1583892748}
+  SPBTN3: {fileID: 849122173}
+  SPBTN4: {fileID: 984693968}
+  SPBTNT1: {fileID: 285316249}
+  SPBTNT2: {fileID: 1296210941}
+  SPBTNT3: {fileID: 819234752}
+  SPBTNT4: {fileID: 889116519}
 --- !u!1 &1079704741
 GameObject:
   m_ObjectHideFlags: 0
@@ -6008,8 +6049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -60}
+  m_SizeDelta: {x: 0, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1296210941
 MonoBehaviour:
@@ -6031,9 +6072,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spell
-
-    2'
+  m_text: Mana Cost
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
   m_sharedMaterial: {fileID: 4938661017532657883, guid: 664cadc1c1b1b9d4fbf25a53d110e55d, type: 2}
@@ -6060,8 +6099,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7319,7 +7358,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1583892749}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069550658}
+        m_TargetAssemblyTypeName: SpellSetButton, Assembly-CSharp
+        m_MethodName: SpellSlot2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1583892749
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class OnClickCalls : MonoBehaviour
 
         // Call damage function and update text
         attackMethods.TakeDamage(bs.PlayableCharacter.PlayerDamage, bs.PlayableCharacter.PlayerCritical, bs.PlayableCharacter.PlayerLuck);
-        bs.EnemyHealthTXT.text = "Health: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
+        //bs.EnemyHealthTXT.text = "Health: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
     }
 
     public void ClickHeal()
@@ -48,7 +48,7 @@ public class OnClickCalls : MonoBehaviour
         // Call heal function and update text
         Debug.Log("[ClickHeal]: Current health before heal: " + bs.PlayableCharacter.PlayerCurrHealth + " || Healing value: " + bs.PlayableCharacter.PlayerHealing);
         attackMethods.UseHealing(bs.PlayableCharacter.PlayerHealing);
-        bs.PlayerHealthTXT.text = "Health: " + bs.PlayableCharacter.PlayerCurrHealth + "/" + bs.PlayableCharacter.PlayerMaxHealth;
+        //bs.PlayerHealthTXT.text = "Health: " + bs.PlayableCharacter.PlayerCurrHealth + "/" + bs.PlayableCharacter.PlayerMaxHealth;
         Debug.Log("[ClickHeal]: Current health: " + bs.PlayableCharacter.PlayerCurrHealth);
     }
 
@@ -71,7 +71,7 @@ public class OnClickCalls : MonoBehaviour
 
             // Call poison function and update text
             attackMethods.Poisoning(bs.PlayableCharacter.PlayerPoisonDmg, bs.PlayableCharacter.PlayerPoisonTime);
-            bs.EnemyHealthTXT.text = "Health: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
+            //bs.EnemyHealthTXT.text = "HP: " + bs.EnemyCharacter.PlayerCurrHealth + "/" + bs.EnemyCharacter.PlayerMaxHealth;
 
             // Prohibit further action
             attackMethods.CheckDeath(false);
@@ -96,7 +96,7 @@ public class OnClickCalls : MonoBehaviour
         if (bs.State != BattleState.PLAYERTURN)
             return;
 
-        if (PS.PlayerMana < SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.CostMana)
+        if (!(PS.PlayerMana >= PlayerPrefs.GetInt("SPELL-MANA-COST")))
             return;
 
         if (attackMethods.SetFreeze)
@@ -104,7 +104,7 @@ public class OnClickCalls : MonoBehaviour
 
         Debug.Log("State is playerturn :)");
 
-        attackMethods.FreezeATK(SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.Value1);
-        PS.PlayerMana -= SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1 - 1].Spell.CostMana;
+        attackMethods.FreezeATK(PlayerPrefs.GetInt("SPELL-VALUE-1"));
+        PS.PlayerMana -= PlayerPrefs.GetInt("SPELL-MANA-COST");
     }
 }

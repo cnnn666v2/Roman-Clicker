@@ -1346,6 +1346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemManager: {fileID: 170123534}
+  SpellManager: {fileID: 0}
   PlayerName: 
   PlayerMaxHealth: 0
   PlayerCurrHealth: 0
@@ -29424,6 +29425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpellsDB:
+  - SpellID: 0
+    Spell: {fileID: 11400000, guid: 8972c9796eb90114aa608c6502986760, type: 2}
   - SpellID: 1
     Spell: {fileID: 11400000, guid: fdcf977b1f55a03439ee38df96f41fa4, type: 2}
 --- !u!1 &1325980917
