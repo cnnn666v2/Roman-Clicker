@@ -53,7 +53,7 @@ public class ChangePlayer : MonoBehaviour
             Debug.Log("[CP]: Stage 1");
             for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
                 // Load (Slot 1/Weapon) sprite
-                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Weapon" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot1) && (ItemsDBS.ItemsDB[j].Item.ItemCategory == "Weapon" || ItemsDBS.ItemsDB[j].Item.ItemCategory == "Null")) {
                     Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
                     Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
 
@@ -67,7 +67,7 @@ public class ChangePlayer : MonoBehaviour
             Debug.Log("[CP]: Stage 2");
             for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
                 // Load (Slot 2/Armor) sprite
-                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot2) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Armor" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot2) && (ItemsDBS.ItemsDB[j].Item.ItemCategory == "Armor" || ItemsDBS.ItemsDB[j].Item.ItemCategory == "Null")) {
                     Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
                     Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
 
@@ -81,7 +81,7 @@ public class ChangePlayer : MonoBehaviour
             Debug.Log("[CP]: Stage 3");
             for (int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
                 // Load (Slot 3/Shield) sprite
-                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot3) && (ItemsDBS.ItemsDB[j].Item.ItemType == "Shield" || ItemsDBS.ItemsDB[j].Item.ItemType == "Null")) {
+                if ((ItemsDBS.ItemsDB[j].itemID == SaveLoad.playercharacter.slot3) && (ItemsDBS.ItemsDB[j].Item.ItemCategory == "Shield" || ItemsDBS.ItemsDB[j].Item.ItemCategory == "Null")) {
                     Debug.Log("[ICP] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
                     Debug.Log("[ICP] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
 

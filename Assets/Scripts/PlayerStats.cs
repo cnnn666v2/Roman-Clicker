@@ -14,7 +14,11 @@ public class PlayerStats : MonoBehaviour
     public int PlayerMaxHealth;
     public int PlayerCurrHealth;
     public int PlayerHealing;
+
+    [Header("Mana")]
     public int PlayerMana;
+    public int PlayerManaMax;
+    public int PlayerManaAdd;
 
     [Header("Player damage")]
     public int PlayerDamage; // Total damage
@@ -73,13 +77,14 @@ public class PlayerStats : MonoBehaviour
 
         // Load all selected items
         LoadItems();
-        // Load all spells
-        LoadItems();
 
         // Define local variables from the saved data file
         PlayerName = SaveLoad.playercharacter.Name;
         PlayerMaxHealth = SaveLoad.playercharacter.MaxHealth;
         PlayerCurrHealth = SaveLoad.playercharacter.MaxHealth;
+
+        PlayerManaMax = SaveLoad.playercharacter.ManaMax;
+        PlayerManaAdd = SaveLoad.playercharacter.ManaAdd;
         
         PlayerHealing = SaveLoad.playercharacter.Healing;
 
@@ -119,6 +124,9 @@ public class PlayerStats : MonoBehaviour
         SaveLoad.playercharacter.Damage = PlayerSATK;
         SaveLoad.playercharacter.BlockChance = PlayerSBC;
         SaveLoad.playercharacter.BlockAmount = PlayerBlockedDamageP;
+
+        SaveLoad.playercharacter.ManaMax = PlayerManaMax;
+        SaveLoad.playercharacter.ManaAdd = PlayerManaAdd;
 
         SaveLoad.playercharacter.XP = PlayerXP;
         SaveLoad.playercharacter.ReqXP = PlayerReqXP;

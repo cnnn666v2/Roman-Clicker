@@ -78,7 +78,7 @@ public class ItemInfoDisplay : MonoBehaviour
         //Slot 2 - Armor
         //Slot 3 - Defense weapon
         // (All are subject to change)
-        switch(item.ItemType)
+        switch(item.ItemCategory)
         {
             case "Weapon":
                 SaveLoad.playercharacter.slot1 = item.ItemID;

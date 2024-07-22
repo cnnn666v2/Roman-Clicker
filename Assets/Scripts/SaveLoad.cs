@@ -6,6 +6,7 @@ public class SaveLoad : MonoBehaviour
     // Reference to Player's inventory
     public static Inventory inventory = new Inventory();
     public static PlayerCharacter playercharacter = new PlayerCharacter();
+    public static PlayerTraits playertraits = new PlayerTraits();
     public static PlayerSkills playerskills = new PlayerSkills();
     public static PlayerSpells playerspells = new PlayerSpells();
 
@@ -20,11 +21,12 @@ public class SaveLoad : MonoBehaviour
         // Define save files location
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
+        string filePathTraits = Application.persistentDataPath + "/PlayerTraits.json";
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
         string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
 
         // Check if the file already exists
-        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer) || !System.IO.File.Exists(filePathSkills) || !System.IO.File.Exists(filePathSpells))
+        if (!System.IO.File.Exists(filePathInv) || !System.IO.File.Exists(filePathPlayer) || !System.IO.File.Exists(filePathSkills) || !System.IO.File.Exists(filePathSpells) || !System.IO.File.Exists(filePathTraits))
         {
             Debug.Log("Not every file exists!!");
             Debug.Log("Creating files...");
@@ -79,6 +81,9 @@ public class SaveLoad : MonoBehaviour
         // Define player data and its location
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
         string playerData = JsonUtility.ToJson(playercharacter);
+        // Define player traits and its location
+        string filePathTraits = Application.persistentDataPath + "/PlayerTraits.json";
+        string traitsData = JsonUtility.ToJson(playertraits);
         // Define player skills and its location
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
         string skillsData = JsonUtility.ToJson(playerskills);
@@ -93,6 +98,10 @@ public class SaveLoad : MonoBehaviour
         Debug.Log(filePathPlayer);
         // Actually write the file with correct data
         System.IO.File.WriteAllText(filePathPlayer, playerData);
+
+        Debug.Log(filePathTraits);
+        // Actually write the file with correct data
+        System.IO.File.WriteAllText(filePathTraits, traitsData);
 
         Debug.Log(filePathSkills);
         // Actually write the file with correct data
@@ -109,19 +118,22 @@ public class SaveLoad : MonoBehaviour
         // Define save file locations
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
+        string filePathTraits = Application.persistentDataPath + "/PlayerTraits.json";
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
         string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
 
         // Read save files
         string inventoryData = System.IO.File.ReadAllText(filePathInv);
         string playerData = System.IO.File.ReadAllText(filePathPlayer);
+        string traitsData = System.IO.File.ReadAllText(filePathTraits);
         string skillsData = System.IO.File.ReadAllText(filePathSkills);
         string spellsData = System.IO.File.ReadAllText(filePathSpells);
-        Debug.Log(filePathInv + " || " + filePathPlayer + " || " + filePathSkills + " || " + filePathSpells);
+        Debug.Log(filePathInv + " || " + filePathPlayer + " || " + filePathTraits + " || " + filePathSkills + " || " + filePathSpells);
 
         // Load the data
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         playercharacter = JsonUtility.FromJson<PlayerCharacter>(playerData);
+        playertraits = JsonUtility.FromJson<PlayerTraits>(traitsData);
         playerskills = JsonUtility.FromJson<PlayerSkills>(skillsData);
         playerspells = JsonUtility.FromJson<PlayerSpells>(spellsData);
         Debug.Log("Data loaded!");
@@ -190,6 +202,8 @@ public class PlayerCharacter
     public int Healing;
     public float BlockChance;
     public float BlockAmount;
+    public int ManaMax;
+    public int ManaAdd;
 
     [Header("Player Level")]
     public int XP;
@@ -217,6 +231,37 @@ public class PlayerCharacter
     public int spell2;
     public int spell3;
     public int spell4;
+}
+
+[System.Serializable]
+public class PlayerTraits
+{
+    // Prefix suggests what kind of trait it'll be, for example PDmgKatana means it will be a
+    // Percentage Damage boost to all Katanas | P - Percentage, Dmg - Damage
+    // All prefixes are listed below
+    // P - Percentage
+    // AI - Amount Int
+    // AF - Amount Float
+    // ===
+    // Dmg - Damage
+    // DC - Damage Crit
+    // HP - Health
+    // BD - Block Damage
+    // BC - Block Chance
+    // MI - Mana Income
+    // ===
+    // Names ending with "Add" increase initial value
+    // This will be updated as more traits are added
+
+    [Header("Weapons/Swords")]
+    public float PDmgKatana;
+    public float PDmgDagger;
+
+    [Header("Healing")]
+    public int AIHPAdd;
+
+    [Header("Magic")]
+    public int AIMIAdd;
 }
 
 [System.Serializable]

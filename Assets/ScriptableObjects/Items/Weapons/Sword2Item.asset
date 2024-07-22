@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Sword 2
   ItemDescription: It's a sword, but sequel
-  ItemType: Weapon
+  ItemCategory: 
   ItemID: 2
   ItemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ItemAttack: 10

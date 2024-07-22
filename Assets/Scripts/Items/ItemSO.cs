@@ -6,7 +6,7 @@ public class ItemSO : ScriptableObject
     // Main information stuff
     public string ItemName;
     public string ItemDescription;
-    public string ItemType;
+    public string ItemCategory;
     public int ItemID;
     public Sprite ItemIcon;
 

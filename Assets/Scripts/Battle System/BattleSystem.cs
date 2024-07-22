@@ -37,6 +37,7 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text PlayerDamageTXT;
     public TMP_Text PlayerXPTXT;
     public TMP_Text PlayerLVLTXT;
+    public TMP_Text PlayerManaTXT;
     public Slider PlayerHPBar;
     //Enemy
     public TMP_Text EnemyNameTXT;
@@ -107,6 +108,7 @@ public class BattleSystem : MonoBehaviour
         PlayerNameTXT.text = PlayableCharacter.PlayerName;
         PlayerHealthTXT.text = PlayableCharacter.PlayerCurrHealth + "HP / " + PlayableCharacter.PlayerMaxHealth + "HP";
         PlayerHPBar.value = (float)PlayableCharacter.PlayerCurrHealth / (float)PlayableCharacter.PlayerMaxHealth;
+        PlayerManaTXT.text = "Mana: " + PlayableCharacter.PlayerMana;
 
         //Enemy
         EnemyNameTXT.text = EnemyCharacter.PlayerName;
@@ -208,6 +210,16 @@ public class BattleSystem : MonoBehaviour
     {
         switchPanel.ToggleUIPanel(DisableHUD);
         Debug.Log("Player turn");
+
+        if(PlayableCharacter.PlayerMana != PlayableCharacter.PlayerManaMax) {
+            // Add mana
+            PlayableCharacter.PlayerMana += PlayableCharacter.PlayerManaAdd;
+
+            // Check if mana is over the max
+            if (PlayableCharacter.PlayerMana > PlayableCharacter.PlayerManaMax) { PlayableCharacter.PlayerMana = PlayableCharacter.PlayerManaMax; }
+
+            UpdateUI();
+        }
 
         // Check if enemy is frozen
         if (attackMethods.SetFreeze && attackMethods.FreezeAuthor == "Enemy" && durationFreezeLeft > 0) {
