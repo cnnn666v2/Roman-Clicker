@@ -1,5 +1,7 @@
 using UnityEngine;
 
+public enum ItemCategoryType { CRUSADER, KATANA, DAGGER }
+
 [CreateAssetMenu(fileName="New Item", menuName="RPG Maker/Item")]
 public class ItemSO : ScriptableObject
 {
@@ -7,8 +9,10 @@ public class ItemSO : ScriptableObject
     public string ItemName;
     public string ItemDescription;
     public string ItemCategory;
+    public ItemCategoryType ItemType;
     public int ItemID;
     public Sprite ItemIcon;
+    public string Author;
 
     // Attack related stuff
     public int ItemAttack;

@@ -17,6 +17,11 @@ public class ChangePlayer : MonoBehaviour
     [SerializeField]
     Image slot1, slot2, slot3;
 
+    // Other
+    [SerializeField] GameObject PopUPPanel;
+    [SerializeField] TMP_Text PopupTitle, PopupDescription;
+    [SerializeField] Button PopupButton;
+
     // Player stats - Legacy
     /*[SerializeField]
     TMP_Text MaxHP, AtkDMG, CritMult, CritChance,
@@ -27,6 +32,7 @@ public class ChangePlayer : MonoBehaviour
     {
         // Load player stats
         LoadCharacterInfo();
+        CheckItems();
         //LoadStats();
     }
 
@@ -99,6 +105,31 @@ public class ChangePlayer : MonoBehaviour
         inputName.text = SaveLoad.playercharacter.Name;
         Debug.Log("[CP]: Loaded name!");
     }
+
+    public void CheckItems()
+    {
+        if (!SaveLoad.inventory.OwnedItems.Contains(SaveLoad.playercharacter.slot1) || !SaveLoad.inventory.OwnedItems.Contains(SaveLoad.playercharacter.slot2) || !SaveLoad.inventory.OwnedItems.Contains(SaveLoad.playercharacter.slot3))
+        {
+            Image BackgroundImg = PopUPPanel.GetComponent<Image>();
+            BackgroundImg.color = new Color(1f, 0f, 0f, 0.8f);
+            PopUPPanel.gameObject.SetActive(true);
+            PopupTitle.text = "WARNING";
+            PopupDescription.text = "You have illegal items equipped.\nAny selected items will be deselcted automatically. Please equip your items again.";
+            PopupButton.onClick.AddListener(ResetItems);
+        }
+    }
+
+    void ResetItems()
+    {
+        SaveLoad.playercharacter.slot1 = 0;
+        SaveLoad.playercharacter.slot2 = 0;
+        SaveLoad.playercharacter.slot3 = 0;
+
+        PopUPPanel.SetActive(false);
+        PS.LoadPlayer();
+        LoadCharacterInfo();
+    }
+
 
     /*public void LoadStats()
     {

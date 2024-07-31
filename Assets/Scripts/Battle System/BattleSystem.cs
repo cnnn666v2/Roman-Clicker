@@ -108,7 +108,7 @@ public class BattleSystem : MonoBehaviour
         PlayerNameTXT.text = PlayableCharacter.PlayerName;
         PlayerHealthTXT.text = PlayableCharacter.PlayerCurrHealth + "HP / " + PlayableCharacter.PlayerMaxHealth + "HP";
         PlayerHPBar.value = (float)PlayableCharacter.PlayerCurrHealth / (float)PlayableCharacter.PlayerMaxHealth;
-        PlayerManaTXT.text = "Mana: " + PlayableCharacter.PlayerMana;
+        PlayerManaTXT.text = "<sprite name=\"mana\"> Mana: " + PlayableCharacter.PlayerMana;
 
         //Enemy
         EnemyNameTXT.text = EnemyCharacter.PlayerName;

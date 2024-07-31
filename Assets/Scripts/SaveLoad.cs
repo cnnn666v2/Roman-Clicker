@@ -253,7 +253,8 @@ public class PlayerTraits
     // Names ending with "Add" increase initial value
     // This will be updated as more traits are added
 
-    [Header("Weapons/Swords")]
+    [Header("Weapons/Melee")]
+    public float PDmgCrusader;
     public float PDmgKatana;
     public float PDmgDagger;
 

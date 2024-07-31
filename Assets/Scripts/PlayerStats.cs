@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
     public int PlayerDamage; // Total damage
     public int PlayerSATK; // S - means Skill, in this case it's skill attack
     public int PlayerIATK; // I - means Item, in this case it's item attack
+    public int PlayerBATK; // B - means Boost, in this case it's' item attack boost
 
     [Header("Player blocking")]
     public float PlayerBlockedDamageP; // P stands for Percentage
@@ -75,9 +76,6 @@ public class PlayerStats : MonoBehaviour
     {
         Debug.Log("Loading...");
 
-        // Load all selected items
-        LoadItems();
-
         // Define local variables from the saved data file
         PlayerName = SaveLoad.playercharacter.Name;
         PlayerMaxHealth = SaveLoad.playercharacter.MaxHealth;
@@ -90,10 +88,10 @@ public class PlayerStats : MonoBehaviour
 
         PlayerSATK = SaveLoad.playercharacter.Damage;
         //PlayerIATK = SaveLoad.playercharacter.slot1.ItemAttack;
-        PlayerDamage = PlayerSATK + PlayerIATK;
+        PlayerDamage = PlayerSATK;
 
         PlayerSBC = SaveLoad.playercharacter.BlockChance;
-        PlayerBlockChance = PlayerIBC + PlayerSBC;
+        PlayerBlockChance = PlayerSBC;
         PlayerBlockedDamageP = SaveLoad.playercharacter.BlockAmount;
 
         PlayerXP = SaveLoad.playercharacter.XP;
@@ -109,6 +107,12 @@ public class PlayerStats : MonoBehaviour
         PlayerMoney = SaveLoad.playercharacter.Money;
         PlayerGem = SaveLoad.playercharacter.Gem;
         PlayerSkillPoints = SaveLoad.playerskills.SkillPoints;
+
+        // Load all selected items
+        LoadItems();
+
+        PlayerDamage += PlayerIATK;
+        PlayerBlockChance += PlayerIBC;
 
         Debug.Log("Loaded!");
     }
@@ -152,27 +156,45 @@ public class PlayerStats : MonoBehaviour
         // Search for attack item ID
         Debug.Log("Loading items...");
         Debug.Log("Loading Weapon items...");
-        for (int i = 0;i < ItemsDBS.ItemsDB.Count; i++) {
-            // If the selected ID matches with in the DB
-            if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot1) {
-                // Set Item attack value to the selected item
-                PlayerIATK = ItemsDBS.ItemsDB[i].Item.ItemAttack;
+        ItemSO AttackItem = ItemsDBS.ItemsDB[SaveLoad.playercharacter.slot1].Item;
+
+        PlayerIATK = AttackItem.ItemAttack;
+        float Percentage = 0;
+        float temp = 0;
+
+        switch (AttackItem.ItemType)
+        {
+            case ItemCategoryType.CRUSADER:
+                Percentage = SaveLoad.playertraits.PDmgCrusader;
+                temp = Percentage / 100f * AttackItem.ItemAttack;
+                PlayerIATK += (int)temp;
                 break;
-            }
+
+            case ItemCategoryType.KATANA:
+                Percentage = SaveLoad.playertraits.PDmgKatana;
+                temp = Percentage / 100f * AttackItem.ItemAttack;
+                PlayerIATK += (int)temp;
+                break;
+
+            case ItemCategoryType.DAGGER:
+                Percentage = SaveLoad.playertraits.PDmgDagger;
+                temp = Percentage / 100f * AttackItem.ItemAttack;
+                PlayerIATK += (int)temp;
+                break;
+
+            default:
+                Debug.LogWarning("[PS]: Loading Items has FAILED - Unknown ItemCategoryType, this should NEVER happen");
+                break;
         }
+
         Debug.Log("Loaded!");
 
 
         // Search for block chance item ID
         Debug.Log("Loading Armor items...");
-        for (int i = 0; i < ItemsDBS.ItemsDB.Count; i++) {
-            // If the selected ID matches with in the DB
-            if (ItemsDBS.ItemsDB[i].itemID == SaveLoad.playercharacter.slot2) {
-                // Set Item attack value to the selected item
-                PlayerIBC = ItemsDBS.ItemsDB[i].Item.ItemBlockChance;
-                break;
-            }
-        }
+
+        PlayerIBC = ItemsDBS.ItemsDB[SaveLoad.playercharacter.slot2].Item.ItemBlockChance;
+
         Debug.Log("Loaded!");
         Debug.Log("Loaded all items!");
     }

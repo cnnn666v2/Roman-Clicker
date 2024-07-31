@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Null
   ItemDescription: Null
-  ItemType: Null
+  ItemCategory: Null
   ItemID: 0
   ItemIcon: {fileID: 21300000, guid: 84b8a50fb4489c745947dcc9d4b934bc, type: 3}
   ItemAttack: 0

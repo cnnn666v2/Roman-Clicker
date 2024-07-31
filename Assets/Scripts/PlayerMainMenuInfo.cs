@@ -6,7 +6,7 @@ public class PlayerMainMenuInfo : MonoBehaviour
 {
     [SerializeField] Scrollbar scrollbar;
     [SerializeField] TMP_Text XPTXT, LevelTXT, MoneyTXT, GemsTXT, SPGMoneyTXT, SPGGemsTXT, SKPointsTXT; // SPG stands for: SP - Shop, G - GUI ||| SK stands for: Skill Points |||
-    [SerializeField] TMP_Text DmgT, CritChanceT, DmgMultT, BlockChanceT, BlockDmgT, MaxHPT, HealingT, DmgPoisonT, PoisonTurnT;
+    [SerializeField] TMP_Text DmgT, CritChanceT, DmgMultT, BlockChanceT, BlockDmgT, MaxHPT, HealingT, DmgPoisonT, PoisonTurnT, ManaMaxT, ManaIncomeT;
     PlayerStats PS;
     ColorStrings CS;
     [SerializeField] ChangePlayer CP;
@@ -50,6 +50,9 @@ public class PlayerMainMenuInfo : MonoBehaviour
 
         DmgPoisonT.text = CS.GD + "Poison " + CS.GY + "Damage<color=white>: " + CS.G + PS.PlayerPoisonDmg;
         PoisonTurnT.text = CS.GD + "Poison " + CS.W + "Duration: " + CS.G + PS.PlayerPoisonTime + CS.O + " Turns";
+
+        ManaMaxT.text = CS.Y + "Max " + CS.B + "Mana<color=white>: " + CS.G + PS.PlayerManaMax;
+        ManaIncomeT.text = CS.B + "Mana " + CS.GD + "Income<color=white>: " + CS.G + "+" + PS.PlayerManaAdd;
 
         // Update character UI item slots
         CP.LoadCharacterInfo();

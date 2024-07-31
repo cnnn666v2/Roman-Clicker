@@ -33,10 +33,10 @@ public class SpellSetButton : MonoBehaviour
         SPBTN4.image.sprite = SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell4].Spell.Icon;
 
         // Set texts on buttons
-        SPBTNT1.text = SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1].Spell.CostMana.ToString();
-        SPBTNT2.text = SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell2].Spell.CostMana.ToString();
-        SPBTNT3.text = SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell3].Spell.CostMana.ToString();
-        SPBTNT4.text = SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell4].Spell.CostMana.ToString();
+        SPBTNT1.text = "<sprite name=\"mana\"> " + SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1].Spell.CostMana.ToString();
+        SPBTNT2.text = "<sprite name=\"mana\"> " + SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell2].Spell.CostMana.ToString();
+        SPBTNT3.text = "<sprite name=\"mana\"> " + SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell3].Spell.CostMana.ToString();
+        SPBTNT4.text = "<sprite name=\"mana\"> " + SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell4].Spell.CostMana.ToString();
 
         if (SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell1].Spell.SpellID == 0) { SPBTN1.interactable = false; SPBTNT1.text = ""; }
         if (SpellsDBS.SpellsDB[SaveLoad.playercharacter.spell2].Spell.SpellID == 0) { SPBTN2.interactable = false; SPBTNT2.text = ""; }
