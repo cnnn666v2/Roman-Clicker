@@ -28,4 +28,4 @@ MonoBehaviour:
   ItemMoneyCost: 3600
   ItemGemCost: 2
   RequiredLevel: 0
-  IsOwned: 0
+  IsOwned: 1

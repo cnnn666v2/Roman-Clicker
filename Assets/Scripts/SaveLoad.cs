@@ -38,7 +38,7 @@ public class SaveLoad : MonoBehaviour
         LoadFromJson();
 
         // Check if the json data files are up to date or not
-        if(inventory.VersionNumber != PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number"))
+        if (inventory.VersionNumber != PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number"))
         {
             Debug.LogWarning("File save version mismatch! Might cause errors");
         }
@@ -77,19 +77,19 @@ public class SaveLoad : MonoBehaviour
 
         // Define inventory data and its location
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
-        string inventoryData = JsonUtility.ToJson(inventory);
+        string inventoryData = JsonUtility.ToJson(inventory, true);
         // Define player data and its location
         string filePathPlayer = Application.persistentDataPath + "/PlayerData.json";
-        string playerData = JsonUtility.ToJson(playercharacter);
+        string playerData = JsonUtility.ToJson(playercharacter, true);
         // Define player traits and its location
         string filePathTraits = Application.persistentDataPath + "/PlayerTraits.json";
-        string traitsData = JsonUtility.ToJson(playertraits);
+        string traitsData = JsonUtility.ToJson(playertraits, true);
         // Define player skills and its location
         string filePathSkills = Application.persistentDataPath + "/SkillsData.json";
-        string skillsData = JsonUtility.ToJson(playerskills);
+        string skillsData = JsonUtility.ToJson(playerskills, true);
         // Define player skills and its location
         string filePathSpells = Application.persistentDataPath + "/SpellsData.json";
-        string spellsData = JsonUtility.ToJson(playerspells);
+        string spellsData = JsonUtility.ToJson(playerspells, true);
 
         Debug.Log(filePathInv);
         // Actually write the file with correct data
@@ -113,7 +113,7 @@ public class SaveLoad : MonoBehaviour
         Debug.Log("Saving complete!");
     }
 
-    public void LoadFromJson() 
+    public void LoadFromJson()
     {
         // Define save file locations
         string filePathInv = Application.persistentDataPath + "/InventoryData.json";
@@ -177,19 +177,47 @@ public class SaveLoad : MonoBehaviour
         playerspells = JsonUtility.FromJson<PlayerSpells>(spellsData);
         Debug.Log("Loaded spells!");
     }
+
+    public void AddNewItem(int itemId, int itemCount)
+    {
+        // Create a new InventoryList object
+        InventoryList newItem = new InventoryList
+        {
+            ItemID = itemId,
+            ItemCount = itemCount
+        };
+
+        // Add the new item to the OwnedItems list
+        inventory.OwnedItems.Add(newItem);
+
+        Debug.Log("[SL/AddNewItem]: Successfully Added Item with ID: " + itemId + ", and count: " + itemCount);
+
+        /*Debug.Log("[SL/AddNewItem]: Current Inventory:");
+        foreach (var item in inventory.OwnedItems)
+        {
+            Debug.Log("ItemID: " + item.ItemID + ", ItemCount: " + item.ItemCount);
+        }*/
+    }
 }
 
 [System.Serializable]
 public class Inventory
 {
     // Create list of owned items
-    public List<int> OwnedItems;
+    public List<InventoryList> OwnedItems;
     public Inventory()
     {
-        OwnedItems = new List<int>();
+        OwnedItems = new List<InventoryList>();
     }
 
     public string VersionNumber;
+}
+
+[System.Serializable]
+public class InventoryList
+{
+    public int ItemID;
+    public int ItemCount;
 }
 
 [System.Serializable]

@@ -15,8 +15,10 @@ MonoBehaviour:
   ItemName: Sword 2
   ItemDescription: It's a sword, but sequel
   ItemCategory: Weapon
+  ItemType: 0
   ItemID: 2
   ItemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Author: 
   ItemAttack: 10
   ItemCritChance: 50
   ItemCritMP: 13
@@ -26,4 +28,4 @@ MonoBehaviour:
   ItemMoneyCost: 8500
   ItemGemCost: 50
   RequiredLevel: 0
-  IsOwned: 0
+  IsOwned: 1

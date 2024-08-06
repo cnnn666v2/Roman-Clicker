@@ -27,7 +27,7 @@ public class InventoryDisplay : MonoBehaviour
         // Check how many prefabs should it spawn
         for (int i = 0; i < SaveLoad.inventory.OwnedItems.Count; i++) {
             for(int j = 0; j < ItemsDBS.ItemsDB.Count; j++) {
-                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.inventory.OwnedItems[i]) {
+                if (ItemsDBS.ItemsDB[j].itemID == SaveLoad.inventory.OwnedItems[i].ItemID) {
                     Debug.Log("[IID] Item ID inside SL is: " + ItemsDBS.ItemsDB[j].itemID);
                     Debug.Log("[IID] Item ID inside SaveLoad is: " + SaveLoad.inventory.OwnedItems[i]);
 
@@ -44,9 +44,30 @@ public class InventoryDisplay : MonoBehaviour
         }
     }
 
-    public void AddItem(ItemSO item)
+    public void AddItem(int itemId, int itemCount)
+    {
+        // Create a new InventoryList object
+        InventoryList newItem = new InventoryList
+        {
+            ItemID = itemId,
+            ItemCount = itemCount
+        };
+
+        // Add the new item to the OwnedItems list
+        SaveLoad.inventory.OwnedItems.Add(newItem);
+
+        Debug.Log("[ItemDisplay/AddItem]: Successfully Added Item with ID: " + itemId + ", and count: " + itemCount);
+
+        /*Debug.Log("[ItemDisplay/AddItem]: Current Inventory:");
+        foreach (var item in inventory.OwnedItems)
+        {
+            Debug.Log("ItemID: " + item.ItemID + ", ItemCount: " + item.ItemCount);
+        }*/
+    }
+
+    /*public void AddItem(ItemSO item)
     {
         SaveLoad.inventory.OwnedItems.Add(item.ItemID);
         Debug.Log("Added: " + item.ItemName);
-    }
+    }*/
 }

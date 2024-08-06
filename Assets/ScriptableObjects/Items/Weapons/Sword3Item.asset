@@ -15,8 +15,10 @@ MonoBehaviour:
   ItemName: Sword 3
   ItemDescription: Get ready for... Sword 3! Now in your local cinema!
   ItemCategory: Weapon
+  ItemType: 0
   ItemID: 3
   ItemIcon: {fileID: 21300000, guid: affeade9874cf2347abb155e8d0db4d8, type: 3}
+  Author: 
   ItemAttack: 10
   ItemCritChance: 1
   ItemCritMP: 2
@@ -26,4 +28,4 @@ MonoBehaviour:
   ItemMoneyCost: 69000
   ItemGemCost: 6969
   RequiredLevel: 69
-  IsOwned: 0
+  IsOwned: 1
