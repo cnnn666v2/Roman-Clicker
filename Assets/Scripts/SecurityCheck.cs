@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SecurityCheck : MonoBehaviour
@@ -11,14 +12,25 @@ public class SecurityCheck : MonoBehaviour
     [SerializeField] ChangePlayer CP;
 
     // Anticheat panel
-    [SerializeField] GameObject PopUPPanel;
+    [SerializeField] GameObject PopUPPanel, PopUPBtnGroup;
     [SerializeField] TMP_Text PopupTitle, PopupDescription;
     [SerializeField] Button PopupButton;
 
     void Start()
     {
+        ErrorCheck();
         // Check for illegality
         //RunCheck();
+    }
+
+    void ErrorCheck()
+    {
+        if(PS.PlayerMaxHealth <= 5) {
+            PopUPPanel.SetActive(true);
+            PopupTitle.text = "Warning - Potential corrupted save file";
+            PopupDescription.text = "Detected a possibility of a corrupted save file. You may ignore the issue, but it might result in more errors, crashes, etc.<br>You can reset your player statistics (owned items or spells won't be affected) to fix the problem.";
+            PopUPBtnGroup.SetActive(true);
+        }
     }
 
     public void RunCheck()
@@ -91,5 +103,16 @@ public class SecurityCheck : MonoBehaviour
         PopupButton.onClick.RemoveAllListeners();
 
         Debug.Log("[CP]: Leaving RI()");
+    }
+
+    public void HidePanel()
+    {
+        PopUPPanel.SetActive(false);
+        PopUPBtnGroup.SetActive(false);
+    }
+
+    public void ReloadScene() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

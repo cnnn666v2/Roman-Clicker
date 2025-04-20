@@ -56,6 +56,42 @@ public class SaveLoad : MonoBehaviour
         // Load player stats
         Stats.LoadPlayer();
     }
+
+    public void ResetStats() 
+    {
+        Debug.LogWarning("[SaveLoad]: Error with player info has been detected, resetting stats...");
+        Stats.PlayerName = "Player";
+        Stats.PlayerLevel = 1;
+        Stats.PlayerXP = 0;
+        Stats.PlayerReqXP = 20;
+
+        Stats.PlayerDamage = 1;
+        Stats.PlayerMaxHealth = 10;
+        Stats.PlayerHealing = 2;
+
+        Stats.PlayerManaMax = 100;
+        Stats.PlayerSATK = 1;
+        Stats.PlayerIATK = 1;
+        Stats.PlayerBATK = 1;
+
+        Stats.PlayerBlockedDamageP = 10;
+        Stats.PlayerBlockChance = 2;
+        Stats.PlayerSBC = 1;
+        Stats.PlayerIBC = 1;
+
+        Stats.PlayerLuck = 1;
+        Stats.PlayerCritical = 1;
+        Stats.PlayerPoisonDmg = 1;
+        Stats.PlayerPoisonTime = 2;
+
+        Stats.PlayerMoney = 2000;
+        Stats.PlayerGem = 20;
+        Stats.PlayerSkillPoints = 2;
+
+        SaveToJson();
+        LoadFromJson();
+    }
+
     void OnApplicationQuit()
     {
         // Save data when shutting down game
@@ -67,7 +103,7 @@ public class SaveLoad : MonoBehaviour
         // Update game version json file
         Debug.Log("Old version: " + inventory.VersionNumber);
         PlayerPrefs.SetString("version-branch", "beta");
-        PlayerPrefs.SetFloat("version-number", 2.1f);
+        PlayerPrefs.SetFloat("version-number", 2.2f);
         inventory.VersionNumber = PlayerPrefs.GetString("version-branch") + " " + PlayerPrefs.GetFloat("version-number");
         Debug.Log("New version: " + inventory.VersionNumber);
 

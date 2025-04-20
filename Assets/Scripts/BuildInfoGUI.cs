@@ -7,6 +7,6 @@ public class BuildInfoGUI : MonoBehaviour
 
     void Start()
     {
-        BuildInfoTXT.text = "Current build: <color=orange>" + PlayerPrefs.GetString("version-branch") + " <color=green>" + PlayerPrefs.GetFloat("version-number") + "<color=white> | 2024";
+        BuildInfoTXT.text = "Current build: <color=orange>" + PlayerPrefs.GetString("version-branch") + " <color=green>" + PlayerPrefs.GetFloat("version-number") + "<color=white> | 2025";
     }
 }

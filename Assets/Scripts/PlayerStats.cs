@@ -183,7 +183,7 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("[PS]: Loading Items has FAILED - Unknown ItemCategoryType, this should NEVER happen");
+                Debug.LogError("[PS]: Loading Items has FAILED - Unknown ItemCategoryType, this should NEVER happen");
                 break;
         }
 
